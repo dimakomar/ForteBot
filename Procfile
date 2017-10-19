@@ -1,1 +1,1 @@
-web: gunicorn fortebot:app --log-file -
+web: gunicorn fortebot.wsgi
