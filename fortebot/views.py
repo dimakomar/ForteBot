@@ -13,7 +13,6 @@ slack_token = ""
 @api_view(['GET', 'POST'])
 def messageSent(request):
     if request.method == 'POST':
-        print(request.data)
         path = os.path.join('noname')
         with open(path , 'r') as myfile:
             encoded_token = myfile.read()
@@ -22,8 +21,8 @@ def messageSent(request):
             sc = SlackClient(slack_token)
             sc.api_call(
                 "chat.postMessage",
-                channel="#general",
-                text="Hello from Python! :tada:"
+                channel=request.data['event']['user'],
+                text="you just said " + request.data['event']['text'] + " :bear::"
             )
 
         return JsonResponse(request.data)
