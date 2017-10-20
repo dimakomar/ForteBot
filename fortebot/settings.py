@@ -132,3 +132,5 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ALLOWED_HOSTS = ['*']
+
+SLACK_BOT_TOKEN = ""
