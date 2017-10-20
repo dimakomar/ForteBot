@@ -20,6 +20,13 @@ def messageSent(request):
             encoded_token = myfile.read()
             decoded = jwt.decode(encoded_token, 'hello', algorithms=['HS256'])
             slack_token = decoded['some']
+            sc = SlackClient(slack_token)
+            sc.api_call(
+                "chat.postMessage",
+                channel="#general",
+                text="Hello from Python! :tada:"
+            )
+
         return JsonResponse(request.data)
     else:
         return success_response()
