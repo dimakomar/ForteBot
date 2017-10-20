@@ -20,9 +20,16 @@ def messageSent(request):
             decoded = jwt.decode(encoded_token, 'hello', algorithms=['HS256'])
             slack_token = decoded['some']
             sc = SlackClient(slack_token)
+            
+            let opened_dm = sc.api_call(
+                "im.open",
+                user='U7F85AA80',
+            )
+
+            
             sc.api_call(
                 "chat.postMessage",
-                channel='D7L7KUQSG',
+                channel=opened_dm['channel']['id'],
                 text="you just said " + request.data['event']['text'] + " :bear:"
             )
 
