@@ -6,16 +6,20 @@ from .errors import *
 from slackclient import SlackClient
 import json
 import os
+import jwt
 
 slack_token = ""
 
 @api_view(['GET', 'POST'])
 def messageSent(request):
     if request.method == 'POST':
+        # encoded = jwt.encode({'some': 'xoxb-258274331425-2FwnRFieJt51f9Wy5HtuJBAH'}, 'hello', algorithm='HS256')
+        # print(encoded)
         path = os.path.join('noname')
         with open(path , 'r') as myfile:
-            slack_token = myfile.read()
-        print(slack_token)
+            encoded_token = myfile.read()
+            decoded = jwt.decode(encoded_token, 'hello', algorithms=['HS256'])
+            slack_token = decoded['some']
         return JsonResponse(request.data)
     else:
         return success_response()
