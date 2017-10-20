@@ -23,11 +23,12 @@ def messageSent(request):
             
             opened_dm = sc.api_call(
                 "im.open",
-                user='U7F85AA80s',
+                user='U7F85AA80',
             )            
             sc.api_call(
-                "chat.postMessage",
+                "chat.postEphemeral",
                 channel=opened_dm['channel']['id'],
+                user='U7F85AA80',
                 text="you just said " + request.data['event']['text'] + " :bear:"
             )
 
