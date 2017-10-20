@@ -61,17 +61,17 @@ def open_channel_and_send():
     
     user_channel = sc.api_call(
         "im.open",
-        user='U7FRHUGAX',
+        user='U7F85AA80',
     )  
 
     sc.api_call(
         "chat.postEphemeral",
         channel=user_channel['channel']['id'],
-        user='U7FRHUGAX',
+        user='U7F85AA80',
         text='Hello :piggy: please rate your engagement from 1 to 10'
     )
 
-schedule.every(5).seconds.do(open_channel_and_send)
+schedule.every(55).seconds.do(open_channel_and_send)
 while True:
     schedule.run_pending()
     time.sleep(1) 
