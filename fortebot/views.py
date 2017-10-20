@@ -13,7 +13,7 @@ slack_token = ""
 @api_view(['GET', 'POST'])
 def messageSent(request):
     if request.method == 'POST':
-
+        
         path = os.path.join('noname')
         with open(path , 'r') as myfile:
             encoded_token = myfile.read()
