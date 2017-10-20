@@ -23,7 +23,7 @@ def messageSent(request):
             
             opened_dm = sc.api_call(
                 "im.open",
-                user='U7F85AA80s',
+                user='U7F85AA80',
             )            
             sc.api_call(
                 "chat.postMessage",
