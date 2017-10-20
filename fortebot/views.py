@@ -21,12 +21,10 @@ def messageSent(request):
             slack_token = decoded['some']
             sc = SlackClient(slack_token)
             
-            let opened_dm = sc.api_call(
+            opened_dm = sc.api_call(
                 "im.open",
                 user='U7F85AA80',
-            )
-
-            
+            )            
             sc.api_call(
                 "chat.postMessage",
                 channel=opened_dm['channel']['id'],
