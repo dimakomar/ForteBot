@@ -22,7 +22,7 @@ def messageSent(request):
             sc.api_call(
                 "chat.postMessage",
                 channel=request.data['event']['user'],
-                text="you just said " + request.data['event']['text'] + " :bear::"
+                text="you just said " + request.data['event']['text'] + " :bear:"
             )
 
         return JsonResponse(request.data)

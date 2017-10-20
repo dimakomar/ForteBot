@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "${config:python.pythonPath}",
+            "pythonPath": "/Users/dimakomar/ForteBot-/.env/bin",
             "program": "${file}",
             "cwd": "${workspaceRoot}",
             "env": {},
@@ -97,7 +97,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "${config:python.pythonPath}",
+            "pythonPath": "/Users/dimakomar/ForteBot-/.env/bin",
             "program": "${workspaceRoot}/manage.py",
             "cwd": "${workspaceRoot}",
             "args": [
@@ -200,7 +200,7 @@
             "request": "attach",
             "localRoot": "${workspaceRoot}",
             "remoteRoot": "${workspaceRoot}",
-            "port": 3000,
+            "port": 19857,
             "secret": "my_secret",
             "host": "localhost"
         }
