@@ -21,14 +21,16 @@ def messageSent(request):
             slack_token = decoded['some']
             sc = SlackClient(slack_token)
             
-            opened_dm = sc.api_call(
+            
+            user_channel = opened_dm = sc.api_call(
                 "im.open",
-                user='U7F85AA80',
+                user=request.data['event']['user'],
             )            
+
             sc.api_call(
                 "chat.postEphemeral",
-                channel=opened_dm['channel']['id'],
-                user='U7F85AA80',
+                channel=user_channel['channel']['id'],
+                user=request.data['event']['user'],
                 text="you just said " + request.data['event']['text'] + " :bear:"
             )
 
