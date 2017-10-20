@@ -61,20 +61,13 @@ def open_channel_and_send():
         slack_token = decoded['some']
         
     sc = SlackClient(slack_token)
-    user_channel = opened_dm = sc.api_call(
-        "im.open",
-        user='U7F85AA80',
-    )            
-    user_ss = sc.api_call(
-                "users.list"
-    )
-    print(user_ss)    
 
+    
     sc.api_call(
         "chat.postEphemeral",
         channel=user_channel['channel']['id'],
         user='U7F85AA80',
-        text=user_ss
+        text='Hello :piggy: please rate your engagement from 1 to 10'
     )
 
 schedule.every(15).seconds.do(open_channel_and_send)
