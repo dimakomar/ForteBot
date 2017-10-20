@@ -61,13 +61,13 @@ def open_channel_and_send():
     
     user_channel = sc.api_call(
         "im.open",
-        user='U7F85AA80',
+        user='U7FRHUGAX',
     )  
 
     sc.api_call(
         "chat.postEphemeral",
         channel=user_channel['channel']['id'],
-        user='U7F85AA80',
+        user='U7FRHUGAX',
         text='Hello :piggy: please rate your engagement from 1 to 10'
     )
 
