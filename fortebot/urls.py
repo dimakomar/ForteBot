@@ -16,22 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from fortebot import views
-import schedule 
 import jwt
 import os
 from fortebot.settings import SLACK_BOT_TOKEN
-
-from datetime import datetime
-from threading import Timer
-
-x=datetime.today()
-y=x.replace(day=x.day+0, hour=0, minute=0, second=3, microsecond=0)
-delta_t=y-x
-
-secs=delta_t.seconds+1
-
-def hello_world():
-    print("hello world")
 
 
 
@@ -40,5 +27,3 @@ urlpatterns = [
     url(r'^slack/', views.messageSent),
 ]
 
-t = Timer(secs, hello_world)
-t.start()
