@@ -22,8 +22,8 @@ def messageSent(request):
             sc = SlackClient(slack_token)
             sc.api_call(
                 "chat.postMessage",
-                channel='D7L7KUQSG',
-                text="you just said " + request.data['event']['text'] + " :bear::"
+                channel='D7L7KUQSGGG',
+                text="you just said " + request.data['event']['text'] + " :bear:"
             )
 
         return JsonResponse(request.data)
