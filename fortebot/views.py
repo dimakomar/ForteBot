@@ -8,10 +8,6 @@ from fortebot.settings import SLACK_BOT_TOKEN
 import json
 import os
 import jwt
-import schedule
-import time
-
-
 
 @api_view(['GET', 'POST'])
 def hello_world(request):
@@ -49,29 +45,3 @@ def messageSent(request):
         return JsonResponse(request.data)
     else:
         return success_response()
-
-
-def open_channel_and_send():
-    path = os.path.join('noname')
-    with open(path , 'r') as myfile:
-        encoded_token = myfile.read()
-        decoded = jwt.decode(encoded_token, 'hello', algorithms=['HS256'])
-        slack_token = decoded['some']    
-    sc = SlackClient(slack_token)
-    
-    user_channel = sc.api_call(
-        "im.open",
-        user='U7F85AA80',
-    )  
-
-    sc.api_call(
-        "chat.postEphemeral",
-        channel=user_channel['channel']['id'],
-        user='U7F85AA80',
-        text='Hello :piggy: please rate your engagement from 1 to 10'
-    )
-
-schedule.every(55).seconds.do(open_channel_and_send)
-while True:
-    schedule.run_pending()
-    time.sleep(1) 
