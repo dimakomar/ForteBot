@@ -47,10 +47,11 @@ def vote(request):
 @api_view(['GET', 'POST'])
 def messageSent(request):
     if request.method == 'POST':
-        if "4" in request.data['event']['text']:
+        if "5" in request.data['event']['text']:
             mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
             mp.track('Forte', 'Forte Temperature Vote', {
-                'Apollo': "4",
+                'Value': 5,
+                'Vote_id': 0 
             })
         tkn = getToken()
         sc = SlackClient(tkn)
