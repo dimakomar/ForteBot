@@ -49,10 +49,9 @@ def messageSent(request):
     if request.method == 'POST':
         if "4" in request.data['event']['text']:
             mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
-            mp.track('Forte Temperature Vote', {
-                'Apollo': 4
+            mp.track('Forte', 'Forte Temperature Vote', {
+                'Apollo': "4",
             })
-            
         tkn = getToken()
         sc = SlackClient(tkn)
         user_channel = sc.api_call(
