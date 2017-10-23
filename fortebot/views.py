@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 from .errors import *
 from slackclient import SlackClient
-from fortebot.settings import SLACK_BOT_TOKEN
+from fortebot.settings import *
 import json
 import os
 import jwt
@@ -53,6 +53,7 @@ def messageSent(request):
             mp.track('Forte Temperature Vote', {
                 'Apollo': 4
             })
+            
         tkn = getToken()
         sc = SlackClient(tkn)
         user_channel = sc.api_call(
