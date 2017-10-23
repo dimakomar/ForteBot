@@ -25,7 +25,7 @@ def send_msg():
 def vote(request):
     if request.method == 'POST':
         print(request.data)
-
+    return success_response()
 
 @api_view(['GET', 'POST'])
 def messageSent(request):
