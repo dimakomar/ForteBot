@@ -46,15 +46,16 @@ def vote(request):
 
 @api_view(['GET', 'POST'])
 def messageSent(request):
-    
-    print(str.isdigit(request.data['event']['text']))
     if request.method == 'POST':
-        if "5" in request.data['event']['text']:
-            mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
-            mp.track('Forte', '5', {
-                'Value': 5,
-                'Vote_id': 0 
-            })
+        
+        if str.isdigit(request.data['event']['text']):
+            number = int(request.data['event']['text'])
+            if number > 0 and <= 11:
+                mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
+                mp.track('Forte', '5', {
+                    'Value': 5,
+                    'Vote_id': 0 
+                })
             print("text cointains numbers")
         else:
             print("text doesn't cointain numbers")
