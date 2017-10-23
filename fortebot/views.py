@@ -55,6 +55,8 @@ def messageSent(request):
                     'Value': 5,
                     'Vote_id': 0 
                 })
+            else:
+                print("number is not in range")    
             print("text cointains numbers")
         else:
             print("text doesn't cointain numbers")
