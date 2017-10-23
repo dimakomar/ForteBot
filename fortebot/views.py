@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 from .errors import *
 from slackclient import SlackClient
-from fortebot.settings import *
 import json
 import os
 import jwt
@@ -49,7 +48,7 @@ def vote(request):
 def messageSent(request):
     if request.method == 'POST':
         if "4" in request.data['event']['text']:
-            mp = Mixpanel(MIXPANEL_TOKEN)
+            mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
             mp.track('Forte Temperature Vote', {
                 'Apollo': 4
             })

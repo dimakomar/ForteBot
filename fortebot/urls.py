@@ -17,7 +17,6 @@ from django.conf.urls import url
 from django.contrib import admin
 from fortebot import views
 import os
-from fortebot.settings import SLACK_BOT_TOKEN
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
