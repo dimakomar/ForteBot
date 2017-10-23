@@ -22,6 +22,6 @@ from fortebot.settings import SLACK_BOT_TOKEN
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^slack/', views.messageSent),
-    url(r'^forte_vote/', views.messageSent)
+    url(r'^forte_vote/', views.vote)
 ]
 
