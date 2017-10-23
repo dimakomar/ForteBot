@@ -6,3 +6,4 @@ djangorestframework
 slackclient
 PyJWT
 schedule
+mixpanel==4.0.0

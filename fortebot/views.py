@@ -9,6 +9,7 @@ import json
 import os
 import jwt
 from .user import User
+from mixpanel import Mixpanel
 
 @api_view(['GET', 'POST'])
 def vote(request):
@@ -24,19 +25,16 @@ def vote(request):
         ids_array = []
         for member in members_array:
             ids_array.append(member['id'])
-
         real_users = []
+
         for user_id in ids_array:
             user_channel = sc.api_call(
                 "im.open",
                 user=user_id,
             )
-
             if user_channel['ok'] == True:
-                # User()
                 real_users.append(User(user_id, user_channel['channel']['id']) )
-    
-        print(real_users)
+
         for user in real_users:    
             sc.api_call(
                 "chat.postEphemeral",
@@ -44,12 +42,16 @@ def vote(request):
                 user=user.user_id,
                 text="message for everyone on channel"
             )
-    return success_response(user_list)
+
+    return success_response()
 
 @api_view(['GET', 'POST'])
 def messageSent(request):
 
     if request.method == 'POST':
+        mp = Mixpanel("25d7ff3a1420b04b66b09bf53c7768af")
+        mp.track("QWE12Q2", 'Sent Message')
+        print("tracked")
         tkn = getToken()
         sc = SlackClient(tkn)
         user_channel = sc.api_call(
