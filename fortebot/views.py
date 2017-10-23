@@ -40,7 +40,7 @@ def vote(request):
                 "chat.postEphemeral",
                 channel=user.dm_channel,
                 user=user.user_id,
-                text="message for everyone on channel"
+                text="Hello, pls rate your team temperature from 1 to 10"
             )
 
     return success_response()
@@ -49,9 +49,11 @@ def vote(request):
 def messageSent(request):
 
     if request.method == 'POST':
+        print(request.data)
         mp = Mixpanel("25d7ff3a1420b04b66b09bf53c7768af")
-        mp.track("QWE12Q2", 'Sent Message')
-        print("tracked")
+        mp.track(user_id, 'Plan Upgraded', {
+            'Apollo': 3
+        })
         tkn = getToken()
         sc = SlackClient(tkn)
         user_channel = sc.api_call(
