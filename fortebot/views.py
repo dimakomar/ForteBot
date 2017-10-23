@@ -22,6 +22,12 @@ def send_msg():
     open_channel_and_send("repeating message")
 
 @api_view(['GET', 'POST'])
+def vote(request): {
+    if request.method == 'POST':
+        print(request.data)
+}
+
+@api_view(['GET', 'POST'])
 def messageSent(request):
 
     if request.method == 'POST':
