@@ -9,7 +9,6 @@ import os
 import jwt
 from .user import User
 from mixpanel import Mixpanel
-import re
 
 @api_view(['GET', 'POST'])
 def vote(request):
@@ -47,8 +46,8 @@ def vote(request):
 
 @api_view(['GET', 'POST'])
 def messageSent(request):
-    text = re.search('\d', request.data['event']['text'])
-    print(text)
+    
+    print(str.isdigit(request.data['event']['text']))
     if request.method == 'POST':
         if "5" in request.data['event']['text']:
             mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
