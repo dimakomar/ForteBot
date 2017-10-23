@@ -47,10 +47,9 @@ def vote(request):
 @api_view(['GET', 'POST'])
 def messageSent(request):
     if request.method == 'POST':
-        
         if str.isdigit(request.data['event']['text']):
             number = int(request.data['event']['text'])
-            if number > 0 and <= 11:
+            if number < 11 and number > 0 :
                 mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
                 mp.track('Forte', '5', {
                     'Value': 5,
