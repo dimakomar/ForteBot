@@ -48,14 +48,14 @@ def vote(request):
 
 @api_view(['GET', 'POST'])
 def messageSent(request):
-     
+    print(request.data)
     if request.method == 'POST':
         tkn = getToken()
         sc = SlackClient(tkn)  
         if str.isdigit(request.data['event']['text']):
             number = int(request.data['event']['text'])
             if number < 11 and number > 0 :
-                with open("users", "ar") as text_file:
+                with open("users", "a") as text_file:
                     text = text_file.read()
                     if request.data['event']['user'] not in text:
                         text_file.write(user_id + '\n')    
