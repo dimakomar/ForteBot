@@ -55,15 +55,16 @@ def messageSent(request):
         if str.isdigit(request.data['event']['text']):
             number = int(request.data['event']['text'])
             if number < 11 and number > 0 :
-                with open("users", "a") as text_file:
+                with open("users", "r") as text_file:
                     text = text_file.read()
                     if request.data['event']['user'] not in text:
-                        text_file.write(user_id + '\n')    
-                        mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
-                        mp.track('Forte', '5', {
-                            'Value': 5,
-                            'Vote_id': 0 
-                        })    
+                        with open("users", "a") as text_file:
+                            text_file.write(request.data['event']['user'] + '\n')    
+                            mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
+                            mp.track('Forte', '5', {
+                                'Value': 5,
+                                'Vote_id': 0 
+                            })    
                     else:
                         sc.api_call(
                             "chat.postEphemeral",
