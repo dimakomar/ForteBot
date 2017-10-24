@@ -13,6 +13,7 @@ from mixpanel import Mixpanel
 @api_view(['GET', 'POST'])
 def vote(request):
     if request.method == 'POST':
+        open('users', 'w').close()
         tkn = getToken()
         sc = SlackClient(tkn)
         user_list = sc.api_call(
@@ -27,6 +28,7 @@ def vote(request):
         real_users = []
 
         for user_id in ids_array:
+            
             user_channel = sc.api_call(
                 "im.open",
                 user=user_id,
@@ -46,23 +48,36 @@ def vote(request):
 
 @api_view(['GET', 'POST'])
 def messageSent(request):
+     
     if request.method == 'POST':
+        tkn = getToken()
+        sc = SlackClient(tkn)  
         if str.isdigit(request.data['event']['text']):
             number = int(request.data['event']['text'])
             if number < 11 and number > 0 :
-                mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
-                mp.track('Forte', '5', {
-                    'Value': 5,
-                    'Vote_id': 0 
-                })
+                with open("users", "ar") as text_file:
+                    text = text_file.read()
+                    if request.data['event']['user'] not in text:
+                        text_file.write(user_id + '\n')    
+                        mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
+                        mp.track('Forte', '5', {
+                            'Value': 5,
+                            'Vote_id': 0 
+                        })    
+                    else:
+                        sc.api_call(
+                            "chat.postEphemeral",
+                            channel=user_channel['channel']['id'],
+                            user=request.data['event']['user'],
+                            text="You already voted :) thanks"
+                        )
             else:
                 print("number is not in range")    
             print("text cointains numbers")
         else:
             print("text doesn't cointain numbers")
                 
-        tkn = getToken()
-        sc = SlackClient(tkn)
+        
         user_channel = sc.api_call(
             "im.open",
             user=request.data['event']['user'],
