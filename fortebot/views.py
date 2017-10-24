@@ -52,6 +52,8 @@ def messageSent(request):
     if request.method == 'POST':
         tkn = getToken()
         sc = SlackClient(tkn)  
+        user_channel = open_channel_if_needed(sc, request)
+
         if str.isdigit(request.data['event']['text']):
             number = int(request.data['event']['text'])
             if number < 11 and number > 0 :
@@ -61,7 +63,7 @@ def messageSent(request):
                         with open("users", "a") as text_file:
                             text_file.write(request.data['event']['user'] + '\n')    
                             mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
-                            mp.track('Forte', '5', {
+                            mp.track('Forte', request.data['event']['text'], {
                                 'Value': 5,
                                 'Vote_id': 0 
                             })    
@@ -73,26 +75,36 @@ def messageSent(request):
                             text="You already voted :) thanks"
                         )
             else:
-                print("number is not in range")    
-            print("text cointains numbers")
+                sc.api_call(
+                    "chat.postEphemeral",
+                    channel=user_channel['channel']['id'],
+                    user=request.data['event']['user'],
+                    text="number is not in range"
+                )    
         else:
-            print("text doesn't cointain numbers")
-                
-        
-        user_channel = sc.api_call(
-            "im.open",
-            user=request.data['event']['user'],
-        )        
-        sc.api_call(
-            "chat.postEphemeral",
-            channel=user_channel['channel']['id'],
-            user=request.data['event']['user'],
-            text="you just said " + request.data['event']['text'] + " :bear:"
-        )
+            sc.api_call(
+                "chat.postEphemeral",
+                channel=user_channel['channel']['id'],
+                user=request.data['event']['user'],
+                text="text doesnt contains numbers"
+            )        
+        # sc.api_call(
+        #     "chat.postEphemeral",
+        #     channel=user_channel['channel']['id'],
+        #     user=request.data['event']['user'],
+        #     text="you just said " + request.data['event']['text'] + " :bear:"
+        # )
 
         return JsonResponse(request.data)
     else:
         return success_response()
+
+
+def open_channel_if_needed(sc, request): 
+    return sc.api_call(
+        "im.open",
+        user=request.data['event']['user'],
+    )      
 
 
 def getToken():
