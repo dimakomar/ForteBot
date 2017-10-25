@@ -53,14 +53,14 @@ def vote(request):
 
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        loop.run_until_complete(send_msg(real_users))
+        loop.run_until_complete(send_msg(sc, real_users))
         loop.close()
 
     return success_response()
 
-async def send_msg(real_users):
+async def send_msg(sc, real_users):
     for user in real_users:    
-        send_Ephemeral_msg(sc,user.dm_channel,user.dm_channel,"Hello, pls rate your team temperature from 1 to 10")
+        send_Ephemeral_msg(sc,user.user_id,user.dm_channel,"Hello, pls rate your team temperature from 1 to 10")
     pass
 
 @api_view(['GET', 'POST'])
@@ -79,41 +79,15 @@ def messageSent(request):
                         with open("users", "a") as text_file:
                             text_file.write(request.data['event']['user'] + '\n')    
                             mp = Mixpanel(settings.MIXPANEL_TOKEN)
-                            mp.track('Forte', request.data['event']['text'], {
-                                'Value': 5,
-                                'Vote_id': 0 
-                            })
-                            sc.api_call(
-                                "chat.postEphemeral",
-                                channel=user_channel['channel']['id'],
-                                user=request.data['event']['user'],
-                                text="thanks"
-                            )    
+                            mp.track('Forte', request.data['event']['text'])
+                            send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"Thanks")
                     else:
-                        sc.api_call(
-                            "chat.postEphemeral",
-                            channel=user_channel['channel']['id'],
-                            user=request.data['event']['user'],
-                            text="You already voted :) thanks"
-                        )
+                        send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"You already voted :) thanks")
             else:
-                sc.api_call(
-                    "chat.postEphemeral",
-                    channel=user_channel['channel']['id'],
-                    user=request.data['event']['user'],
-                    text="number is not in range"
-                )    
+                send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"Number is not in range")  
         else:
-            sc.api_call(
-                "chat.postEphemeral",
-                channel=user_channel['channel']['id'],
-                user=request.data['event']['user'],
-                text="text doesnt contains numbers"
-            )        
-
-        return JsonResponse(request.data)
-    else:
-        return success_response()
+            send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"Text doesnt contains numbers")              
+    return HttpResponse()
 
 
 def open_channel_if_needed(sc, request): 
