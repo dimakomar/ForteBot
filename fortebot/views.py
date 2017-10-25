@@ -13,6 +13,7 @@ import asyncio
 
 @api_view(['GET', 'POST'])
 def anonymous_feedback(request):
+    print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
     sc.api_call(
