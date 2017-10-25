@@ -1,4 +1,6 @@
  # ForteBot
+ Internal ForteGroup slack bot for Ternopil branch office
+ 
 <img src="https://i.imgur.com/QjbPpNc.png">
 
 ## Made with
