@@ -17,7 +17,7 @@ import asyncio
 def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "/anon_feedback - to send anonymus feedback \n /forte_vote - to trigger temperature vote \n" )  
+    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "`/anon_feedback` *your_msg* - to send anonymus feedback \n `/forte_vote` - to trigger temperature vote \n" )  
     return HttpResponse()
 
 @api_view(['POST'])
@@ -27,7 +27,7 @@ def anonymous_feedback(request):
     sc.api_call(
         "chat.postMessage",
         channel=settings.PRIVATE_CHANNEL,
-        text="someone told: " + request.data['text'] 
+        text="`someone told:` " + request.data['text'] 
     )    
     return HttpResponse()
 
