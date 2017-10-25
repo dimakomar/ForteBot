@@ -1,8 +1,5 @@
  # ForteBot
-<p align="center"> 
-<img src="https://i.imgur.com/mTX0FLN.jpg">
-</p>
-### Stuff used to make this:
+<img src="https://i.imgur.com/QjbPpNc.png">
 
  * Python 3.6.2
  * Django 
