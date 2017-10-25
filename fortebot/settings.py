@@ -139,3 +139,14 @@ SLACK_BOT_TOKEN = ""
 PRIVATE_CHANNEL = "G7NUMC5FA"
 
 MIXPANEL_TOKEN = "25d7ff3a1420b04b66b09bf53c7768af"
+
+VOTE_PHRASE = "Hello, pls rate your team temperature from 1 to 10"
+
+THANKS_PHRASE = "Thanks"
+
+ALREADY_VOTED_PHRASE = "You already voted :) Thanks again"
+
+NOT_IN_RANGE_PHRASE = "Thats not 1 and eather not a 10, and nothing between :shc:"
+
+NOT_A_NUMBER_PHRASE = "Your entered query is NoN, I'm Sorry"
+
