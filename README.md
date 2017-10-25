@@ -3,9 +3,8 @@
 
 ## Made with
  * Python 3.6.2
- * Django 
- * SlackClient
-
+ * Django 1.11.6
+ 
 ## Installation
 
 Assuming you have a [pip](https://pip.pypa.io/en/stable/installing/) installed
