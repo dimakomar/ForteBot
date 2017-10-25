@@ -15,7 +15,6 @@ import asyncio
 
 @api_view(['POST'])
 def anonymous_feedback(request):
-    print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
     sc.api_call(
@@ -27,10 +26,11 @@ def anonymous_feedback(request):
 
 @api_view(['POST'])
 def vote(request):
-    if request.method == 'POST':
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    if request.data['event']['channel'] is settings.PRIVATE_CHANNEL:
         open('users', 'w').close()
-        tkn = getToken()
-        sc = SlackClient(tkn)
+        
         user_list = sc.api_call(
             "users.list"
         )
@@ -55,8 +55,9 @@ def vote(request):
         asyncio.set_event_loop(loop)
         loop.run_until_complete(send_msg(sc, real_users))
         loop.close()
-
-    return success_response()
+    else:
+        send_ephemeral_msg(sc,request.data['event']['user'],request.data['event']['channel'],settings.BAD_CHANNEL_PHRASE)
+    return HttpResponse()
 
 async def send_msg(sc, real_users):
     for user in real_users:    
@@ -65,28 +66,27 @@ async def send_msg(sc, real_users):
 
 @api_view(['POST'])
 def messageSent(request):
-    if request.method == 'POST':
-        tkn = getToken()
-        sc = SlackClient(tkn)  
-        user_channel = open_channel_if_needed(sc, request)
+    tkn = getToken()
+    sc = SlackClient(tkn)  
+    user_channel = open_channel_if_needed(sc, request)
 
-        if str.isdigit(request.data['event']['text']):
-            number = int(request.data['event']['text'])
-            if number < 11 and number > 0 :
-                with open("users", "r") as text_file:
-                    text = text_file.read()
-                    if request.data['event']['user'] not in text:
-                        with open("users", "a") as text_file:
-                            text_file.write(request.data['event']['user'] + '\n')    
-                            mp = Mixpanel(settings.MIXPANEL_TOKEN)
-                            mp.track('Forte', request.data['event']['text'])
-                            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
-                    else:
-                        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
-            else:
-                send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_IN_RANGE_PHRASE)  
+    if str.isdigit(request.data['event']['text']):
+        number = int(request.data['event']['text'])
+        if number < 11 and number > 0 :
+            with open("users", "r") as text_file:
+                text = text_file.read()
+                if request.data['event']['user'] not in text:
+                    with open("users", "a") as text_file:
+                        text_file.write(request.data['event']['user'] + '\n')    
+                        mp = Mixpanel(settings.MIXPANEL_TOKEN)
+                        mp.track('Forte', request.data['event']['text'])
+                        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
+                else:
+                    send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
         else:
-            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
+            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_IN_RANGE_PHRASE)  
+    else:
+        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
     return HttpResponse()
 
 

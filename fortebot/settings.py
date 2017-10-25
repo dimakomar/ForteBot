@@ -150,3 +150,5 @@ NOT_IN_RANGE_PHRASE = "Thats not 1 and eather not a 10, and nothing between :shc
 
 NOT_A_NUMBER_PHRASE = "Your entered query is NoN, I'm Sorry"
 
+BAD_CHANNEL_PHRASE = "You're not allowed to start the vote"
+
