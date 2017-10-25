@@ -10,9 +10,9 @@
 
 Assuming you have a [pip](https://pip.pypa.io/en/stable/installing/) installed
 ```bash
-$ pip install -r requirements.txt
+ pip install -r requirements.txt
 ```
 
 ```bash
-$ python3 manage.py runserver
+ python3 manage.py runserver
 ```
