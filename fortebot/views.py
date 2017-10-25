@@ -20,7 +20,7 @@ def anonymous_feedback(request):
     sc.api_call(
         "chat.postMessage",
         channel=settings.PRIVATE_CHANNEL,
-        text=request.data['text']
+        text="".join("someone told: ", request.data['text'])
     )    
     return HttpResponse()
 
