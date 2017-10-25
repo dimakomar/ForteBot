@@ -29,7 +29,7 @@ def vote(request):
     print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
-    if request.data['event']['channel'] is settings.PRIVATE_CHANNEL:
+    if request.data['channel_id'] is settings.PRIVATE_CHANNEL:
         open('users', 'w').close()
         
         user_list = sc.api_call(
@@ -57,7 +57,7 @@ def vote(request):
         loop.run_until_complete(send_msg(sc, real_users))
         loop.close()
     else:
-        send_ephemeral_msg(sc,request.data['event']['user'],request.data['event']['channel'],settings.BAD_CHANNEL_PHRASE)
+        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
     return HttpResponse()
 
 async def send_msg(sc, real_users):
