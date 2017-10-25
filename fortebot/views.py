@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
+from django.http import HttpResponse
 from .errors import *
 from slackclient import SlackClient
 import json
@@ -21,7 +22,7 @@ def anonymous_feedback(request):
         channel="G7NUMC5FA",
         text=request.data['text']
     )    
-    return empty_success_response()
+    return HttpResponse()
 
 @api_view(['GET', 'POST'])
 def vote(request):
