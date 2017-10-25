@@ -35,6 +35,11 @@ def success_response(data: dict=dict(), http_code: int = 200):
         status=http_code
     )
 
+def empty_success_response(data: dict=dict(), http_code: int = 200):
+    return JsonResponse(
+        { **{"":""}, **data},
+        status=http_code
+    )
 
 # This guy handles all API errors
 def custom_exception_handler(exc, context):
