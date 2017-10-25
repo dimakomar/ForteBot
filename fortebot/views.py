@@ -29,7 +29,7 @@ def vote(request):
     print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
-    if request.data['channel_id'] is settings.PRIVATE_CHANNEL:
+    if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
         open('users', 'w').close()
         
         user_list = sc.api_call(
