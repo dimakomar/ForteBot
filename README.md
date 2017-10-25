@@ -15,3 +15,12 @@ Assuming you have a [pip](https://pip.pypa.io/en/stable/installing/) installed
 ```bash
  python3 manage.py runserver
 ```
+## Features
+>`/anon_feedback`  *Your_msg* - Use it to send anonymus feedback
+
+>`/forte_vote` - Use it to trigger temperature vote
+
+## TODOs
+
+ * Add text paramether to `/forte_vote` to customize voting
+ * Change bot message to dialog message
