@@ -26,7 +26,7 @@ def anonymous_feedback(request):
 
 @api_view(['POST'])
 def vote(request):
-    print(request.body)
+    print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['event']['channel'] is settings.PRIVATE_CHANNEL:
