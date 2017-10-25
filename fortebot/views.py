@@ -21,7 +21,7 @@ def anonymous_feedback(request):
         channel="G7NUMC5FA",
         text=request.data['text']
     )    
-    return success_response()
+    return empty_success_response()
 
 @api_view(['GET', 'POST'])
 def vote(request):
