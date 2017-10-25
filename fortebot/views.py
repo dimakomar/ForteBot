@@ -14,6 +14,13 @@ from mixpanel import Mixpanel
 import asyncio
 
 @api_view(['POST'])
+def help(request):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "/anon_feedback - to send anonymus feedback \n /forte_vote - to trigger temperature vote \n" )  
+    return HttpResponse()
+
+@api_view(['POST'])
 def anonymous_feedback(request):
     tkn = getToken()
     sc = SlackClient(tkn)
