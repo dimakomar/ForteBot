@@ -15,7 +15,7 @@ Assuming you have a [pip](https://pip.pypa.io/en/stable/installing/) installed
 ```
 
 ```bash
- python3 manage.py runserver
+ python manage.py runserver
 ```
 ## Features
 >`/anon_feedback`  *Your_msg* - Use it to send anonymus feedback
