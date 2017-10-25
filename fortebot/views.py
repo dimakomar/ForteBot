@@ -9,6 +9,18 @@ import os
 import jwt
 from .user import User
 from mixpanel import Mixpanel
+import asyncio
+
+@api_view(['GET', 'POST'])
+def anonymous_feedback(request):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    sc.api_call(
+        "chat.postMessage",
+        channel="G7NUMC5FA",
+        text=request.data['event']['text']
+    )    
+    return success_response()
 
 @api_view(['GET', 'POST'])
 def vote(request):
@@ -36,19 +48,25 @@ def vote(request):
             if user_channel['ok'] == True:
                 real_users.append(User(user_id, user_channel['channel']['id']) )
 
-        for user in real_users:    
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(send_msg(real_users))
+        loop.close()
+
+    return success_response()
+
+async def send_msg(real_users):
+    for user in real_users:    
             sc.api_call(
                 "chat.postEphemeral",
                 channel=user.dm_channel,
                 user=user.user_id,
                 text="Hello, pls rate your team temperature from 1 to 10"
             )
-
-    return success_response()
+    pass
 
 @api_view(['GET', 'POST'])
 def messageSent(request):
-    print(request.data)
     if request.method == 'POST':
         tkn = getToken()
         sc = SlackClient(tkn)  
@@ -66,7 +84,13 @@ def messageSent(request):
                             mp.track('Forte', request.data['event']['text'], {
                                 'Value': 5,
                                 'Vote_id': 0 
-                            })    
+                            })
+                            sc.api_call(
+                                "chat.postEphemeral",
+                                channel=user_channel['channel']['id'],
+                                user=request.data['event']['user'],
+                                text="thanks"
+                            )    
                     else:
                         sc.api_call(
                             "chat.postEphemeral",
@@ -88,12 +112,6 @@ def messageSent(request):
                 user=request.data['event']['user'],
                 text="text doesnt contains numbers"
             )        
-        # sc.api_call(
-        #     "chat.postEphemeral",
-        #     channel=user_channel['channel']['id'],
-        #     user=request.data['event']['user'],
-        #     text="you just said " + request.data['event']['text'] + " :bear:"
-        # )
 
         return JsonResponse(request.data)
     else:
