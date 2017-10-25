@@ -13,7 +13,7 @@ from .user import User
 from mixpanel import Mixpanel
 import asyncio
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def anonymous_feedback(request):
     print(request.data)
     tkn = getToken()
@@ -25,7 +25,7 @@ def anonymous_feedback(request):
     )    
     return HttpResponse()
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def vote(request):
     if request.method == 'POST':
         open('users', 'w').close()
@@ -60,10 +60,10 @@ def vote(request):
 
 async def send_msg(sc, real_users):
     for user in real_users:    
-        send_Ephemeral_msg(sc,user.user_id,user.dm_channel,"Hello, pls rate your team temperature from 1 to 10")
+        send_ephemeral_msg(sc,user.user_id,user.dm_channel,settings.VOTE_PHRASE)
     pass
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def messageSent(request):
     if request.method == 'POST':
         tkn = getToken()
@@ -80,13 +80,13 @@ def messageSent(request):
                             text_file.write(request.data['event']['user'] + '\n')    
                             mp = Mixpanel(settings.MIXPANEL_TOKEN)
                             mp.track('Forte', request.data['event']['text'])
-                            send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"Thanks")
+                            send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
                     else:
-                        send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"You already voted :) thanks")
+                        send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
             else:
-                send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"Number is not in range")  
+                send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_IN_RANGE_PHRASE)  
         else:
-            send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"Text doesnt contains numbers")              
+            send_Ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
     return HttpResponse()
 
 
@@ -104,7 +104,7 @@ def getToken():
         decoded = jwt.decode(encoded_token, 'hello', algorithms=['HS256'])
         return decoded['some']
             
-def send_Ephemeral_msg(sc, user, channel, text):
+def send_ephemeral_msg(sc, user, channel, text):
     sc.api_call(
         "chat.postEphemeral",
         channel=channel,
