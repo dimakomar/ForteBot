@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 from django.http import HttpResponse
 from .errors import *
+from django.conf import settings
 from slackclient import SlackClient
 import json
 import os
@@ -19,7 +20,7 @@ def anonymous_feedback(request):
     sc = SlackClient(tkn)
     sc.api_call(
         "chat.postMessage",
-        channel="G7NUMC5FA",
+        channel=settings.PRIVATE_CHANNEL,
         text=request.data['text']
     )    
     return HttpResponse()
@@ -59,12 +60,7 @@ def vote(request):
 
 async def send_msg(real_users):
     for user in real_users:    
-            sc.api_call(
-                "chat.postEphemeral",
-                channel=user.dm_channel,
-                user=user.user_id,
-                text="Hello, pls rate your team temperature from 1 to 10"
-            )
+        send_Ephemeral_msg(sc,user.dm_channel,user.dm_channel,"Hello, pls rate your team temperature from 1 to 10")
     pass
 
 @api_view(['GET', 'POST'])
@@ -82,7 +78,7 @@ def messageSent(request):
                     if request.data['event']['user'] not in text:
                         with open("users", "a") as text_file:
                             text_file.write(request.data['event']['user'] + '\n')    
-                            mp = Mixpanel('25d7ff3a1420b04b66b09bf53c7768af')
+                            mp = Mixpanel(settings.MIXPANEL_TOKEN)
                             mp.track('Forte', request.data['event']['text'], {
                                 'Value': 5,
                                 'Vote_id': 0 
@@ -134,3 +130,10 @@ def getToken():
         decoded = jwt.decode(encoded_token, 'hello', algorithms=['HS256'])
         return decoded['some']
             
+def send_Ephemeral_msg(sc, user, channel, text):
+    sc.api_call(
+        "chat.postEphemeral",
+        channel=channel,
+        user=user,
+        text=text
+    )  

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'fortebot'
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ALLOWED_HOSTS = ['*']
 
 SLACK_BOT_TOKEN = ""
+
+PRIVATE_CHANNEL = "G7NUMC5FA"
+
+MIXPANEL_TOKEN = "25d7ff3a1420b04b66b09bf53c7768af"
