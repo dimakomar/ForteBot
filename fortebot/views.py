@@ -19,7 +19,7 @@ def anonymous_feedback(request):
     sc.api_call(
         "chat.postMessage",
         channel="G7NUMC5FA",
-        text=request.data['event']['text']
+        text=request.data['text'][0]
     )    
     return success_response()
 
