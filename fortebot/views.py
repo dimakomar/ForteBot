@@ -81,7 +81,7 @@ def rating_vote(request):
         asyncio.set_event_loop(loop)
         loop.run_until_complete(send_msg(sc, real_users, request))
         loop.close()
-
+    else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
     return HttpResponse()
 
@@ -113,16 +113,16 @@ def messageSent(request):
             send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_IN_RANGE_PHRASE)
             return HttpResponse()
 
-            if request.data['event']['user'] not in text:
-                with open("users", "a") as text_file:
-                    text_file.write(request.data['event']['user'] + '\n')    
-                    with open("marks", "a") as marks_file:
-                        marks_file.write(request.data['event']['text'] + ",")                            
-                    mp = Mixpanel(settings.MIXPANEL_TOKEN)
-                    mp.track('Forte', request.data['event']['text'])
-                send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
-            else:
-                send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
+        if request.data['event']['user'] not in text:
+            with open("users", "a") as text_file:
+                text_file.write(request.data['event']['user'] + '\n')    
+                with open("marks", "a") as marks_file:
+                    marks_file.write(request.data['event']['text'] + ",")                            
+                mp = Mixpanel(settings.MIXPANEL_TOKEN)
+                mp.track('Forte', request.data['event']['text'])
+            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
+        else:
+            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
     return HttpResponse()  
     
 
