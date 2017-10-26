@@ -102,10 +102,6 @@ def messageSent(request):
 
     if str.isdigit(request.data['event']['text']):
         number = int(request.data['event']['text'])
-    else:
-        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
-        return HttpResponse()
-
         if number < 11 and number > 0 :
             with open("users", "r") as text_file:
                 text = text_file.read()
@@ -123,6 +119,8 @@ def messageSent(request):
             send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
         else:
             send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
+    else:
+        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
     return HttpResponse()  
     
 
