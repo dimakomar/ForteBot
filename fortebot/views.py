@@ -101,7 +101,7 @@ def send_msg_to_all(sc,request,msg):
 
 async def send_msg(sc, real_users, req, msg):
     for user in real_users:    
-        send_ephemeral_msg(sc,user.user_id,user.dm_channel,)
+        send_ephemeral_msg(sc,user.user_id,user.dm_channel,msg)
 
 
 @api_view(['POST'])
