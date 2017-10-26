@@ -55,7 +55,7 @@ def question_vote(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        send_msg_to_all(sc, request, "".join([request.data["text"], " please start from `/anonymus_message`"]))
+        send_msg_to_all(sc, request, "".join([request.data["text"], " Please reply with `/anonymus_message`"]))
     return HttpResponse()
 
 @api_view(['POST'])
