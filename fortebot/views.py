@@ -55,7 +55,7 @@ def question_vote(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        send_msg_to_all(sc, request, request.data["text"])
+        send_msg_to_all(sc, request, "".join([request.data["text"], " please start from `/anonymus_message`"]))
     return HttpResponse()
 
 @api_view(['POST'])
@@ -101,7 +101,7 @@ def send_msg_to_all(sc,request,msg):
 
 async def send_msg(sc, real_users, req, msg):
     for user in real_users:    
-        send_ephemeral_msg(sc,user.user_id,user.dm_channel,msg)
+        send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
 
 
 @api_view(['POST'])
