@@ -25,6 +25,7 @@ def get_results(request):
             print("empty")
             return HttpResponse()
         marks_total = marks_file.split(",")
+        print(marks_total)
         all_marks = sum(list(map(int, marks_total)))
         avarage_num = round(all_marks / len(marks_total), 1)
         send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join(["result: ", str(avarage_num), " out of: ", str(len(marks_total)), " people voted"]))  
