@@ -21,6 +21,7 @@ def get_results(request):
     with open(path , 'r') as marks_file:
         marks_file = marks_file.read()
         marks_total = marks_file.split(",")
+        all_marks = sum(marks_total)
         print(marks_total)
         open('marks', 'w').close()
     # send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], ">`/anon_feedback`  *`Your_msg`* - Use it to send anonymus feedback, \n>`/forte_vote` - Use it to trigger temperature vote \n" )  
