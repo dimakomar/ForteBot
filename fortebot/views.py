@@ -89,6 +89,10 @@ def messageSent(request):
     sc = SlackClient(tkn)  
     user_channel = open_channel_if_needed(sc, request)
 
+    if request.data['event']['text'] == "Hello":
+        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'], "Yes, I'm here") 
+        return HttpResponse()
+
     if str.isdigit(request.data['event']['text']):
         number = int(request.data['event']['text'])
     else:
