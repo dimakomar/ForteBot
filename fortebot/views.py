@@ -124,7 +124,7 @@ def messageSent(request):
                     return HttpResponse()  
             else:
                 send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
-                return HttpResponse()  
+    return HttpResponse()  
     
 
 
