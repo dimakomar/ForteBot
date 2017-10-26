@@ -20,12 +20,11 @@ def get_results(request):
     path = os.path.join('marks')
     with open(path , 'r') as marks_file:
         marks_file = marks_file.read()
-        marks_total = marks_file.split(",")
-        
-        if len(marks_total) == 0:
-            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"Noone voted right now")
+        if marks_file == "":
+            send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],"Noone voted right now")
+            print("empty")
             return HttpResponse()
-
+        marks_total = marks_file.split(",")
         all_marks = sum(list(map(int, marks_total)))
         avarage_num = round(all_marks / len(marks_total), 1)
         send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join(["result: ", str(avarage_num), " out of: ", str(len(marks_total), " people voted")]))  
