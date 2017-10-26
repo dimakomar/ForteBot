@@ -27,7 +27,7 @@ def get_results(request):
         marks_total = marks_file.split(",")
         all_marks = sum(list(map(int, marks_total)))
         avarage_num = round(all_marks / len(marks_total), 1)
-        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join(["result: ", str(avarage_num), " out of: ", str(len(marks_total), " people voted")]))  
+        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join(["result: ", str(avarage_num), " out of: ", str(len(marks_total)), " people voted"]))  
     return HttpResponse()
 
 @api_view(['POST'])
@@ -120,8 +120,7 @@ def messageSent(request):
                         marks_file.write(request.data['event']['text'] + ",")                            
                     mp = Mixpanel(settings.MIXPANEL_TOKEN)
                     mp.track('Forte', request.data['event']['text'])
-                    send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
-                    return HttpResponse()  
+                send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
             else:
                 send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
     return HttpResponse()  
