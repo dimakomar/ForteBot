@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^slack/', views.messageSent),
     url(r'^forte_vote/', views.rating_vote),
     url(r'^anonymous_feedback/', views.anonymous_feedback),
-    url(r'^forte_help/', views.help)
+    url(r'^forte_help/', views.help),
+    url(r'^get_results/', views.get_results),
 ]
 
