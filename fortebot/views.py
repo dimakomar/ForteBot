@@ -113,7 +113,7 @@ def messageSent(request):
             with open("users", "a") as text_file:
                 text_file.write(request.data['event']['user'] + '\n')    
                 with open("marks", "a") as marks_file:
-                    marks_file.write(request.data['event']['text'] + ",")                            
+                    marks_file.write("".join([request.data['event']['text'] + ","]))                            
                 mp = Mixpanel(settings.MIXPANEL_TOKEN)
                 mp.track('Forte', request.data['event']['text'])
             send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
