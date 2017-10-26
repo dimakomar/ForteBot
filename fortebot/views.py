@@ -22,6 +22,7 @@ def get_results(request):
         marks_file = marks_file.read()
         marks_total = marks_file.split(",")
         print(marks_total)
+        open('marks', 'w').close()
     # send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], ">`/anon_feedback`  *`Your_msg`* - Use it to send anonymus feedback, \n>`/forte_vote` - Use it to trigger temperature vote \n" )  
     return HttpResponse()
 
@@ -111,7 +112,7 @@ def messageSent(request):
                 with open("users", "a") as text_file:
                     text_file.write(request.data['event']['user'] + '\n')    
                     with open("marks", "a") as marks_file:
-                        text_file.write(request.data['event']['text'] + ",")                            
+                        marks_file.write(request.data['event']['text'] + ",")                            
                     mp = Mixpanel(settings.MIXPANEL_TOKEN)
                     mp.track('Forte', request.data['event']['text'])
                     send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
