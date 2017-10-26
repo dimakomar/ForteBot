@@ -68,9 +68,10 @@ def vote(request):
     return HttpResponse()
 
 async def send_msg(sc, real_users):
+    print(request.data)
+    print(request.data['text'] == "")
     for user in real_users:    
         send_ephemeral_msg(sc,user.user_id,user.dm_channel,settings.VOTE_PHRASE)
-    pass
 
 @api_view(['POST'])
 def messageSent(request):
@@ -80,22 +81,27 @@ def messageSent(request):
 
     if str.isdigit(request.data['event']['text']):
         number = int(request.data['event']['text'])
+    else:
+        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
+        return HttpResponse()
+
         if number < 11 and number > 0 :
             with open("users", "r") as text_file:
                 text = text_file.read()
-                if request.data['event']['user'] not in text:
-                    with open("users", "a") as text_file:
-                        text_file.write(request.data['event']['user'] + '\n')    
-                        mp = Mixpanel(settings.MIXPANEL_TOKEN)
-                        mp.track('Forte', request.data['event']['text'])
-                        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
-                else:
-                    send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
         else:
-            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_IN_RANGE_PHRASE)  
-    else:
-        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
-    return HttpResponse()
+            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_IN_RANGE_PHRASE)
+            return HttpResponse()
+
+            if request.data['event']['user'] not in text:
+                with open("users", "a") as text_file:
+                    text_file.write(request.data['event']['user'] + '\n')    
+                    mp = Mixpanel(settings.MIXPANEL_TOKEN)
+                    mp.track('Forte', request.data['event']['text'])
+                    send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
+            else:
+                send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
+                return HttpResponse()  
+    
 
 
 def open_channel_if_needed(sc, request): 
@@ -103,7 +109,6 @@ def open_channel_if_needed(sc, request):
         "im.open",
         user=request.data['event']['user'],
     )      
-
 
 def getToken():
     path = os.path.join('noname')
