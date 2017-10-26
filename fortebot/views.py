@@ -17,6 +17,7 @@ import asyncio
 def get_results(request):
     tkn = getToken()
     sc = SlackClient(tkn)
+    path = os.path.join('marks')
     with open(path , 'r') as marks_file:
         marks_file = marks_file.read()
         marks_total = marks_file.split(",")
