@@ -70,7 +70,7 @@ def rating_vote(request):
 
 async def send_msg(sc, real_users, req):
     for user in real_users:    
-        send_ephemeral_msg(sc,user.user_id,user.dm_channel,settings.VOTE_PHRASE if req.data["text"] == "" else "".join([settings.TEXT_VOTE_PHRASE, req.data["text"]]))
+        send_ephemeral_msg(sc,user.user_id,user.dm_channel,settings.VOTE_PHRASE if req.data["text"] == "" else "".join([req.data["text"], settings.TEXT_VOTE_PHRASE]))
 
 @api_view(['POST'])
 def messageSent(request):
