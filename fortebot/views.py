@@ -51,46 +51,58 @@ def anonymous_feedback(request):
     return HttpResponse()
 
 @api_view(['POST'])
+def question_vote(request):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
+        send_msg_to_all(sc, request, request.data["text"])
+    return HttpResponse()
+
+@api_view(['POST'])
 def rating_vote(request):
-    print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
         open('users', 'w').close()
         open('marks', 'w').close()
+        send_msg_to_all(sc, request, settings.VOTE_PHRASE if req.data["text"] == "" else "".join([req.data["text"], settings.TEXT_VOTE_PHRASE]))
         
-        user_list = sc.api_call(
-            "users.list"
-        )
-        
-        members_array = user_list["members"]
-        
-        ids_array = []
-        for member in members_array:
-            ids_array.append(member['id'])
-        real_users = []
-
-        for user_id in ids_array:
-            
-            user_channel = sc.api_call(
-                "im.open",
-                user=user_id,
-            )
-            if user_channel['ok'] == True:
-                real_users.append(User(user_id, user_channel['channel']['id']) )
-
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(send_msg(sc, real_users, request))
-        loop.close()
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
     return HttpResponse()
 
 
-async def send_msg(sc, real_users, req):
+
+def send_msg_to_all(sc,request,msg):
+    user_list = sc.api_call(
+        "users.list"
+    )
+    members_array = user_list["members"]
+    
+    ids_array = []
+    for member in members_array:
+        ids_array.append(member['id'])
+    real_users = []
+
+    for user_id in ids_array:
+        
+        user_channel = sc.api_call(
+            "im.open",
+            user=user_id,
+        )
+        if user_channel['ok'] == True:
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(send_msg(sc, real_users, request, msg))
+    loop.close()
+    return HttpResponse()
+
+async def send_msg(sc, real_users, req, msg):
     for user in real_users:    
-        send_ephemeral_msg(sc,user.user_id,user.dm_channel,settings.VOTE_PHRASE if req.data["text"] == "" else "".join([req.data["text"], settings.TEXT_VOTE_PHRASE]))
+        send_ephemeral_msg(sc,user.user_id,user.dm_channel,)
+
 
 @api_view(['POST'])
 def messageSent(request):

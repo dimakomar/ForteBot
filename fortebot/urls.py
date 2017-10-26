@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^anonymous_feedback/', views.anonymous_feedback),
     url(r'^forte_help/', views.help),
     url(r'^get_results', views.get_results),
+    url(r'^question_vote', views.question_vote),
 ]
 
