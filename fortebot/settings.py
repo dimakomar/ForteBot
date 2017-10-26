@@ -142,6 +142,8 @@ MIXPANEL_TOKEN = "25d7ff3a1420b04b66b09bf53c7768af"
 
 VOTE_PHRASE = "Hello, pls rate your team temperature from 1 to 10"
 
+TEXT_VOTE_PHRASE = " - rate from 1 to 10"
+
 THANKS_PHRASE = "Thanks"
 
 ALREADY_VOTED_PHRASE = "You already voted :) Thanks again"
