@@ -65,7 +65,7 @@ def rating_vote(request):
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
         open('users', 'w').close()
         open('marks', 'w').close()
-        send_msg_to_all(sc, request, settings.VOTE_PHRASE if req.data["text"] == "" else "".join([req.data["text"], settings.TEXT_VOTE_PHRASE]))
+        send_msg_to_all(sc, request, settings.VOTE_PHRASE if req.data["text"] == "" else "".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
         
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
