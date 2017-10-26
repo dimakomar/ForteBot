@@ -24,11 +24,12 @@ def get_results(request):
             send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],"Noone voted right now")
             print("empty")
             return HttpResponse()
-        marks_total = marks_file.split(",")
-        print(marks_total)
-        all_marks = sum(list(map(int, marks_total)))
-        avarage_num = round(all_marks / len(marks_total), 1)
-        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join(["result: ", str(avarage_num), " out of: ", str(len(marks_total)), " people voted"]))  
+        
+        marks_splitted_list = marks_file.split(",")
+        numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
+        all_marks = sum(list(map(int, numbered_list)))
+        avarage_num = round(all_marks / len(numbered_list), 1)
+        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join(["result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
     return HttpResponse()
 
 @api_view(['POST'])
