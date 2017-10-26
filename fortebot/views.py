@@ -21,10 +21,14 @@ def get_results(request):
     with open(path , 'r') as marks_file:
         marks_file = marks_file.read()
         marks_total = marks_file.split(",")
+        
+        if len(marks_total) == 0:
+            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],"Noone voted right now")
+            return HttpResponse()
+
         all_marks = sum(list(map(int, marks_total)))
         avarage_num = round(all_marks / len(marks_total), 1)
-        print(avarage_num)
-        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join(["result: ", str(avarage_num), "out of: ", str(len(marks_total))]))  
+        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join(["result: ", str(avarage_num), " out of: ", str(len(marks_total), " people voted")]))  
     return HttpResponse()
 
 @api_view(['POST'])
@@ -52,6 +56,7 @@ def rating_vote(request):
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
         open('users', 'w').close()
+        open('marks', 'w').close()
         
         user_list = sc.api_call(
             "users.list"
