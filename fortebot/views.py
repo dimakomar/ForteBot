@@ -41,13 +41,13 @@ def help(request):
 
 @api_view(['POST'])
 def anonymous_msg_random(request):
-    return send_msg(request, "random")
+    return send_normal_msg(request, "random")
 
 @api_view(['POST'])
 def anonymous_feedback(request):
-    return send_msg(request, settings.PRIVATE_CHANNEL)
+    return send_normal_msg(request, settings.PRIVATE_CHANNEL)
 
-def send_msg(request,channel):
+def send_normal_msg(request,channel):
     tkn = getToken()
     sc = SlackClient(tkn)
     sc.api_call(
