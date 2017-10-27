@@ -24,5 +24,6 @@ Assuming you have a [pip](https://pip.pypa.io/en/stable/installing/) installed
 
 ## TODOs
 
- * Add text paramether to `/forte_vote` to customize voting
  * Change bot message to dialog message
+ * Add Unis tests
+ 
