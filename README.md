@@ -26,4 +26,4 @@ Assuming you have a [pip](https://pip.pypa.io/en/stable/installing/) installed
 
  * Change bot message to dialog message
  * Add Unis tests
- 
+ * Add local delivery list
