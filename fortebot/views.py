@@ -121,6 +121,7 @@ def send_normal_msg(request,channel):
     return HttpResponse()
 
 def start_rating_vote(request, msg):
+    HttpResponse()
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
