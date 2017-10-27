@@ -12,6 +12,7 @@ import jwt
 from .user import User
 from mixpanel import Mixpanel
 import asyncio
+from multiprocessing import Pool
 
 @api_view(['POST'])
 def get_results(request):
@@ -140,11 +141,12 @@ def send_msg_to_all(sc,request,msg):
     members_array = user_list["members"]
     
     ids_array = []
-    real_users = []
     for member in members_array:
         ids_array.append(member['id'])
+    real_users = []
 
     for user_id in ids_array:
+        
         user_channel = sc.api_call(
             "im.open",
             user=user_id,
@@ -152,16 +154,14 @@ def send_msg_to_all(sc,request,msg):
         if user_channel['ok'] == True:
             real_users.append(User(user_id, user_channel['channel']['id']) )
 
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(send_msg(sc, real_users, request, msg))
+    pool = Pool(processes=1)              # Start a worker processes.
+    result = pool.apply_async(send_msg(sc, real_users, request, msg), [10], callback)
     return HttpResponse()
 
-async def send_msg(sc, real_users, req, msg):
+def send_msg(sc, real_users, req, msg):
     for user in real_users:    
-        print("send")
         send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
-    pass
+
 def open_channel_if_needed(sc, request): 
     return sc.api_call(
         "im.open",
