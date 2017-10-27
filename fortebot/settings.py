@@ -154,4 +154,4 @@ NOT_A_NUMBER_PHRASE = "Thats not a number, I'm Sorry"
 
 BAD_CHANNEL_PHRASE = "You're not allowed to start the vote"
 
-HELP = ">`/anon_feedback`  *`Your_msg`* - Use it to send anonymus feedback, \n>`/start_temperature_vote` - Use it to start default temperature vote \n>`/start_feedback_vote` *`Your_msg`* - Use it to start question vote \n\n>`/start_rating_vote` *`Your_msg`* - Use it to start custom text vote with rating \n>`/get_results` - Use it to get results about last vote \n"
+HELP = ">`/anon_feedback`  *`Your_msg`* - Use it to send anonymus feedback, \n>\n>`/start_temperature_vote` - Use it to start default temperature vote \n>\n>`/start_feedback_vote` *`Your_msg`* - Use it to start question vote \n>\n>`/start_rating_vote` *`Your_msg`* - Use it to start custom text vote with rating \n>\n>`/get_results` - Use it to get results about last vote \n"
