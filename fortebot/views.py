@@ -36,7 +36,7 @@ def get_results(request):
 def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], ">`/anon_feedback`  *`Your_msg`* - Use it to send anonymus feedback, \n>`/forte_vote` - Use it to trigger temperature vote \n" )  
+    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
     return HttpResponse()
 
 @api_view(['POST'])
@@ -96,19 +96,6 @@ def send_msg_to_all(sc,request,msg):
         )
         if user_channel['ok'] == True:
             real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
 
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
@@ -118,7 +105,7 @@ def send_msg_to_all(sc,request,msg):
 
 async def send_msg(sc, real_users, req, msg):
     for user in real_users:    
-        print(user)
+        print("sended")
         send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
 
 
