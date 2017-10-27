@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^temperature_vote', views.temperature_vote),
     url(r'^forte_vote/', views.rating_vote),
     url(r'^anonymous_feedback/', views.anonymous_feedback),
+    url(r'^anonymous_msg_random', views.anonymous_feedback),
     url(r'^forte_help/', views.help),
     url(r'^get_results', views.get_results),
     url(r'^question_vote', views.question_vote),

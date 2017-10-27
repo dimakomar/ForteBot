@@ -40,12 +40,19 @@ def help(request):
     return HttpResponse()
 
 @api_view(['POST'])
+def anonymous_msg_random(request):
+    return send_msg(request, "random")
+
+@api_view(['POST'])
 def anonymous_feedback(request):
+    return send_msg(request, settings.PRIVATE_CHANNEL)
+
+def send_msg(request,channel):
     tkn = getToken()
     sc = SlackClient(tkn)
     sc.api_call(
         "chat.postMessage",
-        channel=settings.PRIVATE_CHANNEL,
+        channel=channel,
         text="`someone told:` " + request.data['text'] 
     )    
     return HttpResponse()
