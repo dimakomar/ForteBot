@@ -155,14 +155,13 @@ def send_msg_to_all(sc,request,msg):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(send_msg(sc, real_users, request, msg))
-    loop.close()
     return HttpResponse()
 
 async def send_msg(sc, real_users, req, msg):
     for user in real_users:    
         print("send")
         send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
-
+    pass
 def open_channel_if_needed(sc, request): 
     return sc.api_call(
         "im.open",
