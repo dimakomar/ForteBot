@@ -55,7 +55,7 @@ def question_vote(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        send_msg_to_all(sc, request, "".join([request.data["text"], " Please reply with `/anonymus_message`"]))
+        send_msg_to_all(sc, request, "".join([request.data["text"], " - please reply with `/anonymus_message`"]))
     return HttpResponse()
 
 @api_view(['POST'])
@@ -72,8 +72,7 @@ def start_rating_vote(request, msg):
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
         open('users', 'w').close()
         open('marks', 'w').close()
-        send_msg_to_all(sc, request, "".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
-        
+        send_msg_to_all(sc, request, "".join([request.data["text"], msg]))
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
     return HttpResponse()
@@ -114,9 +113,17 @@ def sent_message(request):
     tkn = getToken()
     sc = SlackClient(tkn)  
     user_channel = open_channel_if_needed(sc, request)
-
-    if request.data['event']['text'] == "Hello":
-        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'], "Yes, I'm here") 
+    t = request.data['event']['text'] 
+    usr = request.data['event']['user']
+    channel = user_channel['channel']['id']
+    if t == "Hello" or t == "hello" or t == "Hi" or t == "hi" or t == "Hey" or t == "hey":
+        send_ephemeral_msg(sc,usr,channel, "Yes, I'm here") 
+        return HttpResponse()
+    if t == "How are you" or t == "how are you" or t == "Wassup" or t == "wassup" or t == "sup" or t == "Sup":
+        send_ephemeral_msg(sc,usr,channel, "Doing good as always") 
+        return HttpResponse()
+    if "you" in t or "You" in t:
+        send_ephemeral_msg(sc,usr,channel, "I can say same about you :P") 
         return HttpResponse()
 
     if str.isdigit(request.data['event']['text']):
