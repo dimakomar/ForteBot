@@ -29,7 +29,10 @@ def get_results(request):
         numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
         all_marks = sum(list(map(int, numbered_list)))
         avarage_num = round(all_marks / len(numbered_list), 1)
-        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join(["result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
+        path = os.path.join('last_vote_name')
+        with open(path, "r") as last_vote_name_file:
+            vote_name = last_vote_name_file.read()
+        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([vote_name, " result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
     return HttpResponse()
 
 @api_view(['POST'])
@@ -47,16 +50,6 @@ def anonymous_msg_random(request):
 def anonymous_feedback(request):
     return send_normal_msg(request, settings.PRIVATE_CHANNEL)
 
-def send_normal_msg(request,channel):
-    tkn = getToken()
-    sc = SlackClient(tkn)
-    sc.api_call(
-        "chat.postMessage",
-        channel=channel,
-        text="`someone told:` " + request.data['text'] 
-    )    
-    return HttpResponse()
-
 @api_view(['POST'])
 def question_vote(request):
     tkn = getToken()
@@ -72,48 +65,6 @@ def temperature_vote(request):
 @api_view(['POST'])
 def rating_vote(request):
     return start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
-
-def start_rating_vote(request, msg):
-    tkn = getToken()
-    sc = SlackClient(tkn)
-    if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        open('users', 'w').close()
-        open('marks', 'w').close()
-        send_msg_to_all(sc, request, "".join([request.data["text"], msg]))
-    else:
-        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
-    return HttpResponse()
-
-def send_msg_to_all(sc,request,msg):
-    user_list = sc.api_call(
-        "users.list"
-    )
-    members_array = user_list["members"]
-    
-    ids_array = []
-    for member in members_array:
-        ids_array.append(member['id'])
-    real_users = []
-
-    for user_id in ids_array:
-        
-        user_channel = sc.api_call(
-            "im.open",
-            user=user_id,
-        )
-        if user_channel['ok'] == True:
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(send_msg(sc, real_users, request, msg))
-    loop.close()
-    return HttpResponse()
-
-async def send_msg(sc, real_users, req, msg):
-    for user in real_users:    
-        print("sended")
-        send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
 
 
 @api_view(['POST'])
@@ -156,7 +107,62 @@ def sent_message(request):
     else:
         send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
     return HttpResponse()  
+
+
+def send_normal_msg(request,channel):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    sc.api_call(
+        "chat.postMessage",
+        channel=channel,
+        text="`stranger:` " + request.data['text'] 
+    )    
+    return HttpResponse()
+
+def start_rating_vote(request, msg):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
+        open('users', 'w').close()
+        open('marks', 'w').close()
+        open('last_vote_name', 'w').close()
+        with open("last_vote_name", "a") as last_vote_name_file:
+            last_vote_name_file.write(request.data['text']) 
+        send_msg_to_all(sc, request, "".join([request.data["text"], msg]))
+    else:
+        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
+    return HttpResponse()
+
+def send_msg_to_all(sc,request,msg):
+    user_list = sc.api_call(
+        "users.list"
+    )
+    members_array = user_list["members"]
     
+    ids_array = []
+    for member in members_array:
+        ids_array.append(member['id'])
+    real_users = []
+
+    for user_id in ids_array:
+        user_channel = sc.api_call(
+            "im.open",
+            user=user_id,
+        )
+        if user_channel['ok'] == True:
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(send_msg(sc, real_users, request, msg))
+    loop.close()
+    return HttpResponse()
+
+async def send_msg(sc, real_users, req, msg):
+    for user in real_users:    
+        print("sended")
+        send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
+
 def open_channel_if_needed(sc, request): 
     return sc.api_call(
         "im.open",
