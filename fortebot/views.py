@@ -140,6 +140,7 @@ def send_msg_to_all(sc,request,msg):
     members_array = user_list["members"]
     
     ids_array = []
+    real_users = []
     for member in members_array:
         ids_array.append(member['id'])
 
