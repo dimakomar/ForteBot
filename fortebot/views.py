@@ -142,6 +142,49 @@ def send_msg_to_all(sc,request,msg):
     ids_array = []
     for member in members_array:
         ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
+        ids_array.append(member['id'])
     real_users = []
 
     for user_id in ids_array:
@@ -160,7 +203,7 @@ def send_msg_to_all(sc,request,msg):
 
 async def send_msg(sc, real_users, req, msg):
     for user in real_users:    
-        print("sended")
+        print("soneded")
         send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
 
 def open_channel_if_needed(sc, request): 
