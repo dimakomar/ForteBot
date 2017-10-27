@@ -20,9 +20,9 @@ def get_results(request):
     path = os.path.join('marks')
     with open(path , 'r') as marks_file:
         marks_file = marks_file.read()
+        print(marks_file)
         if marks_file == "":
             send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],"Noone voted right now")
-            print("empty")
             return HttpResponse()
         
         marks_splitted_list = marks_file.split(",")
@@ -59,19 +59,24 @@ def question_vote(request):
     return HttpResponse()
 
 @api_view(['POST'])
+def temperature_vote(request):
+    return start_rating_vote(request,settings.VOTE_PHRASE)
+
+@api_view(['POST'])
 def rating_vote(request):
+    return start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
+
+def start_rating_vote(request, msg):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
         open('users', 'w').close()
         open('marks', 'w').close()
-        send_msg_to_all(sc, request, settings.VOTE_PHRASE if req.data["text"] == "" else "".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
+        send_msg_to_all(sc, request, "".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
         
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
     return HttpResponse()
-
-
 
 def send_msg_to_all(sc,request,msg):
     user_list = sc.api_call(
@@ -105,7 +110,7 @@ async def send_msg(sc, real_users, req, msg):
 
 
 @api_view(['POST'])
-def messageSent(request):
+def sent_message(request):
     tkn = getToken()
     sc = SlackClient(tkn)  
     user_channel = open_channel_if_needed(sc, request)
