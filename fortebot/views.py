@@ -96,8 +96,20 @@ def send_msg_to_all(sc,request,msg):
         )
         if user_channel['ok'] == True:
             real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
 
-    real_users = ["qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe","qwe"]
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(send_msg(sc, real_users, request, msg))
@@ -106,7 +118,7 @@ def send_msg_to_all(sc,request,msg):
 
 async def send_msg(sc, real_users, req, msg):
     for user in real_users:    
-        print("sended")
+        print(user)
         send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
 
 
