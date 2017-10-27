@@ -7,3 +7,5 @@ slackclient
 PyJWT
 schedule
 mixpanel
+celery
+django-celery

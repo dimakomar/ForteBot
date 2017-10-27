@@ -11,8 +11,7 @@ import os
 import jwt
 from .user import User
 from mixpanel import Mixpanel
-import asyncio
-from multiprocessing import Pool
+from celery import task
 
 @api_view(['POST'])
 def get_results(request):
@@ -121,7 +120,6 @@ def send_normal_msg(request,channel):
     return HttpResponse()
 
 def start_rating_vote(request, msg):
-    HttpResponse()
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
@@ -174,10 +172,11 @@ def send_msg_to_all(sc,request,msg):
     send_msg(sc, real_users, request, msg)
     return HttpResponse()
 
+@task()
 def send_msg(sc, real_users, req, msg):
     for user in real_users:    
         print("send")
-        send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
+        send_ephemeral_msg.delay(sc,user.user_id,user.dm_channel, msg)
         
 
 def open_channel_if_needed(sc, request): 
