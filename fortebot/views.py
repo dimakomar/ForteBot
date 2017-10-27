@@ -176,8 +176,7 @@ def send_msg_to_all(sc,request,msg):
 def send_msg(sc, real_users, req, msg):
     for user in real_users:    
         print("send")
-        pool = Pool(processes=1)              # Start a worker processes.
-        pool.apply_async(send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg), [10])
+        send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
         
 
 def open_channel_if_needed(sc, request): 
