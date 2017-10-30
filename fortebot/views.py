@@ -116,7 +116,7 @@ def send_normal_msg(request,channel):
     sc.api_call(
         "chat.postMessage",
         channel=channel,
-        text="`anonymous:` " + request.data['text'] 
+        text="`stranger:` " + request.data['text'] 
     )    
     return HttpResponse()
 
@@ -129,7 +129,7 @@ def start_rating_vote(request, msg):
         open('last_vote_name', 'w').close()
         with open("last_vote_name", "a") as last_vote_name_file:
             last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
-        send_msg_to_all(sc, request, msg]))
+        send_msg_to_all(sc, request, "".join([msg]))
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
     return HttpResponse()
@@ -165,7 +165,6 @@ def send_msg(sc, real_users, req, msg):
         
 
 def open_channel_if_needed(sc, request): 
-    print(request.data)
     return sc.api_call(
         "im.open",
         user=request.data['event']['user'],
