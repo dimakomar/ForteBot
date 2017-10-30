@@ -44,6 +44,7 @@ def help(request):
 
 @api_view(['POST'])
 def anonymous_msg_random(request):
+    print()
     return send_normal_msg(request, "random")
 
 @api_view(['POST'])
@@ -55,7 +56,7 @@ def question_vote(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        send_msg_to_all(sc, request, "".join([request.data["text"], " - please reply with `/anonymus_message`"]))
+        send_msg_to_all(sc, request, "".join([request.data["text"], " - please reply with `/anon_msg`"]))
     return HttpResponse()
 
 @api_view(['POST'])
@@ -154,7 +155,6 @@ def send_msg_to_all(sc,request,msg):
             real_users.append(User(user_id, user_channel['channel']['id']) )
 
     send_msg.after_response(sc, real_users, request, msg)
-    # send_msg(sc, real_users, request, msg)
     return HttpResponse()
 
 @after_response.enable
