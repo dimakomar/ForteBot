@@ -11,7 +11,7 @@ import os
 import jwt
 from .user import User
 from mixpanel import Mixpanel
-from celery import task
+import after_response
 
 @api_view(['POST'])
 def get_results(request):
@@ -158,13 +158,13 @@ def send_msg_to_all(sc,request,msg):
             real_users.append(User(user_id, user_channel['channel']['id']) )
             real_users.append(User(user_id, user_channel['channel']['id']) )
             real_users.append(User(user_id, user_channel['channel']['id']) )
-            
 
 
-    send_msg(sc, real_users, request, msg)
+    send_msg.after_response(sc, real_users, request, msg)
+    # send_msg(sc, real_users, request, msg)
     return HttpResponse()
 
-@task()
+@after_response.enable
 def send_msg(sc, real_users, req, msg):
     for user in real_users:    
         print("send")

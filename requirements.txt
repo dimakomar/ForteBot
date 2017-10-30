@@ -9,3 +9,4 @@ schedule
 mixpanel
 celery
 django-celery
+django-after-response
