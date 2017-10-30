@@ -85,6 +85,10 @@ def sent_message(request):
     if "you" in t or "You" in t:
         send_ephemeral_msg(sc,usr,channel, "I can say same about you :P") 
         return HttpResponse()
+    
+    if request.data['event']['user'] in text:
+        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
+        return HttpResponse()
 
     if str.isdigit(request.data['event']['text']):
         number = int(request.data['event']['text'])
@@ -103,8 +107,7 @@ def sent_message(request):
                 mp = Mixpanel(settings.MIXPANEL_TOKEN)
                 mp.track('Forte', request.data['event']['text'])
             send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
-        else:
-            send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
+            return HttpResponse()
     else:
         send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
     return HttpResponse()  
