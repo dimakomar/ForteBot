@@ -158,4 +158,8 @@ BAD_CHANNEL_PHRASE = "You're not allowed to start the vote"
 
 HELP = ">`/anon_msg`  *`your_msg`* - Use it to send anonymus feedback, \n>\n>`/anon_msg_rangom`  *`your_msg`* - Use it to send anonymus message to *#random*, channel \n>\n>`/start_temperature_vote` - Use it to start default temperature vote \n>\n>`/start_question_vote` *`your_msg`* - Use it to start question vote \n>\n>`/start_rating_vote` *`your_msg`* - Use it to start custom text vote with rating \n>\n>`/get_results` - Use it to get results about last vote \n"
 
-DELIVERY = ">*Tiger Box* 0671550025\n>`https://www.instagram.com/p/BUhD1AGgIbJ/?taken-by=tigerboxternopil`\n>\n>*Avokado* 0975427570, 0660861908\n>`http://www.sushi.te.ua`\n>\n>*Barbaresco* 0506700400\n>`https://www.facebook.com/barbarescocitycafe/photos/a.1625890031071855.1073741829.1624010187926506/1894674224193433/?type=3&theater`\n>\n"
+DELIVERY = "".join([">*Tiger Box* 0671550025\n>`https://www.instagram.com/p/BUhD1AGgIbJ/?taken-by=tigerboxternopil`\n>\n",
+">*Avokado* 0975427570, 0660861908\n>`http://www.sushi.te.ua`\n>\n",
+">*Barbaresco* 0506700400\n>`https://www.facebook.com/barbarescocitycafe/photos/a.1625890031071855.1073741829.1624010187926506/1894674224193433/?type=3&theater`\n>\n", 
+">*Pork & chicken* 0677461813\n>`https://www.facebook.com/burgerspc/photos/a.1734758993429283.1073741829.1662112834027233/1900835830154931/?type=3&theaterl`\n>\n",
+">*Сицилія* 0977101033\n>`http://sicilia.te.ua/доставка-піци-тернопіль/`\n>\n",]) 
