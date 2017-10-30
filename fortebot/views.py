@@ -152,13 +152,6 @@ def send_msg_to_all(sc,request,msg):
         )
         if user_channel['ok'] == True:
             real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-
 
     send_msg.after_response(sc, real_users, request, msg)
     # send_msg(sc, real_users, request, msg)
