@@ -85,7 +85,10 @@ def sent_message(request):
     if "you" in t or "You" in t:
         send_ephemeral_msg(sc,usr,channel, "I can say same about you :P") 
         return HttpResponse()
-    
+
+    with open("users", "r") as text_file:
+        text = text_file.read()
+        
     if request.data['event']['user'] in text:
         send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
@@ -111,7 +114,6 @@ def sent_message(request):
     else:
         send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
     return HttpResponse()  
-
 
 def send_normal_msg(request,channel):
     tkn = getToken()
