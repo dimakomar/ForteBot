@@ -161,7 +161,7 @@ def send_msg_to_all(sc,request,msg):
 def send_msg(sc, real_users, req, msg):
     for user in real_users:    
         print("send")
-        send_ephemeral_msg.delay(sc,user.user_id,user.dm_channel, msg)
+        send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
         
 
 def open_channel_if_needed(sc, request): 
