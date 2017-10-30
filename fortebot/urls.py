@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^forte_help/', views.help),
     url(r'^get_results', views.get_results),
     url(r'^question_vote', views.question_vote),
+    url(r'^delivery', views.delivery),
 ]
 
