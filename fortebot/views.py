@@ -43,8 +43,14 @@ def help(request):
     return HttpResponse()
 
 @api_view(['POST'])
+def delivery(request):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.DELIVERY)  
+    return HttpResponse()
+
+@api_view(['POST'])
 def anonymous_msg_random(request):
-    print()
     return send_normal_msg(request, "random")
 
 @api_view(['POST'])
@@ -88,7 +94,7 @@ def sent_message(request):
 
     with open("users", "r") as text_file:
         text = text_file.read()
-        
+
     if request.data['event']['user'] in text:
         send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
