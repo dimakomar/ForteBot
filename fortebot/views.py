@@ -116,7 +116,7 @@ def send_normal_msg(request,channel):
     sc.api_call(
         "chat.postMessage",
         channel=channel,
-        text="`stranger:` " + request.data['text'] 
+        text="`anonymous:` " + request.data['text'] 
     )    
     return HttpResponse()
 
