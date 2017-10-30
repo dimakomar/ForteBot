@@ -165,6 +165,7 @@ def send_msg(sc, real_users, req, msg):
         
 
 def open_channel_if_needed(sc, request): 
+    print(request.data)
     return sc.api_call(
         "im.open",
         user=request.data['event']['user'],
