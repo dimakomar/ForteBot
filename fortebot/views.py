@@ -120,7 +120,8 @@ def sent_message(request):
     if "you" in t or "You" in t:
         send_ephemeral_msg(sc,usr,channel, "I can say same about you :P") 
         return HttpResponse()
-
+    
+    send_ephemeral_msg(sc,usr,channel, ":sch:? Thats too hard for me") 
     # with open("users", "r") as text_file:
     #     text = text_file.read()
 
