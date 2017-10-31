@@ -107,7 +107,7 @@ def rating_vote(request):
 def sent_message(request):
     tkn = getToken()
     sc = SlackClient(tkn)  
-    user_channel = open_channel_if_needed(sc, request)
+    user_channel = open_events_api_channel_if_needed(sc, request)
     t = request.data['event']['text'] 
     usr = request.data['event']['user']
     channel = user_channel['channel']['id']
@@ -208,7 +208,13 @@ def open_channel_if_needed(sc, request):
     return sc.api_call(
         "im.open",
         user=request.data['user_id'],
-    )      
+    ) 
+
+def open_events_api_channel_if_needed(sc, request): 
+return sc.api_call(
+    "im.open",
+    user=request.data['event']['user']
+)       
 
 def getToken():
     path = os.path.join('noname')
