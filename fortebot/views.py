@@ -56,6 +56,13 @@ def rate(request):
     sc = SlackClient(tkn)
     user_channel = open_channel_if_needed(sc, request)
     msg = request.data["text"]
+    text = ""
+    with open("users", "r") as text_file:
+        text = text_file.read()
+
+    if request.data['user_id'] in text:
+        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
+        return HttpResponse()
 
     if str.isdigit(msg):
         number = int(msg)
