@@ -9,7 +9,7 @@
  
 ## Installation
 
-Assuming you have a [pip](https://pip.pypa.io/en/stable/installing/) installed
+Assuming you have a [Python](https://www.python.org) and [pip](https://pip.pypa.io/en/stable/installing/) installed
 ```bash
  pip install -r requirements.txt
 ```
@@ -18,9 +18,20 @@ Assuming you have a [pip](https://pip.pypa.io/en/stable/installing/) installed
  python manage.py runserver
 ```
 ## Features
->`/anon_feedback`  *Your_msg* - Use it to send anonymus feedback
+>`/anon_msg`  *your_msg* - Use it to send anonymus feedback
 
->`/forte_vote` - Use it to trigger temperature vote
+>`/anon_msg_random`  *your_msg* - Use it to send anonymus message to *#random*, channel
+
+>`/start_temperature_vote` - Use it to start default temperature vote 
+
+>`/start_question_vote` *your_msg* - Use it to start question vote 
+
+>`/start_rating_vote` *your_msg* - Use it to start custom text vote with rating 
+
+>`/get_results` - Use it to get results about last vote
+
+>`/delivery` - Use it to get list of delivery links
+
 
 ## TODOs
 
