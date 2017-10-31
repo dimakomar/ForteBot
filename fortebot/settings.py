@@ -166,3 +166,8 @@ DELIVERY = "".join([">*Tiger Box* 0671550025 :tiger:\n>`https://www.instagram.co
 ">*Фламінго* 0983522222 :pizza:\n>`http://www.samogon.org/pizzeria_flamingo/menu-breakfast.php`\n>\n",
 ">*Ковчег* 0983522222 :spaghetti:\n>`http://www.samogon.org/kovcheg/menu.php`\n>\n",
 ">*Старий Млин* 0983522222 :stew:\n>`http://www.samogon.org/stary_mlyn/menu.php`\n>\n"]) 
+
+NOONE_VOTED = "Noone voted right now"
+
+PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg`"
+

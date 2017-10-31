@@ -22,7 +22,7 @@ def get_results(request):
         marks_file = marks_file.read()
         print(marks_file)
         if marks_file == "":
-            send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],"Noone voted right now")
+            send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],settings.NOONE_VOTED)
             return HttpResponse()
         
         marks_splitted_list = marks_file.split(",")
@@ -92,7 +92,7 @@ def question_vote(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        send_msg_to_all(sc, request, "".join([request.data["text"], " - please reply with `/anon_msg`"]))
+        send_msg_to_all(sc, request, "".join([request.data["text"], settings.PLEASE_REPLY_WITH_ANON]))
     return HttpResponse()
 
 @api_view(['POST'])
