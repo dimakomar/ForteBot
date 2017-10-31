@@ -37,4 +37,4 @@ Assuming you have a [Python](https://www.python.org) and [pip](https://pip.pypa.
 
  * Change bot message to dialog message
  * Add Unis tests
- * Add local delivery list
+ * ~~Add local delivery list~~
