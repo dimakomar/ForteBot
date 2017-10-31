@@ -32,6 +32,8 @@ Assuming you have a [Python](https://www.python.org) and [pip](https://pip.pypa.
 
 >`/delivery` - Use it to get list of delivery links
 
+>`/rate` *number* - Use it to answer the rating votes 
+
 
 ## TODOs
 
