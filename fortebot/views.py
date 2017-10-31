@@ -211,10 +211,10 @@ def open_channel_if_needed(sc, request):
     ) 
 
 def open_events_api_channel_if_needed(sc, request): 
-return sc.api_call(
-    "im.open",
-    user=request.data['event']['user']
-)       
+    return sc.api_call(
+        "im.open",
+        user=request.data['event']['user']
+    )       
 
 def getToken():
     path = os.path.join('noname')
