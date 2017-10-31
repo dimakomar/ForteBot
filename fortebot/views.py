@@ -61,7 +61,7 @@ def rate(request):
         text = text_file.read()
 
     if request.data['user_id'] in text:
-        send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
+        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
 
     if str.isdigit(msg):
