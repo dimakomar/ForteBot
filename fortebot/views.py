@@ -104,12 +104,12 @@ def question_vote(request):
 
 @api_view(['POST'])
 def temperature_vote(request):
-    start_rating_vote.after_response(request,settings.VOTE_PHRASE)
+    start_rating_vote(request,settings.VOTE_PHRASE)
     return HttpResponse()
 
 @api_view(['POST'])
 def rating_vote(request):
-    return start_rating_vote.after_response(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
+    return start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
 
 @api_view(['POST'])
 def sent_message(request):
@@ -151,7 +151,7 @@ def send_normal_msg(request,channel):
     )    
     return HttpResponse()
 
-@after_response.enable
+
 def start_rating_vote(request, msg):
     tkn = getToken()
     sc = SlackClient(tkn)
@@ -161,12 +161,13 @@ def start_rating_vote(request, msg):
         open('last_vote_name', 'w').close()
         with open("last_vote_name", "a") as last_vote_name_file:
             last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
-        send_msg_to_all(sc, request, "".join([msg, "settings.PLEASE_REPLY_WITH_RATE"]))
+        send_msg_to_all.after_response(sc, request, "".join([msg, "settings.PLEASE_REPLY_WITH_RATE"]))
         return HttpResponse()
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
     return HttpResponse()
 
+@after_response.enable
 def send_msg_to_all(sc,request,msg):
     user_list = sc.api_call(
         "users.list"
