@@ -104,11 +104,11 @@ def question_vote(request):
 
 @api_view(['POST'])
 def temperature_vote(request):
-    start_rating_vote(request,settings.VOTE_PHRASE)
+    return start_rating_vote(request,settings.VOTE_PHRASE)
 
 @api_view(['POST'])
 def rating_vote(request):
-    start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
+    return start_rating_vote.after_response(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
 
 @api_view(['POST'])
 def sent_message(request):
@@ -150,6 +150,7 @@ def send_normal_msg(request,channel):
     )    
     return HttpResponse()
 
+@after_response.enable
 def start_rating_vote(request, msg):
     tkn = getToken()
     sc = SlackClient(tkn)
@@ -184,10 +185,9 @@ def send_msg_to_all(sc,request,msg):
         )
         if user_channel['ok'] == True:
             real_users.append(User(user_id, user_channel['channel']['id']))
-    send_msg.after_response(sc, real_users, request, msg)
+    send_msg(sc, real_users, request, msg)
     return HttpResponse()
 
-@after_response.enable
 def send_msg(sc, real_users, req, msg):
     for user in real_users:    
         print("send")
