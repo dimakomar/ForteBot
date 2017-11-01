@@ -94,6 +94,7 @@ def anonymous_msg_random(request):
 def anonymous_feedback(request):
     return send_normal_msg(request, settings.PRIVATE_CHANNEL)
 
+#MARK : Votes 
 @api_view(['POST'])
 def start_temperature_vote(request):
     start_rating_vote(request,settings.VOTE_PHRASE)
@@ -101,7 +102,7 @@ def start_temperature_vote(request):
 
 @api_view(['POST'])
 def start_rating_vote(request):
-    start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
+    start_rating_vote(request,settings.VOTE_PHRASE)
     return HttpResponse()
 
 @api_view(['POST'])
@@ -111,6 +112,7 @@ def start_question_vote(request):
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
         send_msg_to_all.after_response(sc, request, "".join([request.data["text"], settings.PLEASE_REPLY_WITH_ANON]))
     return HttpResponse()
+
 #This part is responsible for Slack Events API 
 @api_view(['POST'])
 def sent_message(request):
