@@ -128,34 +128,7 @@ def sent_message(request):
         send_ephemeral_msg(sc,usr,channel, "I can say same about you :P") 
         return HttpResponse()
     
-    send_ephemeral_msg(sc,usr,channel, ":sch:? Thats too hard for me") 
-    # with open("users", "r") as text_file:
-    #     text = text_file.read()
-
-    # if request.data['event']['user'] in text:
-    #     send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
-    #     return HttpResponse()
-
-    # if str.isdigit(request.data['event']['text']):
-    #     number = int(request.data['event']['text'])
-    #     if number < 11 and number > 0 :
-    #         with open("users", "r") as text_file:
-    #             text = text_file.read()
-    #     else:
-    #         send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_IN_RANGE_PHRASE)
-    #         return HttpResponse()
-
-    #     if request.data['event']['user'] not in text:
-    #         with open("users", "a") as text_file:
-    #             text_file.write(request.data['event']['user'] + '\n')    
-    #             with open("marks", "a") as marks_file:
-    #                 marks_file.write("".join([request.data['event']['text'] + ","]))                            
-    #             mp = Mixpanel(settings.MIXPANEL_TOKEN)
-    #             mp.track('Forte', request.data['event']['text'])
-    #         send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.THANKS_PHRASE)
-    #         return HttpResponse()
-    # else:
-    #     send_ephemeral_msg(sc,request.data['event']['user'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
+    send_ephemeral_msg(sc,usr,channel, ":sch:? Thats too hard for me")              
     return HttpResponse()  
 
 def send_normal_msg(request,channel):
@@ -200,6 +173,12 @@ def send_msg_to_all(sc,request,msg):
             user=user_id,
         )
         if user_channel['ok'] == True:
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
+            real_users.append(User(user_id, user_channel['channel']['id']) )
             real_users.append(User(user_id, user_channel['channel']['id']) )
 
     send_msg.after_response(sc, real_users, request, msg)
