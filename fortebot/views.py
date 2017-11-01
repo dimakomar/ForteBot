@@ -105,12 +105,10 @@ def question_vote(request):
 @api_view(['POST'])
 def temperature_vote(request):
     start_rating_vote(request,settings.VOTE_PHRASE)
-    return HttpResponse()
 
 @api_view(['POST'])
 def rating_vote(request):
     start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
-    return HttpResponse()
 
 @api_view(['POST'])
 def sent_message(request):
@@ -153,6 +151,7 @@ def start_rating_vote(request, msg):
         with open("last_vote_name", "a") as last_vote_name_file:
             last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
         send_msg_to_all(sc, request, "".join([msg, " - please reply with `/rate`"]))
+        return HttpResponse()
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
     return HttpResponse()
