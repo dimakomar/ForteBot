@@ -56,7 +56,7 @@ def rate(request):
     sc = SlackClient(tkn)
     user_channel = open_channel_if_needed(sc, request)
     msg = request.data["text"]
-    text = ""
+    # text = ""
     with open("users", "r") as text_file:
         text = text_file.read()
 
@@ -124,8 +124,17 @@ def sent_message(request):
     if t == "How are you" or t == "how are you" or t == "Wassup" or t == "wassup" or t == "sup" or t == "Sup":
         send_ephemeral_msg(sc,usr,channel, "Doing good as always") 
         return HttpResponse()
-    if "you" in t or "You" in t:
-        send_ephemeral_msg(sc,usr,channel, "I can say same about you :P") 
+    if "you" in t or "You" in t or "u" in t:
+        send_ephemeral_msg(sc,usr,channel, "I can say same about you") 
+        return HttpResponse()
+    if "creator" in t or "Creator" in t or "created" in t or "Created" in t:
+        send_ephemeral_msg(sc,usr,channel, "I'm created by DK") 
+        return HttpResponse()
+    if "creator" in t or "Creator" in t or "created" in t:
+        send_ephemeral_msg(sc,usr,channel, "I'm created by DK") 
+        return HttpResponse()
+    if "think" in t or "Think" in t:
+        send_ephemeral_msg(sc,usr,channel, "I'm not allowed to think about it") 
         return HttpResponse()
     
     send_ephemeral_msg(sc,usr,channel, ":sch:? Thats too hard for me")              
@@ -150,7 +159,7 @@ def start_rating_vote(request, msg):
         open('last_vote_name', 'w').close()
         with open("last_vote_name", "a") as last_vote_name_file:
             last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
-        send_msg_to_all(sc, request, "".join([msg, " - please reply with `/rate`"]))
+        send_msg_to_all(sc, request, "".join([msg, "settings.PLEASE_REPLY_WITH_RATE"]))
         return HttpResponse()
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
@@ -174,14 +183,7 @@ def send_msg_to_all(sc,request,msg):
             user=user_id,
         )
         if user_channel['ok'] == True:
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-            real_users.append(User(user_id, user_channel['channel']['id']) )
-
+            real_users.append(User(user_id, user_channel['channel']['id']))
     send_msg.after_response(sc, real_users, request, msg)
     return HttpResponse()
 
@@ -208,7 +210,7 @@ def getToken():
     path = os.path.join('noname')
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
-        decoded = jwt.decode(encoded_token, 'hello', algorithms=['HS256'])
+        decoded = jwt.decode(encoded_token, 'hello', algorithms=[settings.CODING_ALGORITHM_NAME])
         return decoded['some']
             
 def send_ephemeral_msg(sc, user, channel, text):
