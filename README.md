@@ -38,5 +38,5 @@ Assuming you have a [Python](https://www.python.org) and [pip](https://pip.pypa.
 ## TODOs
 
  * Change bot message to dialog message
- * Add Unis tests
+ * Add Unit tests
  * ~~Add local delivery list~~
