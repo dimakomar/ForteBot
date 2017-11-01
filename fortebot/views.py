@@ -159,7 +159,7 @@ def start_rating_vote(request, msg):
         open('last_vote_name', 'w').close()
         with open("last_vote_name", "a") as last_vote_name_file:
             last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
-        send_msg_to_all(sc, request, "".join([msg, settings.PLEASE_REPLY_WITH_RATE]))
+        send_msg_to_all(sc, request, "".join([msg, "settings.PLEASE_REPLY_WITH_RATE"]))
         return HttpResponse()
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
