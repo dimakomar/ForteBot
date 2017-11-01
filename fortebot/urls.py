@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^slack/', views.sent_message),
     url(r'^temperature_vote', views.start_temperature_vote),
-    url(r'^forte_vote/', views.start_rating_vote),
+    url(r'^forte_vote', views.start_rating_vote),
     url(r'^anonymous_feedback/', views.anonymous_feedback),
     url(r'^anonymous_msg_random', views.anonymous_msg_random),
     url(r'^forte_help/', views.help),

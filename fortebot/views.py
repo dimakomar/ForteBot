@@ -96,12 +96,12 @@ def anonymous_feedback(request):
 
 #MARK : Votes 
 @api_view(['POST'])
-def start_temperature_vote(request):
+def temperature_vote(request):
     start_rating_vote(request,settings.VOTE_PHRASE)
     return HttpResponse()
 
 @api_view(['POST'])
-def start_rating_vote(request):
+def rating_vote(request):
     start_rating_vote(request,settings.VOTE_PHRASE)
     return HttpResponse()
 
