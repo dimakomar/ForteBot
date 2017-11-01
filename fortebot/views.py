@@ -104,11 +104,13 @@ def question_vote(request):
 
 @api_view(['POST'])
 def temperature_vote(request):
-    return start_rating_vote(request,settings.VOTE_PHRASE)
+    start_rating_vote(request,settings.VOTE_PHRASE)
+return HttpResponse()
 
 @api_view(['POST'])
 def rating_vote(request):
-    return start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
+    start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
+return HttpResponse()
 
 @api_view(['POST'])
 def sent_message(request):
