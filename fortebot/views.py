@@ -95,22 +95,23 @@ def anonymous_feedback(request):
     return send_normal_msg(request, settings.PRIVATE_CHANNEL)
 
 @api_view(['POST'])
-def question_vote(request):
-    tkn = getToken()
-    sc = SlackClient(tkn)
-    if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        send_msg_to_all(sc, request, "".join([request.data["text"], settings.PLEASE_REPLY_WITH_ANON]))
-    return HttpResponse()
-
-@api_view(['POST'])
-def temperature_vote(request):
+def start_temperature_vote(request):
     start_rating_vote(request,settings.VOTE_PHRASE)
     return HttpResponse()
 
 @api_view(['POST'])
-def rating_vote(request):
-    return start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
+def start_rating_vote(request):
+    start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
+    return HttpResponse()
 
+@api_view(['POST'])
+def start_question_vote(request):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
+        send_msg_to_all.after_response(sc, request, str.join([request.data["text"], settings.PLEASE_REPLY_WITH_ANON]))
+    return HttpResponse()
+#This part is responsible for Slack Events API 
 @api_view(['POST'])
 def sent_message(request):
     tkn = getToken()
@@ -161,7 +162,7 @@ def start_rating_vote(request, msg):
         open('last_vote_name', 'w').close()
         with open("last_vote_name", "a") as last_vote_name_file:
             last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
-        send_msg_to_all.after_response(sc, request, "".join([msg, "settings.PLEASE_REPLY_WITH_RATE"]))
+        send_msg_to_all.after_response(sc, request, str.join([msg, settings.PLEASE_REPLY_WITH_RATE]))
         return HttpResponse()
     else:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
