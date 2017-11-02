@@ -146,7 +146,7 @@ VOTE_PHRASE = "Hello, pls rate your team temperature from 1 to 10"
 
 TEXT_VOTE_PHRASE = " - rate from 1 to 10"
 
-THANKS_PHRASE = "Thanks! "
+THANKS_PHRASE = "*Thanks!* "
 
 ALREADY_VOTED_PHRASE = "You already voted :) Thanks again"
 
@@ -171,6 +171,6 @@ NOONE_VOTED = "Noone voted right now"
 
 PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg`"
 
-PLEASE_REPLY_WITH_RATE = " - please reply with `/rate`"
+PLEASE_REPLY_WITH_RATE = " - please reply with `/rate `*number*``"
 
 CODING_ALGORITHM_NAME = "HS256"
