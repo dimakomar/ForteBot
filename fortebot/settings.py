@@ -169,8 +169,8 @@ DELIVERY = "".join([">*Tiger Box* 0671550025 :tiger:\n>`https://www.instagram.co
 
 NOONE_VOTED = "Noone voted right now"
 
-PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg`"
+PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg` ` *text*`"
 
-PLEASE_REPLY_WITH_RATE = " - please reply with `/rate `*number*``"
+PLEASE_REPLY_WITH_RATE = " - please reply with `/rate ``*number*`"
 
 CODING_ALGORITHM_NAME = "HS256"
