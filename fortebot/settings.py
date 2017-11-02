@@ -140,7 +140,7 @@ SLACK_BOT_TOKEN = ""
 
 PRIVATE_CHANNEL = "G7NUMC5FA"
 
-MIXPANEL_TOKEN = "25d7ff3a1420b04b66b09bf53c7768af"
+MIXPANEL_TOKEN = "141c9f4b562b5b604f61bcdea7fd8264"
 
 VOTE_PHRASE = "Hello, pls rate your team temperature from 1 to 10"
 
@@ -169,7 +169,7 @@ DELIVERY = "".join([">*Tiger Box* 0671550025 :tiger:\n>`https://www.instagram.co
 
 NOONE_VOTED = "Noone voted right now"
 
-PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg` *` text`*"
+PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg` *`text`*"
 
 PLEASE_REPLY_WITH_RATE = " - please reply with `/rate` *` number`*"
 
