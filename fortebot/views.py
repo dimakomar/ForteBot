@@ -105,12 +105,6 @@ def temperature_vote(request):
 
 @api_view(['POST'])
 def rating_vote(request):
-    if request.data["text"] == "" or request.data["text"] == " ":
-        tkn = getToken()
-        sc = SlackClient(tkn)  
-        print(request.data)
-        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],"You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`")
-        return HttpResponse()
     start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
     return HttpResponse()
 
@@ -119,7 +113,7 @@ def start_question_vote(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data["text"] == "" or request.data["text"] == " ":
-        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],"You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`")
+        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel_id'],"You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`")
         return HttpResponse()
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
         send_msg_to_all.after_response(sc, request, "".join([request.data["text"], settings.PLEASE_REPLY_WITH_ANON]))
@@ -173,16 +167,21 @@ def send_normal_msg(request,channel):
 def start_rating_vote(request, msg):
     tkn = getToken()
     sc = SlackClient(tkn)
-    if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        open('users', 'w').close()
-        open('marks', 'w').close()
-        open('last_vote_name', 'w').close()
-        with open("last_vote_name", "a") as last_vote_name_file:
-            last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
-        send_msg_to_all.after_response(sc, request, "".join([msg, settings.PLEASE_REPLY_WITH_RATE]))
-        return HttpResponse()
-    else:
+
+    if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
+        return HttpResponse()
+
+    if request.data["text"] == "" or request.data["text"] == " ":
+        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel_id'],"You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`")
+        return HttpResponse()
+
+    open('users', 'w').close()
+    open('marks', 'w').close()
+    open('last_vote_name', 'w').close()
+    with open("last_vote_name", "a") as last_vote_name_file:
+        last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
+    send_msg_to_all.after_response(sc, request, "".join([msg, settings.PLEASE_REPLY_WITH_RATE]))
     return HttpResponse()
 
 @after_response.enable
