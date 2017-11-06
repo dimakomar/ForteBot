@@ -105,11 +105,11 @@ def temperature_vote(request):
 
 @api_view(['POST'])
 def rating_vote(request):
-    if request.data["text"] == "" or if request.data["text"] == " ":
+    if request.data["text"] == "" or request.data["text"] == " ":
         tkn = getToken()
         sc = SlackClient(tkn)  
         user_channel = open_events_api_channel_if_needed(sc, request)
-        send_ephemeral_msg(sc,usr,channel, "You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`) 
+        send_ephemeral_msg(sc,usr,channel, "You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`") 
         return HttpResponse()
     start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
     return HttpResponse()
@@ -118,9 +118,9 @@ def rating_vote(request):
 def start_question_vote(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    if request.data["text"] == "" or if request.data["text"] == " ":
+    if request.data["text"] == "" or request.data["text"] == " ":
         user_channel = open_events_api_channel_if_needed(sc, request)
-        send_ephemeral_msg(sc,usr,channel, "You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`) 
+        send_ephemeral_msg(sc,usr,channel, "You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`") 
         return HttpResponse()
 
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
