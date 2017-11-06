@@ -83,7 +83,7 @@ def rate(request):
                     marks_file.write("".join([msg + ","]))                            
                 mp = Mixpanel(settings.MIXPANEL_TOKEN)
                 mp.track('Forte', msg)
-            send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],"".join([settings.THANKS_PHRASE, "* You replyed with ", str(number), "* \n if you have something more to say use `/anon_msg` *`text`*"]))
+            send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],"".join([settings.THANKS_PHRASE, str(number), "*\n if you have something more to say use `/anon_msg` *`text`*"]))
             return HttpResponse()
     else:
         send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              

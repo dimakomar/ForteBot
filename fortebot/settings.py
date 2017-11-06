@@ -146,7 +146,7 @@ VOTE_PHRASE = "Hello, pls rate your team temperature from 1 to 10"
 
 TEXT_VOTE_PHRASE = " - rate from 1 to 10"
 
-THANKS_PHRASE = "*Thanks!*"
+THANKS_PHRASE = "*Thanks! You replyed with "
 
 ALREADY_VOTED_PHRASE = "You already voted :) Thanks again"
 
