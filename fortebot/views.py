@@ -191,6 +191,8 @@ def send_normal_msg(request,channel):
 
 def start_rating_vote(request, msg):
     
+    tkn = getToken()
+    sc = SlackClient(tkn)
 
     open('users', 'w').close()
     open('marks', 'w').close()
