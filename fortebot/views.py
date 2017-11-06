@@ -100,11 +100,32 @@ def anonymous_feedback(request):
 #MARK : Votes 
 @api_view(['POST'])
 def temperature_vote(request):
+    
+    if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
+        tkn = getToken()
+        sc = SlackClient(tkn)
+        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
+        return HttpResponse()
+
     start_rating_vote(request,settings.VOTE_PHRASE)
     return HttpResponse()
 
 @api_view(['POST'])
 def rating_vote(request):
+    
+    if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
+        tkn = getToken()
+        sc = SlackClient(tkn)
+        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
+        return HttpResponse()
+    
+    if request.data["text"] == "" or request.data["text"] == " ":
+        tkn = getToken()
+        sc = SlackClient(tkn)
+
+        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"You've been a step away from huge fail by *starting vote with empty message* please check `/help_forte_bot`")
+        return HttpResponse()
+
     start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
     return HttpResponse()
 
@@ -150,7 +171,7 @@ def sent_message(request):
     if "think" in t or "Think" in t:
         send_ephemeral_msg(sc,usr,channel, "I'm not allowed to think about it") 
         return HttpResponse()
-    if "I" in t or "who" in t:
+    if t == "who am I":
         send_ephemeral_msg(sc,usr,channel, "".join([ "You are a meatbag with id `", request.data['event']['user'], "`"])) 
         return HttpResponse()
     
@@ -169,16 +190,7 @@ def send_normal_msg(request,channel):
 
 
 def start_rating_vote(request, msg):
-    tkn = getToken()
-    sc = SlackClient(tkn)
-
-    if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
-        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
-        return HttpResponse()
-
-    if request.data["text"] == "" or request.data["text"] == " ":
-        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"You've been a step away from huge fail by *starting vote with empty message* please check `/help_forte_bot`")
-        return HttpResponse()
+    
 
     open('users', 'w').close()
     open('marks', 'w').close()
