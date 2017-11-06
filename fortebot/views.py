@@ -13,11 +13,6 @@ from .user import User
 from mixpanel import Mixpanel
 import after_response
 
-
-def auth(request):
-    print(request.data)
-    return HttpResponse()
-
 @api_view(['POST'])
 def get_results(request):
     tkn = getToken()

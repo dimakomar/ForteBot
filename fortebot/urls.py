@@ -21,7 +21,6 @@ import os
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^slack/', views.sent_message),
-    url(r'^auth', views.auth),
     url(r'^temperature_vote', views.temperature_vote),
     url(r'^forte_vote', views.rating_vote),
     url(r'^anonymous_feedback/', views.anonymous_feedback),
