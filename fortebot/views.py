@@ -173,7 +173,7 @@ def start_rating_vote(request, msg):
         return HttpResponse()
 
     if request.data["text"] == "" or request.data["text"] == " ":
-        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel_id'],"You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`")
+        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`")
         return HttpResponse()
 
     open('users', 'w').close()
