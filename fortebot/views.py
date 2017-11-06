@@ -47,6 +47,7 @@ def help(request):
 
 @api_view(['POST'])
 def delivery(request):
+    print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
     send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.DELIVERY)  
@@ -170,7 +171,7 @@ def sent_message(request):
     if "think" in t or "Think" in t:
         send_ephemeral_msg(sc,usr,channel, "I'm not allowed to think about it") 
         return HttpResponse()
-    if t == "who am I":
+    if t == "who am I?":
         send_ephemeral_msg(sc,usr,channel, "".join([ "You are a meatbag with id `", request.data['event']['user'], "`"])) 
         return HttpResponse()
     
