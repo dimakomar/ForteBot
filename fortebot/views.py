@@ -171,7 +171,7 @@ def sent_message(request):
     if "think" in t or "Think" in t:
         send_ephemeral_msg(sc,usr,channel, "I'm not allowed to think about it") 
         return HttpResponse()
-    if t == "who am I?":
+    if t == "myid":
         send_ephemeral_msg(sc,usr,channel, "".join([ "You are a meatbag with id `", request.data['event']['user'], "`"])) 
         return HttpResponse()
     
