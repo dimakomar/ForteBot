@@ -14,7 +14,7 @@ from mixpanel import Mixpanel
 import after_response
 
 
-def get_results(request):
+def auth(request):
     print(request.data)
     return HttpResponse()
 
