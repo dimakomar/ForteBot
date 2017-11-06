@@ -185,6 +185,7 @@ def send_normal_msg(request,channel):
         channel=channel,
         text="`anonymous:` " + request.data['text'] 
     )    
+    send_ephemeral_msg(sc,usr,channel, "*Thanks*")     
     return HttpResponse()
 
 
