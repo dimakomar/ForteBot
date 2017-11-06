@@ -133,7 +133,7 @@ def sent_message(request):
     usr = request.data['event']['user']
     channel = user_channel['channel']['id']
     if t == "Hello" or t == "hello" or t == "Hi" or t == "hi" or t == "Hey" or t == "hey":
-        send_ephemeral_msg(sc,usr,channel, "Yes, I'm here") 
+        send_ephemeral_msg(sc,usr,channel, "Hello mate") 
         return HttpResponse()
     if t == "How are you" or t == "how are you" or t == "Wassup" or t == "wassup" or t == "sup" or t == "Sup":
         send_ephemeral_msg(sc,usr,channel, "I'm happy to be alive") 
@@ -151,7 +151,7 @@ def sent_message(request):
         send_ephemeral_msg(sc,usr,channel, "I'm not allowed to think about it") 
         return HttpResponse()
     if "I" in t or "who" in t:
-        send_ephemeral_msg(sc,usr,channel, str.join([ "You are a meatbag with id `", request.data['event']['user'], "`"])) 
+        send_ephemeral_msg(sc,usr,channel, "".join([ "You are a meatbag with id `", request.data['event']['user'], "`"])) 
         return HttpResponse()
     
     send_ephemeral_msg(sc,usr,channel, ":sch:? Thats too hard for me")              
