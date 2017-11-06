@@ -35,7 +35,7 @@ def get_results(request):
                 vote_name = last_vote_name_file.read()
             send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([vote_name, " result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
     else:
-        send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
+        send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],"You are not allowed to get results")
     return HttpResponse()
 
 @api_view(['POST'])
@@ -207,23 +207,6 @@ def send_msg_to_all(sc,request,msg):
             user=user_id,
         )
         if user_channel['ok'] == True:
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
-            real_users.append(User(user_id, user_channel['channel']['id']))
             real_users.append(User(user_id, user_channel['channel']['id']))
     send_msg(sc, real_users, request, msg)
     return HttpResponse()
