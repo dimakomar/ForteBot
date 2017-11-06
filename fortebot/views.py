@@ -108,6 +108,7 @@ def rating_vote(request):
     if request.data["text"] == "" or request.data["text"] == " ":
         tkn = getToken()
         sc = SlackClient(tkn)  
+        print(request.data)
         send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],"You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`")
         return HttpResponse()
     start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
