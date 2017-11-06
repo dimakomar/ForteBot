@@ -100,14 +100,15 @@ def anonymous_feedback(request):
 #MARK : Votes 
 @api_view(['POST'])
 def temperature_vote(request):
-    
+    tkn = getToken()
+    sc = SlackClient(tkn)
     if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
-        tkn = getToken()
-        sc = SlackClient(tkn)
+        
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
         return HttpResponse()
 
     start_rating_vote(request,settings.VOTE_PHRASE)
+    send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"The vote started!")
     return HttpResponse()
 
 @api_view(['POST'])
