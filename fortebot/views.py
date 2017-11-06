@@ -108,8 +108,7 @@ def rating_vote(request):
     if request.data["text"] == "" or request.data["text"] == " ":
         tkn = getToken()
         sc = SlackClient(tkn)  
-        user_channel = open_events_api_channel_if_needed(sc, request)
-        send_ephemeral_msg(sc,usr,channel, "You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`") 
+        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],"You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`")
         return HttpResponse()
     start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
     return HttpResponse()
@@ -119,10 +118,8 @@ def start_question_vote(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data["text"] == "" or request.data["text"] == " ":
-        user_channel = open_events_api_channel_if_needed(sc, request)
-        send_ephemeral_msg(sc,usr,channel, "You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`") 
+        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],"You've been a step away from huge fail (starting vote with empty message) please check `/help_forte_bot`")
         return HttpResponse()
-
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
         send_msg_to_all.after_response(sc, request, "".join([request.data["text"], settings.PLEASE_REPLY_WITH_ANON]))
     return HttpResponse()
@@ -140,7 +137,7 @@ def sent_message(request):
         send_ephemeral_msg(sc,usr,channel, "Yes, I'm here") 
         return HttpResponse()
     if t == "How are you" or t == "how are you" or t == "Wassup" or t == "wassup" or t == "sup" or t == "Sup":
-        send_ephemeral_msg(sc,usr,channel, "Doing good as always") 
+        send_ephemeral_msg(sc,usr,channel, "I'm happy to be alive") 
         return HttpResponse()
     if "you" in t or "You" in t or "u" in t:
         send_ephemeral_msg(sc,usr,channel, "I can say same about you") 
@@ -153,6 +150,9 @@ def sent_message(request):
         return HttpResponse()
     if "think" in t or "Think" in t:
         send_ephemeral_msg(sc,usr,channel, "I'm not allowed to think about it") 
+        return HttpResponse()
+    if "I" in t or "who" in t:
+        send_ephemeral_msg(sc,usr,channel, "You are a meatbag with id `request.data['event']['user']`") 
         return HttpResponse()
     
     send_ephemeral_msg(sc,usr,channel, ":sch:? Thats too hard for me")              
