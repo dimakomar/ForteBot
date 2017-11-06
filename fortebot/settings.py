@@ -171,6 +171,6 @@ NOONE_VOTED = "Noone voted right now"
 
 PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg` *`text`*"
 
-PLEASE_REPLY_WITH_RATE = " - please reply with `/rate` *`number`*"
+PLEASE_REPLY_WITH_RATE = " using `/rate` *`number`* "
 
 CODING_ALGORITHM_NAME = "HS256"
