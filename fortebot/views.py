@@ -147,6 +147,7 @@ def start_question_vote(request):
 #This part is responsible for Slack Events API 
 @api_view(['POST'])
 def sent_message(request):
+    print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
     user_channel = open_events_api_channel_if_needed(sc, request)
@@ -154,7 +155,7 @@ def sent_message(request):
     usr = request.data['event']['user']
     channel = user_channel['channel']['id']
     if t == "Hello" or t == "hello" or t == "Hi" or t == "hi" or t == "Hey" or t == "hey":
-        send_ephemeral_msg(sc,usr,channel, "Hello mate") 
+        # send_ephemeral_msg(sc,usr,channel, "".join([ "Hello", request.data['event']['user'], "`"])) 
         return HttpResponse()
     if t == "How are you" or t == "how are you" or t == "Wassup" or t == "wassup" or t == "sup" or t == "Sup":
         send_ephemeral_msg(sc,usr,channel, "I'm happy to be alive") 
