@@ -154,7 +154,7 @@ def sent_message(request):
     t = request.data['event']['text'] 
     usr = request.data['event']['user']
     channel = user_channel['channel']['id']
-    if t == "Hello" or t == "hello" or t == "Hi" or t == "hi" or t == "Hey" or t == "hey":
+    if "Hello" in t or "hello" in t or "Hi" in t or "hi" in t or "Hey" in t or "hey" in t:
         send_ephemeral_msg(sc,usr,channel, "Hi")
         return HttpResponse()
     if t == "How are you" or t == "how are you" or t == "Wassup" or t == "wassup" or t == "sup" or t == "Sup":
