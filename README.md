@@ -40,3 +40,4 @@ Assuming you have a [Python](https://www.python.org) and [pip](https://pip.pypa.
  * Change bot message to dialog message
  * Add Unit tests
  * ~~Add local delivery list~~
+ * Add schedule of duty
