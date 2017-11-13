@@ -18,10 +18,9 @@ def get_results(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        path = os.path.join('marks')
+        path = os.path.join('static/marks')
         with open(path , 'r') as marks_file:
             marks_file = marks_file.read()
-            print(marks_file)
             if marks_file == "":
                 send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],settings.NOONE_VOTED)
                 return HttpResponse()
@@ -80,7 +79,7 @@ def rate(request):
         if request.data['user_id'] not in text:
             with open("users", "a") as text_file:
                 text_file.write(request.data['user_id'] + '\n')    
-                with open("marks", "a") as marks_file:
+                with open("static/marks", "a") as marks_file:
                     marks_file.write("".join([msg + ","]))                            
                 mp = Mixpanel(settings.MIXPANEL_TOKEN)
                 mp.track('Forte', msg)
@@ -197,7 +196,7 @@ def start_rating_vote(request, msg):
     sc = SlackClient(tkn)
 
     open('users', 'w').close()
-    open('marks', 'w').close()
+    open('static/marks', 'w').close()
     open('last_vote_name', 'w').close()
     with open("last_vote_name", "a") as last_vote_name_file:
         last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
