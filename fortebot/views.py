@@ -15,6 +15,7 @@ import after_response
 
 @api_view(['POST'])
 def get_results(request):
+    print("path")
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
