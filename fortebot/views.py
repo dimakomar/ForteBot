@@ -18,7 +18,7 @@ def get_results(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        path = os.path.join('static/marks')
+        path = os.path.join('static','marks')
         with open(path , 'r') as marks_file:
             marks_file = marks_file.read()
             if marks_file == "":
