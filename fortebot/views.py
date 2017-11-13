@@ -30,7 +30,7 @@ def get_results(request):
             numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
             all_marks = sum(list(map(int, numbered_list)))
             avarage_num = round(all_marks / len(numbered_list), 1)
-            path = os.path.join('last_vote_name')
+            path = os.path.join('fortebot/static/last_vote_name')
             with open(path, "r") as last_vote_name_file:
                 vote_name = last_vote_name_file.read()
             send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([vote_name, " result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
