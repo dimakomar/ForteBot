@@ -15,11 +15,9 @@ import after_response
 
 @api_view(['POST'])
 def get_results(request):
-    print("path")
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        print("path")
         path = os.path.join('fortebot/static/marks')
         print(path)
         with open(path , 'r') as marks_file:
@@ -27,12 +25,11 @@ def get_results(request):
             if marks_file == "":
                 send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],settings.NOONE_VOTED)
                 return HttpResponse()
-            
             marks_splitted_list = marks_file.split(",")
             numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
             all_marks = sum(list(map(int, numbered_list)))
             avarage_num = round(all_marks / len(numbered_list), 1)
-            path = os.path.join('fortebot/static/last_vote_name')
+            path = os.path.join('last_vote_name')
             with open(path, "r") as last_vote_name_file:
                 vote_name = last_vote_name_file.read()
             send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([vote_name, " result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
