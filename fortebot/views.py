@@ -30,7 +30,7 @@ def get_results(request):
             numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
             all_marks = sum(list(map(int, numbered_list)))
             avarage_num = round(all_marks / len(numbered_list), 1)
-            path = os.path.join('fortebot/static/last_vote_name')
+            path = os.path.join('last_vote_name')
             with open(path, "r") as last_vote_name_file:
                 vote_name = last_vote_name_file.read()
             send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([vote_name, " result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
@@ -61,7 +61,7 @@ def rate(request):
     user_channel = open_channel_if_needed(sc, request)
     msg = request.data["text"]
     # text = ""
-    with open("fortebot/static/users", "r") as text_file:
+    with open("users", "r") as text_file:
         text = text_file.read()
 
     if request.data['user_id'] in text:
@@ -71,16 +71,16 @@ def rate(request):
     if str.isdigit(msg):
         number = int(msg)
         if number < 11 and number > 0 :
-            with open("fortebot/static/users", "r") as text_file:
+            with open("users", "r") as text_file:
                 text = text_file.read()
         else:
             send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],settings.NOT_IN_RANGE_PHRASE)
             return HttpResponse()
 
         if request.data['user_id'] not in text:
-            with open("fortebot/static/users", "a") as text_file:
+            with open("users", "a") as text_file:
                 text_file.write(request.data['user_id'] + '\n')    
-                with open("fortebot/static/marks", "a") as marks_file:
+                with open("static/marks", "a") as marks_file:
                     marks_file.write("".join([msg + ","]))                            
                 mp = Mixpanel(settings.MIXPANEL_TOKEN)
                 mp.track('Forte', msg)
@@ -196,10 +196,10 @@ def start_rating_vote(request, msg):
     tkn = getToken()
     sc = SlackClient(tkn)
 
-    open('fortebot/static/users', 'w').close()
-    open('fortebot/static/marks', 'w').close()
-    open('fortebot/static/last_vote_name', 'w').close()
-    with open("fortebot/static/last_vote_name", "a") as last_vote_name_file:
+    open('users', 'w').close()
+    open('static/marks', 'w').close()
+    open('last_vote_name', 'w').close()
+    with open("last_vote_name", "a") as last_vote_name_file:
         last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
     send_msg_to_all.after_response(sc, request, "".join([msg, settings.PLEASE_REPLY_WITH_RATE]))
     return HttpResponse()
