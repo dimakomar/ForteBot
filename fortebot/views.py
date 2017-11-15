@@ -29,10 +29,8 @@ def click(request):
     print("USERS")
     print(text)
     if user in text:
-        print(user)
-        print(text)
-        print("wow")
-        # send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
+
+        send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
     else:
        
@@ -44,8 +42,6 @@ def click(request):
             # mp = Mixpanel(settings.MIXPANEL_TOKEN)
             # mp.track('Forte', value)
 
-        # ts = result["message_ts"]
-        #
         
         send_ephemeral_msg(sc,user,channel,"".join([settings.THANKS_PHRASE, str(value), "*\n you can add your anonymous comment for HRs by `/anon_msg` *`text`*"]))
         return HttpResponse()
@@ -243,10 +239,8 @@ def send_msg(sc, real_users, req, msg):
     number = 0
     for user in real_users:    
         number = number + 1
-        # sleep(1)
-        # print(user.user_id)
-        # print(user.dm_channel)
-        send_att(sc,user.user_id,user.dm_channel, str(number))
+        send_att(sc,user.user_id,user.dm_channel, msg)
+        sleep(1)
         
 
 def open_channel_if_needed(sc, request): 
@@ -280,7 +274,7 @@ def send_ephemeral_msg(sc, user, channel, text):
 def send_att(sc,user,channel,text):
     message_attachments = [
         {
-            "text": "Hello, please rate your comfort temperature in company",
+            "text": text,
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection",
