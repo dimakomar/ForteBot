@@ -137,7 +137,7 @@ def start_question_vote(request):
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"You've been a step away from huge fail by *starting vote with empty message* please check `/help_forte_bot`")
         return HttpResponse()
 
-    send_msg_to_all.after_response(sc, request, "".join([request.data["text"], settings.PLEASE_REPLY_WITH_ANON]))
+    send_msg_to_all.after_response(sc, request, "".join([request.data["text"], settings.PLEASE_REPLY_WITH_ANON]), False )
     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"".join(["You've just started the question vote: ", "*",request.data["text"], "*"]))
     return HttpResponse()
 
@@ -210,7 +210,7 @@ def start_rating_vote(request, msg):
     return HttpResponse()
 
 @after_response.enable
-def send_msg_to_all(sc,request,msg):
+def send_msg_to_all(sc,request,msg, is_raing = True):
     user_list = sc.api_call(
         "users.list"
     )
@@ -232,14 +232,18 @@ def send_msg_to_all(sc,request,msg):
         if user_channel['ok'] == True:
             
             real_users.append(User(user_id, user_channel['channel']['id']))
-    send_msg(sc, real_users, request, msg)
+    send_msg(sc, real_users, request, msg, is_raing)
     return HttpResponse()
 
-def send_msg(sc, real_users, req, msg):
+def send_msg(sc, real_users, req, msg, is_rating):
     number = 0
     for user in real_users:    
         number = number + 1
-        send_att(sc,user.user_id,user.dm_channel, msg)
+
+        if is_rating:
+            send_att(sc,user.user_id,user.dm_channel, msg)    
+        else: 
+            send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
         sleep(1)
         
 
