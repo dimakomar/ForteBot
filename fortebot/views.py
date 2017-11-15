@@ -59,6 +59,7 @@ def get_results(request):
                 return HttpResponse()
             marks_splitted_list = marks_file.split(",")
             numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
+            print(numbered_list)
             all_marks = sum(list(map(int, numbered_list)))
             avarage_num = round(all_marks / len(numbered_list), 1)
             path = os.path.join('fortebot/static/last_vote_name')
