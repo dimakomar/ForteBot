@@ -30,7 +30,7 @@ def click(request):
     print(text)
     if user in text:
         print(user)
-        print(tets)
+        print(text)
         print("wow")
         # send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
@@ -209,7 +209,7 @@ def start_rating_vote(request, msg):
         print(text)
     
     with open("fortebot/static/last_vote_name", "a") as last_vote_name_file:
-        last_vote_name_file.write(request.data['text'][0] if request.data['text'][0] != "" else "Temperature vote") 
+        last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
     send_msg_to_all.after_response(sc, request, "".join([msg, settings.PLEASE_REPLY_WITH_RATE]))
     return HttpResponse()
 
