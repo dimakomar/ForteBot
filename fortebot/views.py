@@ -171,7 +171,7 @@ def sent_message(request):
         send_ephemeral_msg(sc,usr,channel, "".join([ "You are a meatbag with id `", request.data['event']['user'], "`"])) 
         return HttpResponse()
     if t == "channelid":
-        send_ephemeral_msg(sc,usr,channel, "".join([ "You are a meatbag with id `", request.data['event']['channel'], "`"])) 
+        send_ephemeral_msg(sc,usr,channel, "".join([ "channel id is `", request.data['event']['channel'], "`"])) 
         return HttpResponse()
     
     send_ephemeral_msg(sc,usr,channel, ":sch:? Thats too hard for me")              
