@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^get_results', views.get_results),
     url(r'^question_vote', views.start_question_vote),
     url(r'^delivery', views.delivery),
-    url(r'^rate', views.rate),
+    url(r'^send_msg', views.send_msg),
+    url(r'^click', views.click),
 ]
 

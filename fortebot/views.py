@@ -12,13 +12,45 @@ import jwt
 from .user import User
 from mixpanel import Mixpanel
 import after_response
+from time import sleep
+from urllib.parse import urlencode, quote_plus
+
+@api_view(['POST'])
+def click(request):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    result = json.loads(request.data["payload"])
+    value = result["actions"][0]["selected_options"][0]["value"]
+    user = result["user"]["id"]
+    channel = result["channel"]["id"]
+    with open("fortebot/static/users", "r") as text_file:
+        text = text_file.read()
+
+    if user in text:
+        send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
+        return HttpResponse()
+    else:
+       
+        with open("fortebot/static/users", "a") as users_file:
+            users_file.write(user + '\n')    
+            with open("fortebot/static/marks", "a") as marks_file:
+                marks_file.write("".join([value + ","]))       
+                print("writed")                     
+            # mp = Mixpanel(settings.MIXPANEL_TOKEN)
+            # mp.track('Forte', value)
+
+        # ts = result["message_ts"]
+        
+        
+        send_ephemeral_msg(sc,user,channel,"".join([settings.THANKS_PHRASE, str(value), "*\n you can add your anonymous comment for HRs by `/anon_msg` *`text`*"]))
+        return HttpResponse()
 
 @api_view(['POST'])
 def get_results(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        path = os.path.join('marks')
+        path = os.path.join('fortebot/static/marks')
         print(path)
         with open(path , 'r') as marks_file:
             marks_file = marks_file.read()
@@ -29,7 +61,7 @@ def get_results(request):
             numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
             all_marks = sum(list(map(int, numbered_list)))
             avarage_num = round(all_marks / len(numbered_list), 1)
-            path = os.path.join('last_vote_name')
+            path = os.path.join('fortebot/static/last_vote_name')
             with open(path, "r") as last_vote_name_file:
                 vote_name = last_vote_name_file.read()
             send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([vote_name, " result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
@@ -41,7 +73,7 @@ def get_results(request):
 def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
+    send_att(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
     return HttpResponse()
 
 @api_view(['POST'])
@@ -51,43 +83,6 @@ def delivery(request):
     sc = SlackClient(tkn)
     send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.DELIVERY)  
     return HttpResponse()
-
-@api_view(['POST'])
-def rate(request):
-    print(request.data)
-    tkn = getToken()
-    sc = SlackClient(tkn)
-    user_channel = open_channel_if_needed(sc, request)
-    msg = request.data["text"]
-    # text = ""
-    with open("users", "r") as text_file:
-        text = text_file.read()
-
-    if request.data['user_id'] in text:
-        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],settings.ALREADY_VOTED_PHRASE)
-        return HttpResponse()
-
-    if str.isdigit(msg):
-        number = int(msg)
-        if number < 11 and number > 0 :
-            with open("users", "r") as text_file:
-                text = text_file.read()
-        else:
-            send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],settings.NOT_IN_RANGE_PHRASE)
-            return HttpResponse()
-
-        if request.data['user_id'] not in text:
-            with open("users", "a") as text_file:
-                text_file.write(request.data['user_id'] + '\n')    
-                with open("static/marks", "a") as marks_file:
-                    marks_file.write("".join([msg + ","]))                            
-                mp = Mixpanel(settings.MIXPANEL_TOKEN)
-                mp.track('Forte', msg)
-            send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],"".join([settings.THANKS_PHRASE, str(number), "*\n if you have something more to say use `/anon_msg` *`text`*"]))
-            return HttpResponse()
-    else:
-        send_ephemeral_msg(sc,request.data['user_id'],user_channel['channel']['id'],settings.NOT_A_NUMBER_PHRASE)              
-    return HttpResponse()  
 
 @api_view(['POST'])
 def anonymous_msg_random(request):
@@ -100,10 +95,11 @@ def anonymous_feedback(request):
 #MARK : Votes 
 @api_view(['POST'])
 def temperature_vote(request):
+    print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
-    if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
-        
+    print(request.data['channel_id'][0])
+    if request.data['channel_id'][0] != "G7VKNRPM0":
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
         return HttpResponse()
 
@@ -195,11 +191,11 @@ def start_rating_vote(request, msg):
     tkn = getToken()
     sc = SlackClient(tkn)
 
-    open('users', 'w').close()
-    open('static/marks', 'w').close()
-    open('last_vote_name', 'w').close()
-    with open("last_vote_name", "a") as last_vote_name_file:
-        last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
+    open('fortebot/static/users', 'w').close()
+    open('fortebot/static/marks', 'w').close()
+    open('fortebot/static/last_vote_name', 'w').close()
+    with open("fortebot/static/last_vote_name", "a") as last_vote_name_file:
+        last_vote_name_file.write(request.data['text'][0] if request.data['text'][0] != "" else "Temperature vote") 
     send_msg_to_all.after_response(sc, request, "".join([msg, settings.PLEASE_REPLY_WITH_RATE]))
     return HttpResponse()
 
@@ -208,11 +204,13 @@ def send_msg_to_all(sc,request,msg):
     user_list = sc.api_call(
         "users.list"
     )
+    print(user_list)
     members_array = user_list["members"]
     
     ids_array = []
     for member in members_array:
         ids_array.append(member['id'])
+
     real_users = []
 
     for user_id in ids_array:
@@ -222,14 +220,19 @@ def send_msg_to_all(sc,request,msg):
             user=user_id,
         )
         if user_channel['ok'] == True:
+            
             real_users.append(User(user_id, user_channel['channel']['id']))
     send_msg(sc, real_users, request, msg)
     return HttpResponse()
 
 def send_msg(sc, real_users, req, msg):
+    number = 0
     for user in real_users:    
-        print("send")
-        send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
+        number = number + 1
+        # sleep(1)
+        print(user.user_id)
+        print(user.dm_channel)
+        send_att(sc,user.user_id,user.dm_channel, str(number))
         
 
 def open_channel_if_needed(sc, request): 
@@ -245,8 +248,9 @@ def open_events_api_channel_if_needed(sc, request):
     )       
 
 def getToken():
-    path = os.path.join('noname')
+    path = os.path.join('fortebot/static/noname')
     with open(path , 'r') as myfile:
+        print("opened")
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithms=[settings.CODING_ALGORITHM_NAME])
         return decoded['some']
@@ -258,3 +262,69 @@ def send_ephemeral_msg(sc, user, channel, text):
         user=user,
         text=text
     )  
+
+def send_att(sc,user,channel,text):
+    message_attachments = [
+        {
+            "text": "Hello, please rate your comfort temperature in company",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection",
+            "actions": [
+                {
+                    "name": "games_list",
+                    "text": "Mark",
+                    "type": "select",
+                    "options": [
+                        {
+                            "text": "1",
+                            "value": "1"
+                        },
+                        {
+                            "text": "2",
+                            "value": "2"
+                        },
+                        {
+                            "text": "3",
+                            "value": "3"
+                        },
+                        {
+                            "text": "4",
+                            "value": "4"
+                        },
+                        {
+                            "text": "5",
+                            "value": "5"
+                        },
+                        {
+                            "text": "6",
+                            "value": "6"
+                        },
+                        {
+                            "text": "7",
+                            "value": "7"
+                        },
+                        {
+                            "text": "8",
+                            "value": "8"
+                        },
+                        {
+                            "text": "9",
+                            "value": "9"
+                        },
+                        {
+                            "text": "10",
+                            "value": "10"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+    sc.api_call(
+        "chat.postEphemeral",
+        channel=channel,
+        user=user,
+        attachments=message_attachments
+    )
+    
