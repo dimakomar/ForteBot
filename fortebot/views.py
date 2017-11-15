@@ -40,7 +40,7 @@ def click(request):
             # mp.track('Forte', value)
 
         # ts = result["message_ts"]
-        
+        #
         
         send_ephemeral_msg(sc,user,channel,"".join([settings.THANKS_PHRASE, str(value), "*\n you can add your anonymous comment for HRs by `/anon_msg` *`text`*"]))
         return HttpResponse()
