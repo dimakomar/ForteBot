@@ -100,7 +100,7 @@ def temperature_vote(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     print(request.data['channel_id'][0])
-    if request.data['channel_id'][0] != "G7VKNRPM0":
+    if request.data['channel_id'][0] != settings.PRIVATE_CHANNEL:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
         return HttpResponse()
 
@@ -198,6 +198,11 @@ def start_rating_vote(request, msg):
     open('fortebot/static/users', 'w').close()
     open('fortebot/static/marks', 'w').close()
     open('fortebot/static/last_vote_name', 'w').close()
+
+    with open("fortebot/static/users", "r") as text_file:
+        text = text_file.read()
+        print(text)
+    
     with open("fortebot/static/last_vote_name", "a") as last_vote_name_file:
         last_vote_name_file.write(request.data['text'][0] if request.data['text'][0] != "" else "Temperature vote") 
     send_msg_to_all.after_response(sc, request, "".join([msg, settings.PLEASE_REPLY_WITH_RATE]))
