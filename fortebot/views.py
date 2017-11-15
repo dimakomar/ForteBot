@@ -206,7 +206,7 @@ def start_rating_vote(request, msg):
     
     with open("fortebot/static/last_vote_name", "a") as last_vote_name_file:
         last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
-    send_msg_to_all.after_response(sc, request, "".join([msg, settings.PLEASE_REPLY_WITH_RATE]))
+    send_msg_to_all.after_response(sc, request, msg)
     return HttpResponse()
 
 @after_response.enable
