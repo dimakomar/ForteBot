@@ -99,8 +99,8 @@ def temperature_vote(request):
     print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
-    print(request.data['channel_id'][0])
-    if request.data['channel_id'][0] != settings.PRIVATE_CHANNEL:
+    print(request.data['channel_id'])
+    if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
         return HttpResponse()
 
@@ -213,7 +213,7 @@ def send_msg_to_all(sc,request,msg):
     user_list = sc.api_call(
         "users.list"
     )
-    print(user_list)
+    # print(user_list)
     members_array = user_list["members"]
     
     ids_array = []
@@ -239,8 +239,8 @@ def send_msg(sc, real_users, req, msg):
     for user in real_users:    
         number = number + 1
         # sleep(1)
-        print(user.user_id)
-        print(user.dm_channel)
+        # print(user.user_id)
+        # print(user.dm_channel)
         send_att(sc,user.user_id,user.dm_channel, str(number))
         
 
