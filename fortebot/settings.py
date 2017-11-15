@@ -138,11 +138,11 @@ ALLOWED_HOSTS = ['*']
 
 SLACK_BOT_TOKEN = ""
 
-PRIVATE_CHANNEL = "D7LTDA0TF"
+PRIVATE_CHANNEL = "G7VKNRPM0"
 
 MIXPANEL_TOKEN = "141c9f4b562b5b604f61bcdea7fd8264"
 
-VOTE_PHRASE = "Hello, pls rate your team temperature from 1 to 10"
+VOTE_PHRASE = "Hello, please rate your comfort in company"
 
 TEXT_VOTE_PHRASE = " - rate from 1 to 10"
 
@@ -156,7 +156,7 @@ NOT_A_NUMBER_PHRASE = "Thats not a number, I'm Sorry"
 
 BAD_CHANNEL_PHRASE = "You're not allowed to start the vote"
 
-HELP = ">`/anon_msg`  *`your_msg`* - use it to send anonymus feedback, \n> ```example: /anon_msg our last party was too boring, please do something asap ```\n>`/anon_msg_random`  *`your_msg`* - use it to send anonymus message to *#random*, channel \n>```example: /anon_msg_rangom The event was perfect, tnx everyone```\n>`/start_temperature_vote` - use it to start default temperature vote \n>```example: /start_temperature_vote ```\n>`/start_question_vote` *`your_msg`* - use it to start question vote \n>```example: /start_question_vote What do you think about coffe in the kitchen ? ```\n>`/start_rating_vote` *`your_msg`* - use it to start custom text vote with rating \n>```example: /start_rating_vote How do you like our performance matrix ```\n>`/get_results` - use it to get results about last vote \n>```example: /get_results```\n>`/delivery` - use it to get list of delivery links \n>```example: /delivery ```\n>`/rate` - use it to answer the rating votes \n>```example: Bot: Hello, pls rate your team temperature from 1 to 10 \n/rate 10 ```"
+HELP = ">`/anon_msg`  *`your_msg`* - use it to send anonymus feedback, \n> ```example: /anon_msg our last party was too boring, please do something asap ```\n>`/anon_msg_random`  *`your_msg`* - use it to send anonymus message to *#random*, channel \n>```example: /anon_msg_rangom The event was perfect, tnx everyone```\n>`/start_temperature_vote` - use it to start default temperature vote \n>```example: /start_temperature_vote ```\n>`/start_question_vote` *`your_msg`* - use it to start question vote \n>```example: /start_question_vote What do you think about coffe in the kitchen ? ```\n>`/start_rating_vote` *`your_msg`* - use it to start custom text vote with rating \n>```example: /start_rating_vote How do you like our performance matrix ```\n>`/get_results` - use it to get results about last vote \n>```example: /get_results```\n>`/delivery` - use it to get list of delivery links \n>```example: /delivery ```"
 
 DELIVERY = "".join([">*Tiger Box* 0671550025 :tiger:\n>`https://www.instagram.com/p/BUhD1AGgIbJ/?taken-by=tigerboxternopil`\n>\n",
 ">*Avokado* 0975427570, 0660861908 :ramen:\n>`http://www.sushi.te.ua`\n>\n",
@@ -170,7 +170,5 @@ DELIVERY = "".join([">*Tiger Box* 0671550025 :tiger:\n>`https://www.instagram.co
 NOONE_VOTED = "Noone voted right now"
 
 PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg` *`text`*"
-
-PLEASE_REPLY_WITH_RATE = " using `/rate` *`number`* "
 
 CODING_ALGORITHM_NAME = "HS256"

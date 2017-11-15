@@ -39,8 +39,8 @@ def click(request):
             with open("fortebot/static/marks", "a") as marks_file:
                 marks_file.write("".join([value + ","]))       
                 print("writed")                     
-            # mp = Mixpanel(settings.MIXPANEL_TOKEN)
-            # mp.track('Forte', value)
+            mp = Mixpanel(settings.MIXPANEL_TOKEN)
+            mp.track('Forte', value)
 
         
         send_ephemeral_msg(sc,user,channel,"".join([settings.THANKS_PHRASE, str(value), "*\n you can add your anonymous comment for HRs by `/anon_msg` *`text`*"]))
@@ -214,7 +214,6 @@ def send_msg_to_all(sc,request,msg, is_raing = True):
     user_list = sc.api_call(
         "users.list"
     )
-    # print(user_list)
     members_array = user_list["members"]
     
     ids_array = []
