@@ -26,6 +26,8 @@ def click(request):
     with open("fortebot/static/users", "r") as text_file:
         text = text_file.read()
 
+    print("USERS")
+    print(text)
     if user in text:
         send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
