@@ -25,11 +25,8 @@ def click(request):
     channel = result["channel"]["id"]
     with open("fortebot/static/users", "r") as text_file:
         text = text_file.read()
-
-    print("USERS")
-    print(text)
+    
     if user in text:
-
         send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
     else:
@@ -97,10 +94,8 @@ def anonymous_feedback(request):
 #MARK : Votes 
 @api_view(['POST'])
 def temperature_vote(request):
-    print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)
-    print(request.data['channel_id'])
     if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
         return HttpResponse()
@@ -235,10 +230,7 @@ def send_msg_to_all(sc,request,msg, is_raing = True):
     return HttpResponse()
 
 def send_msg(sc, real_users, req, msg, is_rating):
-    number = 0
     for user in real_users:    
-        number = number + 1
-
         if is_rating:
             send_att(sc,user.user_id,user.dm_channel, msg)    
         else: 
@@ -261,7 +253,6 @@ def open_events_api_channel_if_needed(sc, request):
 def getToken():
     path = os.path.join('fortebot/static/noname')
     with open(path , 'r') as myfile:
-        print("opened")
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithms=[settings.CODING_ALGORITHM_NAME])
         return decoded['some']
