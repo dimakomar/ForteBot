@@ -29,7 +29,10 @@ def click(request):
     print("USERS")
     print(text)
     if user in text:
-        send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
+        print(user)
+        print(tets)
+        print("wow")
+        # send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
     else:
        
