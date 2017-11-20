@@ -19,18 +19,70 @@ from urllib.parse import urlencode, quote_plus
 def click(request):
     tkn = getToken()
     sc = SlackClient(tkn)
+    value = ""
     result = json.loads(request.data["payload"])
-    value = result["actions"][0]["selected_options"][0]["value"]
+    if result["actions"][0]["type"] == "button":
+        value = result["actions"][0]["value"]
+    else:
+        value = result["actions"][0]["selected_options"][0]["value"]    
+
+    
+    ts = result["message_ts"]
     user = result["user"]["id"]
     channel = result["channel"]["id"]
+
+
+    if value == "no_tnx":
+        sc.api_call(
+        "chat.delete",
+        channel=channel,
+        ts=ts)    
+        return HttpResponse()
+
+    if value == "comment":
+        
+        message_attachments = [
+        {   "text": "To leave comment use `/anon_msg` *`text`* \n ```example: /anon_msg super important comment```",
+                "color": "#3AA3E3",
+                "mrkdwn_in": [
+                    "text"
+                ]
+            }
+        ]
+
+        sc.api_call(
+        "chat.update",
+        channel=channel,
+        ts=ts,
+        attachments=message_attachments)
+        return HttpResponse()
+
+    if value == "answer":
+        
+        message_attachments = [
+        {   "text": "To answer use `/anon_msg` *`text`* \n ```example: /anon_msg best answer ever```",
+                "color": "#3AA3E3",
+                "mrkdwn_in": [
+                    "text"
+                ]
+            }
+        ]
+
+        sc.api_call(
+        "chat.update",
+        channel=channel,
+        ts=ts,
+        attachments=message_attachments)
+        return HttpResponse()
+
     with open("fortebot/static/users", "r") as text_file:
         text = text_file.read()
     
+    #no need this check anymore
     if user in text:
         send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
     else:
-       
         with open("fortebot/static/users", "a") as users_file:
             users_file.write(user + '\n')    
             with open("fortebot/static/marks", "a") as marks_file:
@@ -39,8 +91,35 @@ def click(request):
             mp = Mixpanel(settings.MIXPANEL_TOKEN)
             mp.track('Forte', value)
 
-        
-        send_ephemeral_msg(sc,user,channel,"".join([settings.THANKS_PHRASE, str(value), "*\n you can add your anonymous comment for HRs by `/anon_msg` *`text`*"]))
+        message_attachments = [
+        {
+            "text": "Thanks, Want to comment your mark anomunously ?",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection",
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "No, Thanks",
+                    "type": "button",
+                    "value": "no_tnx",
+                    "style": "danger"
+                },
+                {
+                    "name": "game",
+                    "text": "Leave Comment",
+                    "type": "button",
+                    "value": "comment",
+                    "style": "primary"
+                }
+            ]
+        }]
+
+        sc.api_call(
+        "chat.update",
+        channel=channel,
+        ts=ts,
+        attachments=message_attachments)
         return HttpResponse()
 
 @api_view(['POST'])
@@ -132,7 +211,7 @@ def start_question_vote(request):
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"You've been a step away from huge fail by *starting vote with empty message* please check `/help_forte_bot`")
         return HttpResponse()
 
-    send_msg_to_all.after_response(sc, request, "".join([request.data["text"], settings.PLEASE_REPLY_WITH_ANON]), False )
+    send_msg_to_all.after_response(sc, request,request.data["text"], False )
     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"".join(["You've just started the question vote: ", "*",request.data["text"], "*"]))
     return HttpResponse()
 
@@ -231,11 +310,7 @@ def send_msg_to_all(sc,request,msg, is_raing = True):
 
 def send_msg(sc, real_users, req, msg, is_rating):
     for user in real_users:    
-        if is_rating:
-            send_att(sc,user.user_id,user.dm_channel, msg)    
-        else: 
-            send_ephemeral_msg(sc,user.user_id,user.dm_channel, msg)
-        sleep(1)
+        send_att(sc,user.user_id,user.dm_channel, msg, is_rating)    
         
 
 def open_channel_if_needed(sc, request): 
@@ -256,6 +331,7 @@ def getToken():
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithms=[settings.CODING_ALGORITHM_NAME])
         return decoded['some']
+
             
 def send_ephemeral_msg(sc, user, channel, text):
     sc.api_call(
@@ -265,7 +341,7 @@ def send_ephemeral_msg(sc, user, channel, text):
         text=text
     )  
 
-def send_att(sc,user,channel,text):
+def send_att(sc,user,channel,text, is_rating):
     message_attachments = [
         {
             "text": text,
@@ -323,10 +399,34 @@ def send_att(sc,user,channel,text):
             ]
         }
     ]
+
+    question_attachments = [
+        {
+            "text": text,
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection",
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "No, Thanks",
+                    "type": "button",
+                    "value": "no_tnx",
+                    "style": "danger"
+                },
+                {
+                    "name": "game",
+                    "text": "Answer",
+                    "type": "button",
+                    "value": "answer",
+                    "style": "primary"
+                }
+            ]
+        }]
+    
     sc.api_call(
-        "chat.postEphemeral",
+        "chat.postMessage",
         channel=channel,
-        user=user,
-        attachments=message_attachments
+        attachments=message_attachments if is_rating else question_attachments
     )
     
