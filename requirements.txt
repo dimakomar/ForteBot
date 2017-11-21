@@ -10,3 +10,4 @@ mixpanel
 celery
 django-celery
 django-after-response
+psycopg2
