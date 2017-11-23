@@ -166,8 +166,8 @@ def delivery(request):
 
 @api_view(['POST'])
 def anonymous_feedback(request):
-    message = Message.objects.create(text="Hello", number=1)
-    message.save()
+    # message = Message.objects.create(text="Hello", number=1)
+    # message.save()
 
     # new_msg = Message.objects.all()
     # print(new_msg)
