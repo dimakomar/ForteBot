@@ -2,7 +2,6 @@ from django.db import models
 
 
 class User(object):
-    model.
     user_id = models.CharField(max_length=100)
     dm_channel = models.CharField(max_length=100)
 
