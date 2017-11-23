@@ -332,7 +332,7 @@ def getToken():
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithms=[settings.CODING_ALGORITHM_NAME])
-        return "xoxb-258274331425-eddcY6BIZmTDQL5SBtyAMwKI"
+        return decoded["some"]
 
             
 def send_ephemeral_msg(sc, user, channel, text):
