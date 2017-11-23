@@ -261,7 +261,7 @@ def send_normal_msg(request,channel, text):
     sc = SlackClient(tkn)
     sc.api_call(
         "chat.postMessage",
-        channel=request.data['channel_id'],
+        channel=settings.PRIVATE_CHANNEL,
         text=text
     )    
     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'], "*Thanks*")     
