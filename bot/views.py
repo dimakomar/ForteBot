@@ -429,6 +429,12 @@ def send_att(sc,user,channel,text, is_rating):
     sc.api_call(
         "chat.postMessage",
         channel=channel,
+        text="As the first vote was broken for a 5 mins, we lost a huge amout of marks :crycat: \n There is another vote that works fine :thisisfine:"
+    )
+
+    sc.api_call(
+        "chat.postMessage",
+        channel=channel,
         attachments=message_attachments if is_rating else question_attachments
     )
     
