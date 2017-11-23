@@ -73,7 +73,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'fortebot.wsgi.application'
 
 
-# Database
+# Databasess
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {

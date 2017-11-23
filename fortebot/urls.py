@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from fortebot import views
+from bot import views
 import os
 
 urlpatterns = [
@@ -24,7 +24,6 @@ urlpatterns = [
     url(r'^temperature_vote', views.temperature_vote),
     url(r'^forte_vote', views.rating_vote),
     url(r'^anonymous_feedback/', views.anonymous_feedback),
-    url(r'^anonymous_msg_random', views.anonymous_msg_random),
     url(r'^forte_help/', views.help),
     url(r'^get_results', views.get_results),
     url(r'^question_vote', views.start_question_vote),
