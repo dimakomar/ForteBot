@@ -189,9 +189,10 @@ def reply(request):
 
     tkn = getToken()
     sc = SlackClient(tkn)
-    message_with_no_id = params.pop(0)
+    new_list = params
+    new_list.pop(0)
     message_attachments = [
-    {   "text":"`Managment response:` " + message_with_no_id,
+    {   "text":"`Managment response:` " + new_list,
             "color": "#3AA3E3",
             "mrkdwn_in": [
                 "text"
