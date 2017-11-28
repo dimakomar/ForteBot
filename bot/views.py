@@ -191,8 +191,9 @@ def reply(request):
     sc = SlackClient(tkn)
     new_list = params
     new_list.pop(0)
+    list_with_spaces = map(new_list, " ")
     message_attachments = [
-    {   "text":"`Managment response:` " + ''.join(map(" ", new_list)),
+    {   "text":"`Managment response:` " + ''.join(list_with_spaces),
             "color": "#3AA3E3",
             "mrkdwn_in": [
                 "text"
