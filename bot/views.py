@@ -192,7 +192,7 @@ def reply(request):
     new_list = params
     new_list.pop(0)
     message_attachments = [
-    {   "text":"`Managment response:` " + new_list,
+    {   "text":"`Managment response:` " + str(new_list),
             "color": "#3AA3E3",
             "mrkdwn_in": [
                 "text"
