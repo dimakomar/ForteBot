@@ -67,10 +67,10 @@ def click(request):
         attachments=message_attachments)
         return HttpResponse()
 
-    if value == "answer":
+    if value == "anon_message":
         
         message_attachments = [
-        {   "text": "To answer use `/anon_msg` *`text`* \n ```example: /anon_msg best answer ever```",
+        {   "text": "To send anoymous message use `/anon_msg` *`text`* \n ```example: /anon_msg some question```",
                 "color": "#3AA3E3",
                 "mrkdwn_in": [
                     "text"
@@ -505,9 +505,9 @@ def send_att(sc,user,channel,text, is_rating):
                 },
                 {
                     "name": "game",
-                    "text": "Answer",
+                    "text": "Send Anon Message",
                     "type": "button",
-                    "value": "answer",
+                    "value": "anon_message",
                     "style": "primary"
                 }
             ]
