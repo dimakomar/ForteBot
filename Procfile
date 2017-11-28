@@ -1,1 +1,1 @@
-web: gunicorn fortebot.wsgi
+web: gunicorn bot.wsgi

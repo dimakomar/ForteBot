@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'fortebot.urls'
+ROOT_URLCONF = 'bot.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'fortebot.wsgi.application'
+WSGI_APPLICATION = 'bot.wsgi.application'
 
 
 # Databasess
