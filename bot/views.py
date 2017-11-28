@@ -283,10 +283,9 @@ def sent_message(request):
     print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
-    user_channel = open_events_api_channel_if_needed(sc, request)
     t = request.data['event']['text'] 
     usr = request.data['event']['user']
-    channel = user_channel['channel']['id']
+    channel = request.data['event']['channel'] 
     if "Hello" in t or "hello" in t or "Hi" in t or "hi" in t or "Hey" in t or "hey" in t:
         send_ephemeral_msg(sc,usr,channel, "Hi")
         return HttpResponse()
@@ -386,7 +385,7 @@ def open_channel_if_needed(sc, request, user):
 def open_events_api_channel_if_needed(sc, request): 
     return sc.api_call(
         "im.open",
-        user=request.data['event']['user']
+        user=request.data['bot_id']
     )       
 
 def getToken():
