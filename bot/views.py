@@ -183,7 +183,8 @@ def reply(request):
 
     with open("fortebot/static/message_user_ids", "r") as message_user_ids:
         real_user_ids = message_user_ids.read()
-        splitter_ids = real_user_ids.split(",") 
+        splitter_ids = real_user_ids.split(",")
+        print(splitter_ids) 
         user_id = splitter_ids[int(message_id)]
 
     tkn = getToken()
