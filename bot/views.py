@@ -375,6 +375,7 @@ def send_msg(sc, real_users, req, msg, is_rating):
         
 
 def open_channel_if_needed(sc, request, user): 
+    print(request.data)
     let = sc.api_call(
         "im.open",
         user=user,
