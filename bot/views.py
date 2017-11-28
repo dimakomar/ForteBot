@@ -375,10 +375,12 @@ def send_msg(sc, real_users, req, msg, is_rating):
         
 
 def open_channel_if_needed(sc, request, user): 
-    return sc.api_call(
+    let = sc.api_call(
         "im.open",
         user=user,
     ) 
+    print(let)
+    return let
 
 def open_events_api_channel_if_needed(sc, request): 
     return sc.api_call(
