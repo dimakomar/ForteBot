@@ -171,7 +171,7 @@ def delivery(request):
         let = message_ids.read()
         print(let)
     with open(ids_path , 'a') as message_ids:
-        marks_file.write("".join(["1,"]))  
+        message_ids.write("".join(["1,"]))  
         
     with open(ids_path , 'r') as message_ids:
         let = message_ids.read()
