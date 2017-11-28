@@ -193,7 +193,7 @@ def reply(request):
     new_list.pop(0)
     list_with_spaces = list(map(lambda x: " " + x, new_list))
     message_attachments = [
-    {   "text":"`Managment response:` " + ''.join(new_list),
+    {   "text":"`Managment response:` " + ' '.join(new_list),
             "color": "#3AA3E3",
             "mrkdwn_in": [
                 "text"
