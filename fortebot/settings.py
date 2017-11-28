@@ -77,14 +77,10 @@ WSGI_APPLICATION = 'fortebot.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'fortebot',
-        'USER': 'dimakomar',
-        'PASSWORD': 'Komar1234',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    #  'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(PROJECT_DIR, 'yourdatabasename.db'),
+    # }
 }
 
 

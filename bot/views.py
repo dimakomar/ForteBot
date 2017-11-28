@@ -23,16 +23,24 @@ def click(request):
     sc = SlackClient(tkn)
     value = ""
     result = json.loads(request.data["payload"])
+    print(result)
     if result["actions"][0]["type"] == "button":
         value = result["actions"][0]["value"]
     else:
         value = result["actions"][0]["selected_options"][0]["value"]    
 
-    
+    callback_id = result["callback_id"]  
+    print(callback_id)
     ts = result["message_ts"]
     user = result["user"]["id"]
     channel = result["channel"]["id"]
 
+
+    if callback_id == "anon_msg_reply":
+
+        send_ephemeral_msg(sc,user,channel,"To reply use `/reply " + str(value) + " text`\n")
+        return HttpResponse()
+        
 
     if value == "no_tnx":
         sc.api_call(
@@ -138,7 +146,6 @@ def get_results(request):
                 return HttpResponse()
             marks_splitted_list = marks_file.split(",")
             numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
-            print(numbered_list)
             all_marks = sum(list(map(int, numbered_list)))
             avarage_num = round(all_marks / len(numbered_list), 1)
             path = os.path.join('fortebot/static/last_vote_name')
@@ -153,7 +160,7 @@ def get_results(request):
 def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    send_att(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
+    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
     return HttpResponse()
 
 @api_view(['POST'])
@@ -165,13 +172,65 @@ def delivery(request):
     return HttpResponse()
 
 @api_view(['POST'])
-def anonymous_feedback(request):
-    # message = Message.objects.create(text="Hello", number=1)
-    # message.save()
+def reply(request):
+    
+    if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
+        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
+        return HttpResponse()
 
-    # new_msg = Message.objects.all()
-    # print(new_msg)
-    return send_normal_msg(request, settings.PRIVATE_CHANNEL, "`anonymous:` " + request.data['text'] )
+    params = request.data["text"].split(" ")
+    message_id = params[0]
+
+    with open("fortebot/static/message_user_ids", "r") as message_user_ids:
+        real_user_ids = message_user_ids.read()
+        splitter_ids = real_user_ids.split(",") 
+        user_id = splitter_ids[int(message_id)]
+
+    tkn = getToken()
+    sc = SlackClient(tkn)
+
+    message_attachments = [
+    {   "text":"`Managment response:` " + params[1],
+            "color": "#3AA3E3",
+            "mrkdwn_in": [
+                "text"
+            ]
+        }
+    ]
+    
+    channel = open_channel_if_needed(sc,request,user_id)
+    sc.api_call(
+        "chat.postMessage",
+        channel=channel["channel"]["id"],
+        attachments=message_attachments
+    )
+    return HttpResponse()
+
+
+@api_view(['POST'])
+def anonymous_feedback(request):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    ids_path = os.path.join('fortebot/static/message_ids')
+    user_ids_path = os.path.join('fortebot/static/message_user_ids')
+    with open(ids_path , 'r') as message_ids:
+        ids_file = message_ids.read()
+        print(ids_file)
+        ids_splitted_list = ids_file.split(",")
+        ids_numbered_list = list(filter(lambda n: n != "", ids_splitted_list))
+        print(ids_numbered_list)
+        all_ids = list(map(int, ids_numbered_list))
+        print(all_ids)
+        last = all_ids.pop()
+        new_id = last + 1
+    with open(ids_path , 'a') as message_ids:
+        message_ids.write("".join([str(new_id) + ","]))
+
+    with open(user_ids_path , 'a') as message_user_ids:
+        message_user_ids.write("".join([str(request.data["user_id"]) + ","]))
+
+    send_att_reply(sc,request.data["user_id"],settings.PRIVATE_CHANNEL,request.data["text"], new_id)
+    return HttpResponse()
 
 #MARK : Votes s
 @api_view(['POST'])
@@ -261,7 +320,7 @@ def send_normal_msg(request,channel, text):
     sc = SlackClient(tkn)
     sc.api_call(
         "chat.postMessage",
-        channel=settings.PRIVATE_CHANNEL,
+        channel=channel,
         text=text
     )    
     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'], "*Thanks*")     
@@ -315,10 +374,10 @@ def send_msg(sc, real_users, req, msg, is_rating):
         send_att(sc,user.user_id,user.dm_channel, msg, is_rating)    
         
 
-def open_channel_if_needed(sc, request): 
+def open_channel_if_needed(sc, request, user): 
     return sc.api_call(
         "im.open",
-        user=request.data['user_id'],
+        user=user,
     ) 
 
 def open_events_api_channel_if_needed(sc, request): 
@@ -342,6 +401,32 @@ def send_ephemeral_msg(sc, user, channel, text):
         user=user,
         text=text
     )  
+
+def send_att_reply(sc,user,channel,text,id):
+    
+    send_att_reply_attachments = [
+        {
+            "text": text,
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "anon_msg_reply",
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "Reply",
+                    "type": "button",
+                    "value": id,
+                    "style": "primary"
+                }
+            ]
+        }
+    ]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel=channel,
+        attachments=send_att_reply_attachments
+    )
 
 def send_att(sc,user,channel,text, is_rating):
     message_attachments = [
@@ -425,12 +510,6 @@ def send_att(sc,user,channel,text, is_rating):
                 }
             ]
         }]
-    
-    sc.api_call(
-        "chat.postMessage",
-        channel=channel,
-        text="As the first vote was broken for a 5 mins, we lost a huge amout of marks :crycat: \n There is another vote that works fine :thisisfine:"
-    )
 
     sc.api_call(
         "chat.postMessage",
