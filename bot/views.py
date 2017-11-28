@@ -85,7 +85,7 @@ def click(request):
         attachments=message_attachments)
         return HttpResponse()
 
-    with open("fortebot/static/users", "r") as text_file:
+    with open("bot/static/users", "r") as text_file:
         text = text_file.read()
     
     #no need this check anymore
@@ -93,9 +93,9 @@ def click(request):
         send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
         return HttpResponse()
     else:
-        with open("fortebot/static/users", "a") as users_file:
+        with open("bot/static/users", "a") as users_file:
             users_file.write(user + '\n')    
-            with open("fortebot/static/marks", "a") as marks_file:
+            with open("bot/static/marks", "a") as marks_file:
                 marks_file.write("".join([value + ","]))       
                 print("writed")                     
             mp = Mixpanel(settings.MIXPANEL_TOKEN)
@@ -137,7 +137,7 @@ def get_results(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        path = os.path.join('fortebot/static/marks')
+        path = os.path.join('bot/static/marks')
         print(path)
         with open(path , 'r') as marks_file:
             marks_file = marks_file.read()
@@ -148,7 +148,7 @@ def get_results(request):
             numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
             all_marks = sum(list(map(int, numbered_list)))
             avarage_num = round(all_marks / len(numbered_list), 1)
-            path = os.path.join('fortebot/static/last_vote_name')
+            path = os.path.join('bot/static/last_vote_name')
             with open(path, "r") as last_vote_name_file:
                 vote_name = last_vote_name_file.read()
             send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([vote_name, " result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
@@ -181,7 +181,7 @@ def reply(request):
     params = request.data["text"].split(" ")
     message_id = params[0]
 
-    with open("fortebot/static/message_user_ids", "r") as message_user_ids:
+    with open("bot/static/message_user_ids", "r") as message_user_ids:
         real_user_ids = message_user_ids.read()
         splitter_ids = real_user_ids.split(",")
         print(splitter_ids) 
@@ -213,8 +213,8 @@ def reply(request):
 def anonymous_feedback(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    ids_path = os.path.join('fortebot/static/message_ids')
-    user_ids_path = os.path.join('fortebot/static/message_user_ids')
+    ids_path = os.path.join('bot/static/message_ids')
+    user_ids_path = os.path.join('bot/static/message_user_ids')
     with open(ids_path , 'r') as message_ids:
         ids_file = message_ids.read()
         print(ids_file)
@@ -333,14 +333,14 @@ def start_rating_vote(request, msg):
     tkn = getToken()
     sc = SlackClient(tkn)
 
-    open('fortebot/static/users', 'w').close()
-    open('fortebot/static/marks', 'w').close()
-    open('fortebot/static/last_vote_name', 'w').close()
+    open('bot/static/users', 'w').close()
+    open('bot/static/marks', 'w').close()
+    open('bot/static/last_vote_name', 'w').close()
 
-    with open("fortebot/static/users", "r") as text_file:
+    with open("bot/static/users", "r") as text_file:
         text = text_file.read()
     
-    with open("fortebot/static/last_vote_name", "a") as last_vote_name_file:
+    with open("bot/static/last_vote_name", "a") as last_vote_name_file:
         last_vote_name_file.write(request.data['text'] if request.data['text'] != "" else "Temperature vote") 
     send_msg_to_all.after_response(sc, request, msg)
     return HttpResponse()
@@ -391,7 +391,7 @@ def open_events_api_channel_if_needed(sc, request):
     )       
 
 def getToken():
-    path = os.path.join('fortebot/static/noname')
+    path = os.path.join('bot/static/noname')
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithms=[settings.CODING_ALGORITHM_NAME])
