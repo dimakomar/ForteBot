@@ -424,15 +424,15 @@ def send_att_reply(sc,user,channel,text,id):
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "anon_msg_reply",
-            "actions": [
-                {
-                    "name": "game",
-                    "text": "Reply",
-                    "type": "button",
-                    "value": id,
-                    "style": "primary"
-                }
-            ]
+            # "actions": [
+            #     {
+            #         "name": "game",
+            #         "text": "Reply",
+            #         "type": "button",
+            #         "value": id,
+            #         "style": "primary"
+            #     }
+            # ]
         }
     ]
 
