@@ -244,6 +244,26 @@ def anonymous_feedback(request):
     send_att_reply(sc,request.data["user_id"],settings.PRIVATE_CHANNEL,request.data["text"], new_id)
     return HttpResponse()
 
+@api_view(['POST'])
+def anon_random(request):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    send_att_reply_attachments = [
+        {
+            "text": request.data["text"],
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "none",
+        }
+    ]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel="random",
+        attachments=send_att_reply_attachments
+    )
+    return HttpResponse()
+
 #MARK : Votes s
 @api_view(['POST'])
 def temperature_vote(request):
