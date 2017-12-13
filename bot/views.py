@@ -250,7 +250,7 @@ def anon_random(request):
     sc = SlackClient(tkn)
     send_att_reply_attachments = [
         {
-            "text": "".join([':santa: ',request.data["text"]]),
+            "text": "".join([':secret_santa: ',request.data["text"]]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "none",
