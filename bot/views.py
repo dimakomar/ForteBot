@@ -161,6 +161,10 @@ def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
+    chan = user_list = sc.api_call(
+        "channels.list"
+    )
+    print(chan)
     return HttpResponse()
 
 @api_view(['POST'])
