@@ -254,6 +254,9 @@ def anon_random(request):
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "none",
+            "mrkdwn_in": [
+                "text"
+            ]
         }
     ]
 
