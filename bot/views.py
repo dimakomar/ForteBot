@@ -266,7 +266,7 @@ def anon_random(request):
 
     sc.api_call(
         "chat.postMessage",
-        channel="random",
+        channel="C8E34CTMJ",
         attachments=send_att_reply_attachments
     )
     return HttpResponse()
