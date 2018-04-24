@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^send_msg', views.send_msg),
     url(r'^click', views.click),
     url(r'^reply', views.reply),
+    url(r'^start_due', views.start_due),
 ]
 

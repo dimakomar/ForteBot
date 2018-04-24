@@ -8,6 +8,7 @@ from django.conf import settings
 from slackclient import SlackClient
 import json
 import os
+import time
 import jwt
 from .user import User
 from mixpanel import Mixpanel
@@ -15,7 +16,7 @@ import after_response
 from time import sleep
 from urllib.parse import urlencode, quote_plus
 from .models import Message
-
+from apscheduler.schedulers.background import BackgroundScheduler
 
 @api_view(['POST'])
 def click(request):
@@ -173,7 +174,6 @@ def delivery(request):
     ids_path = os.path.join('bot/static/message_ids')
     with open(ids_path , 'r') as message_ids:
         let = message_ids.read()
-        print(let)
     with open(ids_path , 'a') as message_ids:
         message_ids.write("".join(["1,"]))  
         
@@ -184,6 +184,21 @@ def delivery(request):
     sc = SlackClient(tkn)
     send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.DELIVERY)  
     return HttpResponse()
+
+@api_view(['POST'])
+def start_due(request):
+    global req 
+    req = request
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(job, 'interval', seconds=10)
+    scheduler.start()
+    return HttpResponse()
+
+def job():
+    print("job")
+    tkn = getToken()
+    sc = SlackClient(tkn)  
+    send_ephemeral_msg(sc, req.data['user_id'], req.data['channel_id'], "yo meatbag") 
 
 @api_view(['POST'])
 def reply(request):
@@ -438,6 +453,7 @@ def getToken():
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithms=[settings.CODING_ALGORITHM_NAME])
+
         return decoded["some"]
 
             

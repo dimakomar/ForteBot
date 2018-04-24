@@ -1,6 +1,6 @@
 Django
 whitenoise
-gunicorn==19.6.0
+gunicorn
 dj-database-url
 djangorestframework
 slackclient
@@ -11,3 +11,4 @@ celery
 django-celery
 django-after-response
 psycopg2
+APScheduler
