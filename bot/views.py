@@ -287,7 +287,7 @@ def temperature_vote(request):
 @api_view(['POST'])
 def rating_vote(request):
     tkn = getToken()
-    sc = SlackClient(tkn)
+    
     if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
         return HttpResponse()
@@ -425,7 +425,13 @@ def open_events_api_channel_if_needed(sc, request):
     return sc.api_call(
         "im.open",
         user=request.data['bot_id']
-    )       
+    )
+
+def open_events_api_channel_if_needed(sc, request): 
+    return sc.api_call(
+        "im.open",
+        user=request.data['bot_id']
+    )        
 
 def getToken():
     path = os.path.join('bot/static/noname')
@@ -557,4 +563,6 @@ def send_att(sc,user,channel,text, is_rating):
         channel=channel,
         attachments=message_attachments if is_rating else question_attachments
     )
+    
+
     
