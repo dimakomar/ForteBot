@@ -187,18 +187,27 @@ def delivery(request):
 
 @api_view(['POST'])
 def start_due(request):
-    global req 
-    req = request
+    # global req 
+    # req = request
+    init_req(request)
     scheduler = BackgroundScheduler()
     scheduler.add_job(job, 'interval', seconds=10)
     scheduler.start()
     return HttpResponse()
 
+def init_req(request):
+    global job_request 
+    print(request.data['user_id'])
+    job_request = request
+
+
 def job():
+    print(job_request.data['user_id'])
     print("job")
+    print(job_request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
-    send_ephemeral_msg(sc, req.data['user_id'], req.data['channel_id'], "yo meatbag") 
+    send_ephemeral_msg(sc, job_request.data['user_id'], job_request.data['channel_id'], "yo meatbag") 
 
 @api_view(['POST'])
 def reply(request):
