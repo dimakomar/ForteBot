@@ -201,6 +201,11 @@ def start_due(request):
     scheduler.add_job(job, 'date', run_date='2018-04-26 17:29:10', args=["U7NCK22KW"])
     scheduler.add_job(job, 'date', run_date='2018-04-26 17:29:10', args=["U7F85AA80"])
     scheduler.start()
+
+    tkn = getToken()
+    sc = SlackClient(tkn)  
+    channel = open_channel_if_needed(sc,"U7F85AA80")
+    send_normal_duty_msg(sc,channel,"yo meatbag")
     return HttpResponse()
 
 def init_req(request):
