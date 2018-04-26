@@ -208,7 +208,7 @@ def start_due(request):
     print(channel)
     sc.api_call(
         "chat.postMessage",
-        channel=channel,
+        channel=channel['channel']['id'],
         text="something"
     )
     return HttpResponse()
