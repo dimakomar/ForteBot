@@ -199,9 +199,7 @@ def start_due(request):
     #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
     # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
     scheduler.add_job(job, 'date', run_date='2018-04-26 17:09:20', args=["U6DDYBZ6Z"])
-    scheduler.add_job(job, 'date', run_date='2018-04-26 17:09:20', args=["U7NCK22KW"])
-
-    
+    scheduler.add_job(job, 'date', run_date='2018-04-26 17:23:10', args=["U7NCK22KW"])
     scheduler.start()
     return HttpResponse()
 
@@ -217,7 +215,8 @@ def job(user_id):
     # print(job_request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
-    send_ephemeral_msg(sc, user_id, job_request.data['channel_id'], "yo meatbag") 
+    channel = open_channel_if_needed(sc,user_id)
+    send_normal_duty_msg(channel,"yo meatbag")
 
 @api_view(['POST'])
 def reply(request):
@@ -248,7 +247,7 @@ def reply(request):
         }
     ]
     
-    channel = open_channel_if_needed(sc,request,user_id)
+    channel = open_channel_if_needed(sc,user_id)
     sc.api_call(
         "chat.postMessage",
         channel=channel["channel"]["id"],
@@ -398,6 +397,14 @@ def send_normal_msg(request,channel, text):
     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'], "*Thanks*")     
     return HttpResponse()
 
+def send_normal_duty_msg(sc,channel, text):
+    sc.api_call(
+        "chat.postMessage",
+        channel=channel,
+        text=text
+    )    
+    return HttpResponse()
+
 
 def start_rating_vote(request, msg):
     
@@ -446,13 +453,11 @@ def send_msg(sc, real_users, req, msg, is_rating):
         send_att(sc,user.user_id,user.dm_channel, msg, is_rating)    
         
 
-def open_channel_if_needed(sc, request, user): 
-    print(request.data)
+def open_channel_if_needed(sc, user): 
     let = sc.api_call(
         "im.open",
         user=user,
     ) 
-    print(let)
     return let
 
 def open_events_api_channel_if_needed(sc, request): 
