@@ -11,4 +11,4 @@ celery
 django-celery
 django-after-response
 psycopg2
-APScheduler
+APScheduler==3.5.1

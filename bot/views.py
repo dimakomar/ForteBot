@@ -17,6 +17,12 @@ from time import sleep
 from urllib.parse import urlencode, quote_plus
 from .models import Message
 from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.combining import OrTrigger
+from apscheduler.triggers.interval import IntervalTrigger
+from apscheduler.triggers.cron import CronTrigger
+from pytz import utc
+import datetime
+from tzlocal import get_localzone
 
 @api_view(['POST'])
 def click(request):
@@ -187,11 +193,12 @@ def delivery(request):
 
 @api_view(['POST'])
 def start_due(request):
-    # global req 
-    # req = request
     init_req(request)
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(job, 'interval', seconds=10)
+    scheduler = BackgroundScheduler(timezone="Europe/Kiev")  
+    # trigger = OrTrigger([CronTrigger(day_of_week='wed', hour=15, minute=43, second=0),
+    #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
+    # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0))
+    scheduler.add_job(job, 'date', run_date='2018-04-26 16:38:20', args=["U6DDYBZ6Z"])
     scheduler.start()
     return HttpResponse()
 
@@ -201,13 +208,13 @@ def init_req(request):
     job_request = request
 
 
-def job():
-    print(job_request.data['user_id'])
-    print("job")
-    print(job_request.data)
+def job(user_id):
+    # print(job_request.data['user_id'])
+    print("triggered")
+    # print(job_request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
-    send_ephemeral_msg(sc, job_request.data['user_id'], job_request.data['channel_id'], "yo meatbag") 
+    send_ephemeral_msg(sc, user_id, job_request.data['channel_id'], "yo meatbag") 
 
 @api_view(['POST'])
 def reply(request):
