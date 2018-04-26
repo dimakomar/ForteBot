@@ -198,7 +198,10 @@ def start_due(request):
     # trigger = OrTrigger([CronTrigger(day_of_week='wed', hour=15, minute=43, second=0),
     #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
     # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
-    scheduler.add_job(job, 'date', run_date='2018-04-26 16:53:20', args=["U6DDYBZ6Z"])
+    scheduler.add_job(job, 'date', run_date='2018-04-26 17:06:20', args=["U6DDYBZ6Z"])
+    scheduler.add_job(job, 'date', run_date='2018-04-26 17:06:20', args=["U7NCK22KW"])
+
+    
     scheduler.start()
     return HttpResponse()
 
