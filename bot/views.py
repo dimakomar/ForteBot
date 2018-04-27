@@ -198,16 +198,10 @@ def start_due(request):
     # trigger = OrTrigger([CronTrigger(day_of_week='wed', hour=15, minute=43, second=0),
     #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
     # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
-    scheduler.add_job(job, 'date', run_date='2018-04-27 16:57:10', args=["U7F85AA80"])
-    scheduler.add_job(job, 'date', run_date='2018-04-27 16:58:10', args=["U7F85AA80"])
+    scheduler.add_job(job, 'date', run_date='2018-04-27 16:59:10', args=["U7F85AA80"])
+    scheduler.add_job(job, 'date', run_date='2018-04-27 16:59:30', args=["U7F85AA80"])
 
-    scheduler.start()
-
-    tkn = getToken()
-    sc = SlackClient(tkn)  
-    # channel = open_channel_if_needed(sc,user_id)
-    
-    print(user)
+    scheduler.start()  
     return HttpResponse()
 
 def init_req(request):
