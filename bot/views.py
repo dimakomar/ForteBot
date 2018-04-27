@@ -193,36 +193,29 @@ def delivery(request):
 
 @api_view(['POST'])
 def start_due(request):
-    init_req(request)
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")  
     # trigger = OrTrigger([CronTrigger(day_of_week='wed', hour=15, minute=43, second=0),
     #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
     # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
-    scheduler.add_job(job, 'date', run_date='2018-04-27 18:53:10', args=["U7F85AA80"])
+    scheduler.add_job(job, 'date', run_date='2018-04-27 19:38:10', args=["U7F85AA80"])
     scheduler.add_job(job, 'date', run_date='2018-04-27 18:53:30', args=["U7F85AA80"])
 
     scheduler.start()  
     return HttpResponse()
 
-def init_req(request):
-    global job_request 
-    print(request.data['user_id'])
-    job_request = request
-
-
-def job(user_id):
+def job(user_id, with_user_id):
     # print(job_request.data['user_id'])
     print("triggered")
     # print(job_request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
-    channel = open_channel_if_needed(sc,"U7L829RCH")
+    channel = open_channel_if_needed(sc,user_id)
     print(channel)
     user = sc.api_call(
         "users.profile.get",
         user="U7F85AA80"
     )
-    send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + str(user["profile"]["real_name_normalized"]) + " @" + str(user["profile"]["real_name"])]))
+    send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + str(user["profile"]["display_name"])]))
 
 @api_view(['POST'])
 def reply(request):
