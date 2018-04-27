@@ -197,8 +197,8 @@ def start_due(request):
     # trigger = OrTrigger([CronTrigger(day_of_week='wed', hour=15, minute=43, second=0),
     #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
     # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
-    scheduler.add_job(job, 'date', run_date='2018-04-27 20:12:10', args=["U7F85AA80", "U7F85AA80"])
-    scheduler.add_job(job, 'date', run_date='2018-04-27 20:12:30', args=["U7F85AA80", "U7F85AA80"])
+    scheduler.add_job(job, 'date', run_date='2018-04-27 20:14:10', args=["U7F85AA80", "U7F85AA80"])
+    scheduler.add_job(job, 'date', run_date='2018-04-27 20:14:30', args=["U7F85AA80", "U7F85AA80"])
 
     scheduler.start()  
     return HttpResponse()
@@ -239,11 +239,13 @@ def job(user_id, with_user_id):
             ]
         }]
 
-    sc.api_call(
+    let = sc.api_call(
         "chat.postMessage",
         channel=channel,
         attachments=question_attachments
     )
+
+    print(let)
 
 @api_view(['POST'])
 def reply(request):
