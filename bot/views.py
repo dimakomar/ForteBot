@@ -230,7 +230,7 @@ def job(user_id):
     #     "users.list",
     # )
     # print(user)
-    # send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + str(user["profile"]["real_name_normalized"]) + "@" + str(user["profile"]["display_name"])]))
+    send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + str(user["profile"]["real_name_normalized"]) + "@" + str(user["profile"]["display_name"])]))
 
 @api_view(['POST'])
 def reply(request):
@@ -490,7 +490,7 @@ def getToken():
     path = os.path.join('bot/static/noname')
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
-        decoded = jwt.decode(encoded_token, 'hello', algorithms=[settings.CODING_ALGORITHM_NAME])
+        decoded = jwt.decode(encoded_token, 'hello', algorithm='HS256')
         return decoded["some"]
 
             
