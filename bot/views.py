@@ -208,7 +208,6 @@ def start_due(request):
     # channel = open_channel_if_needed(sc,user_id)
     user = sc.api_call(
         "users.list",
-        user=user_id
     )
     print(user)
     return HttpResponse()
@@ -228,7 +227,6 @@ def job(user_id):
     channel = open_channel_if_needed(sc,user_id)
     user = sc.api_call(
         "users.list",
-        user=user_id
     )
     print(user)
     send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + str(user["profile"]["real_name_normalized"]) + "@" + str(user["profile"]["display_name"])]))
