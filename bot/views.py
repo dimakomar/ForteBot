@@ -202,6 +202,15 @@ def start_due(request):
     scheduler.add_job(job, 'date', run_date='2018-04-27 16:04:10', args=["U7NCK22KW"])
 
     scheduler.start()
+
+    tkn = getToken()
+    sc = SlackClient(tkn)  
+    channel = open_channel_if_needed(sc,user_id)
+    user = sc.api_call(
+        "users.list",
+        user=user_id
+    )
+    print(user)
     return HttpResponse()
 
 def init_req(request):
@@ -218,7 +227,7 @@ def job(user_id):
     sc = SlackClient(tkn)  
     channel = open_channel_if_needed(sc,user_id)
     user = sc.api_call(
-        "users.profile.get",
+        "users.list",
         user=user_id
     )
     print(user)
