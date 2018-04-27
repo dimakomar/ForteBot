@@ -197,8 +197,8 @@ def start_due(request):
     # trigger = OrTrigger([CronTrigger(day_of_week='wed', hour=15, minute=43, second=0),
     #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
     # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
-    scheduler.add_job(job, 'date', run_date='2018-04-27 20:17:10', args=["U7F85AA80", "U7F85AA80"])
-    scheduler.add_job(job, 'date', run_date='2018-04-27 20:17:30', args=["U7F85AA80", "U7F85AA80"])
+    scheduler.add_job(job, 'date', run_date='2018-04-27 20:23:10', args=["U6DDYBZ6Z", "U6DDYBZ6Z"])
+    scheduler.add_job(job, 'date', run_date='2018-04-27 20:23:30', args=["U6DDYBZ6Z", "U6DDYBZ6Z"])
 
     scheduler.start()  
     return HttpResponse()
@@ -220,23 +220,7 @@ def job(user_id, with_user_id):
             "text": "Hey, you're on duty on the 3rd floor",
             "color": "#3AA3E3",
             "attachment_type": "default",
-            "callback_id": "game_selection",
-            "actions": [
-                {
-                    "name": "game",
-                    "text": "No, Thanks",
-                    "type": "button",
-                    "value": "no_tnx",
-                    "style": "danger"
-                },
-                {
-                    "name": "game",
-                    "text": "Send Anon Message",
-                    "type": "button",
-                    "value": "anon_message",
-                    "style": "primary"
-                }
-            ]
+            "callback_id": "game_selection"
         }]
 
     let = sc.api_call(
