@@ -207,7 +207,8 @@ def start_due(request):
     sc = SlackClient(tkn)  
     # channel = open_channel_if_needed(sc,user_id)
     user = sc.api_call(
-        "users.list",
+        "users.profile.get",
+        user="U7NCK22KW"
     )
     print(user)
     return HttpResponse()
@@ -225,11 +226,11 @@ def job(user_id):
     tkn = getToken()
     sc = SlackClient(tkn)  
     channel = open_channel_if_needed(sc,user_id)
-    user = sc.api_call(
-        "users.list",
-    )
-    print(user)
-    send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + str(user["profile"]["real_name_normalized"]) + "@" + str(user["profile"]["display_name"])]))
+    # user = sc.api_call(
+    #     "users.list",
+    # )
+    # print(user)
+    # send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + str(user["profile"]["real_name_normalized"]) + "@" + str(user["profile"]["display_name"])]))
 
 @api_view(['POST'])
 def reply(request):
@@ -490,7 +491,6 @@ def getToken():
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithms=[settings.CODING_ALGORITHM_NAME])
-
         return decoded["some"]
 
             
