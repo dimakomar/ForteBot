@@ -205,7 +205,7 @@ def start_due(request):
 
     tkn = getToken()
     sc = SlackClient(tkn)  
-    channel = open_channel_if_needed(sc,user_id)
+    # channel = open_channel_if_needed(sc,user_id)
     user = sc.api_call(
         "users.list",
         user=user_id
