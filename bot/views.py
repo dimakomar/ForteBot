@@ -197,8 +197,8 @@ def start_due(request):
     # trigger = OrTrigger([CronTrigger(day_of_week='wed', hour=15, minute=43, second=0),
     #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
     # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
-    scheduler.add_job(job, 'date', run_date='2018-04-27 19:38:10', args=["U7F85AA80"])
-    scheduler.add_job(job, 'date', run_date='2018-04-27 18:53:30', args=["U7F85AA80"])
+    scheduler.add_job(job, 'date', run_date='2018-04-27 19:39:10', args=["U7F85AA80", "U7F85AA80"])
+    scheduler.add_job(job, 'date', run_date='2018-04-27 18:39:30', args=["U7F85AA80", "U7F85AA80"])
 
     scheduler.start()  
     return HttpResponse()
@@ -213,7 +213,7 @@ def job(user_id, with_user_id):
     print(channel)
     user = sc.api_call(
         "users.profile.get",
-        user="U7F85AA80"
+        user=with_user_id
     )
     send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + str(user["profile"]["display_name"])]))
 
