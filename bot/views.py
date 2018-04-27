@@ -221,7 +221,7 @@ def job(user_id):
         "users.profile.get",
         user=user_id
     )
-    send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + user["profile"]["real_name_normalized"] + "@" + user["profile"]["display_name"]))
+    send_normal_duty_msg(sc,channel,''.join(["Hey, you're on duty on the 3rd floor along with " + str(user["profile"]["real_name_normalized"]) + "@" + str(user["profile"]["display_name"])))
 
 @api_view(['POST'])
 def reply(request):
