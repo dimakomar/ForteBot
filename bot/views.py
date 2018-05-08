@@ -204,7 +204,7 @@ def start_due(request):
     )
     print(let)
 
-    scheduler.add_job(job, 'date', run_date='2018-05-08 11:44:10', args=["U6DDYBZ6Z", "U6DDYBZ6Z"])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 14:47:00', args=["U6DDYBZ6Z", "U6DDYBZ6Z"])
     
 
     scheduler.start()  
