@@ -201,16 +201,16 @@ def start_due(request):
     # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U6DDYBZ6Z", "U0L2U6AQ2", False])
     # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U0L2U6AQ2", "U6DDYBZ6Z", False])
 
-    scheduler.add_job(job, 'date', run_date='2018-05-08 19:39:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 19:44:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
     # scheduler.start()
     #   
-    configureThirdFloor(["2018-05-08 19:39:00","2018-05-08 19:39:10","2018-05-08 19:39:20"],"U6DDYBZ6Z", "U6DDYBZ6Z")
+    # configureThirdFloor(["2018-05-08 19:39:00","2018-05-08 19:39:10","2018-05-08 19:39:20"],"U6DDYBZ6Z", "U6DDYBZ6Z")
     return HttpResponse()
 
-def configureThirdFloor(dates, id, second_id):
-    for date in dates:
-        scheduler = BackgroundScheduler(timezone="Europe/Kiev") 
-        scheduler.add_job(job, 'date', run_date=date, args=[id, second_id, True])
+# def configureThirdFloor(dates, id, second_id):
+#     for date in dates:
+#         scheduler = BackgroundScheduler(timezone="Europe/Kiev") 
+#         scheduler.add_job(job, 'date', run_date=date, args=[id, second_id, True])
 
 
 def job(user_id, with_user_id, is_3rd):
