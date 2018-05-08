@@ -205,7 +205,7 @@ def start_due(request):
     # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U0L2U6AQ2", "U0A27LV3N", False])
 
     # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U04RZ1L76", "U3B9M8SAJ", True])
-    scheduler.add_job(job, 'date', run_date='2018-05-08 16:05:00', args=["U0A27LV3N", "U0L2U6AQ2", False])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 16:07:30', args=["U0A27LV3N", "U0L2U6AQ2", False])
     scheduler.start()  
     return HttpResponse()
 
