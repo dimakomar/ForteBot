@@ -193,21 +193,25 @@ def delivery(request):
 
 @api_view(['POST'])
 def start_due(request):
-    scheduler = BackgroundScheduler(timezone="Europe/Kiev")  
-    # trigger = OrTrigger([CronTrigger(day_of_week='wed', hour=15, minute=43, second=0),
-    #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
-    # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
-    # tkn = getToken()
-    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U03MLEVG1", "U03MLGSUD", True])
-    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U03MLGSUD", "U03MLEVG1", True])
-    
-    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U6DDYBZ6Z", "U0L2U6AQ2", False])
-    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U0L2U6AQ2", "U6DDYBZ6Z", False])
 
-    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U04RZ1L76", "U3B9M8SAJ", True])
-    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:13:30', args=["U6DDYBZ6Z", "U0L2U6AQ2", False])
-    scheduler.start()  
+    # scheduler = BackgroundScheduler(timezone="Europe/Kiev")  
+    # scheduler.add_job(evening_job, 'date', run_date='2018-05-08 18:30:00', args=["U03MLEVG1", "U03MLGSUD", True])
+    # scheduler.add_job(evening_job, 'date', run_date='2018-05-08 16:30:00', args=["U03MLGSUD", "U03MLEVG1", True])
+    
+    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U6DDYBZ6Z", "U0L2U6AQ2", False])
+    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U0L2U6AQ2", "U6DDYBZ6Z", False])
+
+    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U04RZ1L76", "U3B9M8SAJ", True])
+    # scheduler.start()
+    #   
+    configureThirdFloor(["2018-05-08 19:23:00","2018-05-08 19:23:10","2018-05-08 19:23:20"],"U6DDYBZ6Z", "U6DDYBZ6Z")
     return HttpResponse()
+
+def configureThirdFloor(scheduler,dates, id, second_id):
+    for date in dates:
+        scheduler = BackgroundScheduler(timezone="Europe/Kiev") 
+        scheduler.add_job(job, 'date', run_date=date, args=["U03MLEVG1", "U03MLGSUD", True])
+
 
 def job(user_id, with_user_id, is_3rd):
     # print(job_request.data['user_id'])
@@ -216,7 +220,7 @@ def job(user_id, with_user_id, is_3rd):
     sc = SlackClient(tkn)  
     another_user_name = get_user_name(sc, with_user_id)
     channel = open_channel_if_needed(sc,user_id)
-    question_attachments = [
+    due_text = [
         {
             "text": "".join(["".join(["Hey, you're on duty on the", " 3rd" if is_3rd else " 4th", " floor with"]), str(another_user_name)]),
             "color": "#3AA3E3",
@@ -227,10 +231,30 @@ def job(user_id, with_user_id, is_3rd):
     let = sc.api_call(
         "chat.postMessage",
         channel=channel["channel"]["id"],
-        attachments=question_attachments
+        attachments=due_text
     )
-    print("result")
-    print(let)
+
+def evening_job(user_id, with_user_id, is_3rd):
+    # print(job_request.data['user_id'])
+    # print(job_request.data)
+    tkn = getToken()
+    sc = SlackClient(tkn)  
+    another_user_name = get_user_name(sc, with_user_id)
+    channel = open_channel_if_needed(sc,user_id)
+    due_text = [
+        {
+            "text": "".join(["".join(["Hey, you're on duty on the", " 3rd" if is_3rd else " 4th", " floor with"]), str(another_user_name)]),
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection"
+        }]
+
+    let = sc.api_call(
+        "chat.postMessage",
+        channel=channel["channel"]["id"],
+        attachments=due_text
+    )
+
 
 @api_view(['POST'])
 def reply(request):
@@ -369,7 +393,7 @@ def sent_message(request):
     print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
-    if request.data['event']['username'] == "forte_bot":
+    if "username" in request.data['event']:
         return HttpResponse()
     t = request.data['event']['text'] 
     usr = request.data['event']['user']
