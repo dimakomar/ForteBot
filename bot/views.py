@@ -198,14 +198,14 @@ def start_due(request):
     #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
     # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
     # tkn = getToken()
-    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U03MLEVG1", "U03MLGSUD", True])
-    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U03MLGSUD", "U03MLEVG1", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U03MLEVG1", "U03MLGSUD", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U03MLGSUD", "U03MLEVG1", True])
     
-    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U0A27LV3N", "U0L2U6AQ2", False])
-    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U0L2U6AQ2", "U0A27LV3N", False])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U6DDYBZ6Z", "U0L2U6AQ2", False])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U0L2U6AQ2", "U6DDYBZ6Z", False])
 
-    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U04RZ1L76", "U3B9M8SAJ", True])
-    scheduler.add_job(job, 'date', run_date='2018-05-08 16:13:30', args=["U6DDYBZ6Z", "U0L2U6AQ2", False])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U04RZ1L76", "U3B9M8SAJ", True])
+    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:13:30', args=["U6DDYBZ6Z", "U0L2U6AQ2", False])
     scheduler.start()  
     return HttpResponse()
 
