@@ -194,19 +194,23 @@ def delivery(request):
 @api_view(['POST'])
 def start_due(request):
 
-    scheduler = BackgroundScheduler(timezone="Europe/Kiev")  
-    # scheduler.add_job(evening_job, 'date', run_date='2018-05-08 18:30:00', args=["U03MLEVG1", "U03MLGSUD", True])
-    # scheduler.add_job(evening_job, 'date', run_date='2018-05-08 16:30:00', args=["U03MLGSUD", "U03MLEVG1", True])
-    
-    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U6DDYBZ6Z", "U0L2U6AQ2", False])
-    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U0L2U6AQ2", "U6DDYBZ6Z", False])
+    scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 12:45:00', args=["U03MNE8SG", "U1NL21RMH", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U03MNE8SG", "U1NL21RMH", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U03MNE8SG", "U1NL21RMH", True])
 
-    # scheduler.add_job(job, 'date', run_date='2018-05-08 19:56:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
-    # scheduler.start()
-    #   
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-08 20:21:00', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
-    scheduler.add_job(job, 'date', run_date='2018-05-08 20:21:10', args=["U6DDYBZ6Z", "U6DDYBZ6Z", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-08 20:21:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 12:45:00', args=["U1NL21RMH", "U03MNE8SG", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U1NL21RMH", "U03MNE8SG", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U1NL21RMH", "U03MNE8SG", True])
+
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 12:45:00', args=["U03MLE9CD", "U8XTMCHNH", False])
+    scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U03MLE9CD", "U8XTMCHNH", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U03MLE9CD", "U8XTMCHNH", False])
+
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 12:45:00', args=["U8XTMCHNH", "U03MLE9CD", False])
+    scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U8XTMCHNH", "U03MLE9CD", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U8XTMCHNH", "U03MLE9CD", False])
+    
     scheduler.start()
     return HttpResponse()
 
@@ -244,7 +248,7 @@ def evening_job(user_id, with_user_id, is_3rd):
     channel = open_channel_if_needed(sc,user_id)
     due_text = [
         {
-            "text": "".join(["".join([str(first_user_name), " закінчується робочий день і також твоє чергування на", " третьому" if is_3rd else " четвертому", " поверсі, але не забудь винести сміття!! До скорої зустрічі через місяць "])]),
+            "text": "".join(["".join([str(first_user_name), " закінчується робочий день і також твоє чергування на", " третьому" if is_3rd else " четвертому", " поверсі, але не забудь винести сміття!! До скорої зустрічі :happycat: "])]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
