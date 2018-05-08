@@ -204,7 +204,7 @@ def start_due(request):
     )
     print(let)
 
-    scheduler.add_job(job, 'date', run_date='2018-05-08 14:40:10', args=["U6DDYBZ6Z", "U6DDYBZ6Z"])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 11:44:10', args=["U6DDYBZ6Z", "U6DDYBZ6Z"])
     
 
     scheduler.start()  
@@ -218,13 +218,13 @@ def job(user_id, with_user_id):
     sc = SlackClient(tkn)  
     channel = open_channel_if_needed(sc,user_id)
     print(channel)
-    # user = sc.api_call(
-    #     "users.profile.get",
-    #     user=with_user_id
-    # )
+    user = sc.api_call(
+        "users.profile.get",
+        user=with_user_id
+    )
     question_attachments = [
         {
-            "text": "Hey, you're on duty on the 3rd floor",
+            "text": str.join(["Hey, you're on duty on the 3rd floor with", str(user["profile"]["display_name"])]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
