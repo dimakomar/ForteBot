@@ -197,28 +197,30 @@ def start_due(request):
     # trigger = OrTrigger([CronTrigger(day_of_week='wed', hour=15, minute=43, second=0),
     #                  CronTrigger(day_of_week='wed', hour=15, minute=42, second=0)])
     # scheduler.add_job(job, 'date', run_date=datetime(2018,4,26,15,30,0)) 
-
-    scheduler.add_job(job, 'date', run_date='2018-05-08 14:52:00', args=["U6DDYBZ6Z", "U6DDYBZ6Z"])
+    tkn = getToken()
+    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U03MLEVG1", "U03MLGSUD", True])
+    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U03MLGSUD", "U03MLEVG1", True])
     
+    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U0A27LV3N", "U0L2U6AQ2", False])
+    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U0L2U6AQ2", "U0A27LV3N", False])
 
+    # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U04RZ1L76", "U3B9M8SAJ", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 16:49:00', args=["U0A27LV3N", "U0L2U6AQ2", False])
     scheduler.start()  
     return HttpResponse()
 
-def job(user_id, with_user_id):
+def job(user_id, with_user_id, is_3rd):
     # print(job_request.data['user_id'])
     print("triggered")
     # print(job_request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
+    another_user_name = get_user_name(sc, with_user_id)
     channel = open_channel_if_needed(sc,user_id)
-    print(channel)
-    user = sc.api_call(
-        "users.profile.get",
-        user=with_user_id
-    )
+    print(another_user_name)
     question_attachments = [
         {
-            "text": str.join(["Hey, you're on duty on the 3rd floor with", str(user["profile"]["display_name"])]),
+            "text": "".join(["".join(["Hey, you're on duty on the", " 3rd" if is_3rd else "4th", " floor with"]), str(another_user_name)]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
@@ -462,6 +464,17 @@ def send_msg_to_all(sc,request,msg, is_raing = True):
     send_msg(sc, real_users, request, msg, is_raing)
     return HttpResponse()
 
+def get_user_name(sc, user_id):
+    user_list = sc.api_call(
+        "users.list"
+    )
+    members_array = user_list["members"]
+
+    for member in members_array:
+        if member['id'] == user_id:
+            return "".join([" ", member["profile"]["real_name"], " (", member["name"],")"])
+    return ""
+
 def send_msg(sc, real_users, req, msg, is_rating):
     for user in real_users:    
         send_att(sc,user.user_id,user.dm_channel, msg, is_rating)    
@@ -487,6 +500,7 @@ def getToken():
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithm='HS256')
+
         return decoded["some"]
 
             
