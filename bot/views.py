@@ -204,7 +204,7 @@ def start_due(request):
     # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U04RZ1L76", "U3B9M8SAJ", True])
     # scheduler.start()
     #   
-    configureThirdFloor(["2018-05-08 19:25:00","2018-05-08 19:25:10","2018-05-08 19:25:20"],"U6DDYBZ6Z", "U6DDYBZ6Z")
+    configureThirdFloor(["2018-05-08 19:29:00","2018-05-08 19:29:10","2018-05-08 19:29:20"],"U6DDYBZ6Z", "U6DDYBZ6Z")
     return HttpResponse()
 
 def configureThirdFloor(dates, id, second_id):
