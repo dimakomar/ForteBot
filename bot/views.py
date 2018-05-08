@@ -204,15 +204,11 @@ def start_due(request):
     # scheduler.add_job(job, 'date', run_date='2018-05-08 19:56:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
     # scheduler.start()
     #   
-    configureThirdFloor(["2018-05-08 19:59:00","2018-05-08 19:59:10","2018-05-08 19:59:20"],"U6DDYBZ6Z", "U6DDYBZ6Z")
+    scheduler.add_job(morning_job, '2018-05-08 20:15:00', run_date=date, args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
+    scheduler.add_job(job, '2018-05-08 20:15:10', run_date=date, args=["U6DDYBZ6Z", "U6DDYBZ6Z", False])
+    scheduler.add_job(evening_job, '2018-05-08 20:15:20', run_date=date, args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
+    scheduler.start()
     return HttpResponse()
-
-def configureThirdFloor(dates, id, second_id):
-    for date in dates:
-        scheduler = BackgroundScheduler(timezone="Europe/Kiev") 
-        scheduler.add_job(job, 'date', run_date=date, args=[id, second_id, True])
-        scheduler.start()
-
 
 def job(user_id, with_user_id, is_3rd):
     # print(job_request.data['user_id'])
@@ -220,11 +216,12 @@ def job(user_id, with_user_id, is_3rd):
     print("triggered")
     tkn = getToken()
     sc = SlackClient(tkn)  
-    another_user_name = get_user_name(sc, with_user_id)
+    first_user_name = get_user_realname(sc, user_id)
+    another_user_name = get_user_realname_and_slack_name(sc, with_user_id)
     channel = open_channel_if_needed(sc,user_id)
     due_text = [
         {
-            "text": "".join(["".join(["Hey, you're on duty on the", " 3rd" if is_3rd else " 4th", " floor with"]), str(another_user_name)]),
+            "text": "".join(["".join([str(first_user_name), " не забудь, тебе на кухні чекають обовязки на", " третьому" if is_3rd else " четвертому", " поверсі і захопи заодно "]), str(another_user_name)]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
@@ -243,11 +240,31 @@ def evening_job(user_id, with_user_id, is_3rd):
     # print(job_request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
-    another_user_name = get_user_name(sc, with_user_id)
+    another_user_name = get_user_realname_and_slack_name(sc, with_user_id)
     channel = open_channel_if_needed(sc,user_id)
     due_text = [
         {
-            "text": "".join(["".join(["Hey, you're on duty on the", " 3rd" if is_3rd else " 4th", " floor with"]), str(another_user_name)]),
+            "text": "".join(["".join([str(first_user_name), " закінчується робочий день і також твоє чергування на", " третьому" if is_3rd else " четвертому", " поверсі, але не забудь винести сміття!! До скорої зустрічі через місяць "])]),
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection"
+        }]
+
+    let = sc.api_call(
+        "chat.postMessage",
+        channel=channel["channel"]["id"],
+        attachments=due_text
+    )
+
+def morning_job(user_id, with_user_id, is_3rd):
+    tkn = getToken()
+    sc = SlackClient(tkn)  
+    first_user_name = get_user_realname(sc, user_id)
+    another_user_name = get_user_realname_and_slack_name(sc, with_user_id)
+    channel = open_channel_if_needed(sc,user_id)
+    due_text = [
+        {
+            "text": "".join(["".join([str(first_user_name), " Доброго ранку! В тебе сьогодні вдалий день, ти чергуєш на", " третьому" if is_3rd else " четвертому", " поверсі з "]), str(another_user_name)]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
@@ -492,7 +509,7 @@ def send_msg_to_all(sc,request,msg, is_raing = True):
     send_msg(sc, real_users, request, msg, is_raing)
     return HttpResponse()
 
-def get_user_name(sc, user_id):
+def get_user_realname_and_slack_name(sc, user_id):
     user_list = sc.api_call(
         "users.list"
     )
@@ -501,6 +518,17 @@ def get_user_name(sc, user_id):
     for member in members_array:
         if member['id'] == user_id:
             return "".join([" ", member["profile"]["real_name"], " (", member["name"],")"])
+    return ""
+
+def get_user_realname(sc, user_id):
+    user_list = sc.api_call(
+        "users.list"
+    )
+    members_array = user_list["members"]
+
+    for member in members_array:
+        if member['id'] == user_id:
+            return "".join([" ", member["profile"]["real_name"]])
     return ""
 
 def send_msg(sc, real_users, req, msg, is_rating):
