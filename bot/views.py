@@ -201,7 +201,7 @@ def start_due(request):
     # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U6DDYBZ6Z", "U0L2U6AQ2", False])
     # scheduler.add_job(job, 'date', run_date='2018-05-08 16:20:00', args=["U0L2U6AQ2", "U6DDYBZ6Z", False])
 
-    scheduler.add_job(job, 'date', run_date='2018-05-08 19:49:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 19:53:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
     # scheduler.start()
     #   
     # configureThirdFloor(["2018-05-08 19:39:00","2018-05-08 19:39:10","2018-05-08 19:39:20"],"U6DDYBZ6Z", "U6DDYBZ6Z")
@@ -216,6 +216,7 @@ def start_due(request):
 def job(user_id, with_user_id, is_3rd):
     # print(job_request.data['user_id'])
     # print(job_request.data)
+    print("triggered")
     tkn = getToken()
     sc = SlackClient(tkn)  
     another_user_name = get_user_name(sc, with_user_id)
@@ -233,6 +234,8 @@ def job(user_id, with_user_id, is_3rd):
         channel=channel["channel"]["id"],
         attachments=due_text
     )
+    print("result")
+    print(let)
 
 def evening_job(user_id, with_user_id, is_3rd):
     # print(job_request.data['user_id'])
