@@ -205,23 +205,20 @@ def start_due(request):
     # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U0L2U6AQ2", "U0A27LV3N", False])
 
     # scheduler.add_job(job, 'date', run_date='2018-05-08 16:00:00', args=["U04RZ1L76", "U3B9M8SAJ", True])
-    print("triggered0")
-    scheduler.add_job(job, 'date', run_date='2018-05-08 15:56:00', args=["U0A27LV3N", "U0L2U6AQ2", False])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 16:05:00', args=["U0A27LV3N", "U0L2U6AQ2", False])
     scheduler.start()  
     return HttpResponse()
 
 def job(user_id, with_user_id, is_3rd):
     # print(job_request.data['user_id'])
-    print("triggered")
     # print(job_request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
     another_user_name = get_user_name(sc, with_user_id)
     channel = open_channel_if_needed(sc,user_id)
-    print(another_user_name)
     question_attachments = [
         {
-            "text": "".join(["".join(["Hey, you're on duty on the", " 3rd" if is_3rd else "4th", " floor with"]), str(another_user_name)]),
+            "text": "".join(["".join(["Hey, you're on duty on the", " 3rd" if is_3rd else " 4th", " floor with"]), str(another_user_name)]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
@@ -232,7 +229,7 @@ def job(user_id, with_user_id, is_3rd):
         channel=channel["channel"]["id"],
         attachments=question_attachments
     )
-
+    print("result")
     print(let)
 
 @api_view(['POST'])
@@ -372,6 +369,8 @@ def sent_message(request):
     print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
+    if request.data['event']['username'] == "forte_bot":
+        return HttpResponse()
     t = request.data['event']['text'] 
     usr = request.data['event']['user']
     channel = request.data['event']['channel'] 
