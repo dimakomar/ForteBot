@@ -204,9 +204,9 @@ def start_due(request):
     # scheduler.add_job(job, 'date', run_date='2018-05-08 19:56:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
     # scheduler.start()
     #   
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-08 20:17:00', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
-    scheduler.add_job(job, 'date', run_date='2018-05-08 20:17:10', args=["U6DDYBZ6Z", "U6DDYBZ6Z", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-08 20:17:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-08 20:21:00', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-08 20:21:10', args=["U6DDYBZ6Z", "U6DDYBZ6Z", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-08 20:21:20', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
     scheduler.start()
     return HttpResponse()
 
@@ -221,7 +221,7 @@ def job(user_id, with_user_id, is_3rd):
     channel = open_channel_if_needed(sc,user_id)
     due_text = [
         {
-            "text": "".join(["".join([str(first_user_name), " не забудь, тебе на кухні чекають обовязки на", " третьому" if is_3rd else " четвертому", " поверсі і захопи заодно "]), str(another_user_name)]),
+            "text": "".join(["".join([str(first_user_name), " не забудь, тебе на кухні чекають обовязки на", " третьому" if is_3rd else " четвертому", " поверсі і захопи заодно"]), str(another_user_name)]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
@@ -240,7 +240,7 @@ def evening_job(user_id, with_user_id, is_3rd):
     # print(job_request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
-    another_user_name = get_user_realname_and_slack_name(sc, with_user_id)
+    first_user_name = get_user_realname(sc, user_id)
     channel = open_channel_if_needed(sc,user_id)
     due_text = [
         {
@@ -264,7 +264,7 @@ def morning_job(user_id, with_user_id, is_3rd):
     channel = open_channel_if_needed(sc,user_id)
     due_text = [
         {
-            "text": "".join(["".join([str(first_user_name), " Доброго ранку! В тебе сьогодні вдалий день, ти чергуєш на", " третьому" if is_3rd else " четвертому", " поверсі з "]), str(another_user_name)]),
+            "text": "".join(["".join([str(first_user_name), " Доброго ранку! В тебе сьогодні вдалий день, ти чергуєш на", " третьому" if is_3rd else " четвертому", " поверсі з"]), str(another_user_name)]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
