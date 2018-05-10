@@ -195,21 +195,23 @@ def delivery(request):
 def start_due(request):
 
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 12:45:00', args=["U03MNE8SG", "U1NL21RMH", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:45:00', args=["U03MNE8SG", "U1NL21RMH", True])
     scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U03MNE8SG", "U1NL21RMH", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U03MNE8SG", "U1NL21RMH", True])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 12:45:00', args=["U1NL21RMH", "U03MNE8SG", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:45:00', args=["U1NL21RMH", "U03MNE8SG", True])
     scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U1NL21RMH", "U03MNE8SG", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U1NL21RMH", "U03MNE8SG", True])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 12:45:00', args=["U03MLE9CD", "U8XTMCHNH", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:45:00', args=["U03MLE9CD", "U8XTMCHNH", False])
     scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U03MLE9CD", "U8XTMCHNH", False])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U03MLE9CD", "U8XTMCHNH", False])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 12:45:00', args=["U8XTMCHNH", "U03MLE9CD", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:45:00', args=["U8XTMCHNH", "U03MLE9CD", False])
     scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U8XTMCHNH", "U03MLE9CD", False])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U8XTMCHNH", "U03MLE9CD", False])
+
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:28:00', args=["U6DDYBZ6Z", "U03MLE9CD", False])
     
     scheduler.start()
     return HttpResponse()
