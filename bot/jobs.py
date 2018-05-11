@@ -49,7 +49,14 @@ def start_due(request):
     scheduler.add_job(job, 'date', run_date='2018-05-11 16:00:00', args=["U9042TTRS", "U03MLGA33", False])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-11 19:30:00', args=["U9042TTRS", "U03MLGA33", False])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 16:54:00', args=["U6DDYBZ6Z", "U03MLE9CD", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-14 12:45:00', args=["U0RGZSUE9", "U0ZJBE30V", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-14 16:00:00', args=["U0RGZSUE9", "U0ZJBE30V", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-14 19:30:00', args=["U0RGZSUE9", "U0ZJBE30V", True])
+
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-14 12:45:00', args=["U0ZJBE30V", "U0RGZSUE9", True])
+    scheduler.add_job(job, 'date', run_date='2018-05-14 16:00:00', args=["U0ZJBE30V", "U0RGZSUE9", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-14 19:30:00', args=["U0ZJBE30V", "U0RGZSUE9", True])
+
     
     scheduler.start()
     return HttpResponse()
