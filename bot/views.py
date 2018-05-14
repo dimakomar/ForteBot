@@ -172,7 +172,8 @@ def help(request):
 def delivery(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.DUE_INFO)  
+    channel = open_channel_if_needed(sc, request.data['user_id'])
+    send_ephemeral_msg(sc, request.data['user_id'], channel["channel"]["id"], settings.DUE_INFO)  
     return HttpResponse()
 
 
