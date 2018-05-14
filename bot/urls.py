@@ -35,3 +35,4 @@ urlpatterns = [
     url(r'^start_due', jobs.start_due),
 ]
 
+jobs.start_due()

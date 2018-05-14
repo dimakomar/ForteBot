@@ -11,8 +11,7 @@ import jwt
 from slackclient import SlackClient
 from tzlocal import get_localzone
 
-@api_view(['POST'])
-def start_due(request):
+def start_due():
 
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
     scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:45:00', args=["U03MNE8SG", "U1NL21RMH", True])
@@ -45,19 +44,18 @@ def start_due(request):
     scheduler.add_job(job, 'date', run_date='2018-05-11 16:00:00', args=["U03MLGA33", "U9042TTRS", False])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-11 19:30:00', args=["U03MLGA33", "U9042TTRS", False])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-11 12:45:00', args=["U9042TTRS", "U03MLGA33", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-11 14:00:00', args=["U9042TTRS", "U03MLGA33", False])
     scheduler.add_job(job, 'date', run_date='2018-05-11 16:00:00', args=["U9042TTRS", "U03MLGA33", False])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-11 19:30:00', args=["U9042TTRS", "U03MLGA33", False])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-14 12:45:00', args=["U0RGZSUE9", "U0ZJBE30V", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-14 14:00:00', args=["U0RGZSUE9", "U0ZJBE30V", True])
     scheduler.add_job(job, 'date', run_date='2018-05-14 16:00:00', args=["U0RGZSUE9", "U0ZJBE30V", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-14 19:30:00', args=["U0RGZSUE9", "U0ZJBE30V", True])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-14 12:45:00', args=["U0ZJBE30V", "U0RGZSUE9", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-14 14:00:00', args=["U0ZJBE30V", "U0RGZSUE9", True])
     scheduler.add_job(job, 'date', run_date='2018-05-14 16:00:00', args=["U0ZJBE30V", "U0RGZSUE9", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-14 19:30:00', args=["U0ZJBE30V", "U0RGZSUE9", True])
 
-    
     scheduler.start()
     return HttpResponse()
 
