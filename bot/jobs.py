@@ -12,25 +12,7 @@ from slackclient import SlackClient
 from tzlocal import get_localzone
 
 def start_due():
-
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:45:00', args=["U03MNE8SG", "U1NL21RMH", True])
-    scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U03MNE8SG", "U1NL21RMH", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U03MNE8SG", "U1NL21RMH", True])
-
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:45:00', args=["U1NL21RMH", "U03MNE8SG", True])
-    scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U1NL21RMH", "U03MNE8SG", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U1NL21RMH", "U03MNE8SG", True])
-
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:45:00', args=["U03MLE9CD", "U8XTMCHNH", False])
-    scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U03MLE9CD", "U8XTMCHNH", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U03MLE9CD", "U8XTMCHNH", False])
-
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-10 13:45:00', args=["U8XTMCHNH", "U03MLE9CD", False])
-    scheduler.add_job(job, 'date', run_date='2018-05-10 16:00:00', args=["U8XTMCHNH", "U03MLE9CD", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-10 19:30:00', args=["U8XTMCHNH", "U03MLE9CD", False])
-
-#-----------
 
     scheduler.add_job(morning_job, 'date', run_date='2018-05-11 12:45:00', args=["U0WSZ2FNE", "U0PMA3TH9", True])
     scheduler.add_job(job, 'date', run_date='2018-05-11 16:00:00', args=["U0WSZ2FNE", "U0PMA3TH9", True])
@@ -73,6 +55,14 @@ def start_due():
     scheduler.add_job(morning_job, 'date', run_date='2018-05-15 12:45:00', args=["U1NR52JD7", "U1GMEJJQ5", True])
     scheduler.add_job(job, 'date', run_date='2018-05-15 16:00:00', args=["U1NR52JD7", "U1GMEJJQ5", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-15 19:30:00', args=["U1NR52JD7", "U1GMEJJQ5", True])
+
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-15 12:45:00', args=["U1ESJL8AZ", "U0A26H59B", False])
+    scheduler.add_job(job, 'date', run_date='2018-05-15 16:00:00', args=["U1ESJL8AZ", "U0A26H59B", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-15 19:30:00', args=["U1ESJL8AZ", "U0A26H59B", False])
+
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-15 12:45:00', args=["U0A26H59B", "U1ESJL8AZ", False])
+    scheduler.add_job(job, 'date', run_date='2018-05-15 16:00:00', args=["U0A26H59B", "U1ESJL8AZ", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-15 19:30:00', args=["U0A26H59B", "U1ESJL8AZ", False])
 
     
 
