@@ -170,19 +170,9 @@ def help(request):
 
 @api_view(['POST'])
 def delivery(request):
-    print(request.data)
-    ids_path = os.path.join('bot/static/message_ids')
-    with open(ids_path , 'r') as message_ids:
-        let = message_ids.read()
-    with open(ids_path , 'a') as message_ids:
-        message_ids.write("".join(["1,"]))  
-        
-    with open(ids_path , 'r') as message_ids:
-        let = message_ids.read()
-        print(let)
     tkn = getToken()
     sc = SlackClient(tkn)
-    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.DELIVERY)  
+    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.DUE_INFO)  
     return HttpResponse()
 
 

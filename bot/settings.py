@@ -167,6 +167,15 @@ DELIVERY = "".join([">*Tiger Box* 0671550025 :tiger:\n>`https://www.instagram.co
 ">*Ковчег* 0983522222 :spaghetti:\n>`http://www.samogon.org/kovcheg/menu.php`\n>\n",
 ">*Старий Млин* 0983522222 :stew:\n>`http://www.samogon.org/stary_mlyn/menu.php`\n>\n"]) 
 
+DUE_INFO = "".join([">*Черговий на кухні:*\n",
+"> -Відповідає за чистоту кухонних поверхонь, столів, мікрохвильових печах\n",
+"> -Слідкує за наявністю серветок на столах\n",
+"> -Слідкує за достатньою кількістю води та кавових зерен у кавоварці\n",
+"> -*Виносить сміття в кінці робочого дня на вулицю в сміттєві баки* :catcry:\n",
+"> -Чистить кавоварку :latte:\n",
+"> -За необхідністю підмітає кухню в кінці робочого дня\n"])
+
+
 NOONE_VOTED = "Noone voted right now"
 
 PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg` *`text`*"
