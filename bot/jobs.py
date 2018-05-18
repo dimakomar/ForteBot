@@ -88,14 +88,15 @@ def start_due():
 
     #------------
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 12:45:00', args=["U3BASC7E3", "U1XC9N9M0", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 14:00:00', args=["U3BASC7E3", "U1XC9N9M0", True])
     scheduler.add_job(job, 'date', run_date='2018-05-18 16:00:00', args=["U3BASC7E3", "U1XC9N9M0", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-18 19:30:00', args=["U3BASC7E3", "U1XC9N9M0", True])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 12:45:00', args=["U1XC9N9M0", "U3BASC7E3", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 14:00:00', args=["U1XC9N9M0", "U3BASC7E3", True])
     scheduler.add_job(job, 'date', run_date='2018-05-18 16:00:00', args=["U1XC9N9M0", "U3BASC7E3", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-18 19:30:00', args=["U1XC9N9M0", "U3BASC7E3", True])
 
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 14:00:00', args=["U6DDYBZ6Z", "U3BASC7E3", True])
 
     scheduler.start()
     return HttpResponse()
