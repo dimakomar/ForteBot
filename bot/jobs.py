@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.combining import OrTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
@@ -12,7 +12,7 @@ from slackclient import SlackClient
 from tzlocal import get_localzone
 
 def start_due():
-    scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
+    scheduler = BlockingScheduler(timezone="Europe/Kiev")   
 
     # scheduler.add_job(morning_job, 'date', run_date='2018-05-11 12:45:00', args=["U0WSZ2FNE", "U0PMA3TH9", True])
     # scheduler.add_job(job, 'date', run_date='2018-05-11 16:00:00', args=["U0WSZ2FNE", "U0PMA3TH9", True])
@@ -96,8 +96,8 @@ def start_due():
     # scheduler.add_job(job, 'date', run_date='2018-05-18 16:00:00', args=["U1XC9N9M0", "U3BASC7E3", True])
     # scheduler.add_job(evening_job, 'date', run_date='2018-05-18 19:30:00', args=["U1XC9N9M0", "U3BASC7E3", True])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 16:15:00', args=["U6DDYBZ6Z", "U3BASC7E3", True])
-    print("sheduler triggeredd")
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 16:25:00', args=["U6DDYBZ6Z", "U3BASC7E3", True])
+    print("sheduler triggereddd")
 
     scheduler.start()
 
