@@ -87,23 +87,45 @@ def start_due():
     # scheduler.add_job(evening_job, 'date', run_date='2018-05-17 19:30:00', args=["U224S25GR", "U203JLH2M", True])
 
     #------------
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-18 19:40:00', args=["U3BASC7E3", "U1XC9N9M0", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-18 19:40:00', args=["U1XC9N9M0", "U3BASC7E3", True])
+    
+    #------- 21 
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-21 12:10:00', args=["U0NE37F25", "U0NE3297B", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-21 19:40:00', args=["U0NE37F25", "U0NE3297B", True])
+    
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-21 12:10:00', args=["U0NE3297B", "U0NE37F25", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-21 19:40:00', args=["U0NE3297B", "U0NE37F25", True])
 
-    # scheduler.add_job(morning_job, 'date', run_date='2018-05-18 14:00:00', args=["U3BASC7E3", "U1XC9N9M0", True])
-    # scheduler.add_job(job, 'date', run_date='2018-05-18 16:00:00', args=["U3BASC7E3", "U1XC9N9M0", True])
-    # scheduler.add_job(evening_job, 'date', run_date='2018-05-18 19:30:00', args=["U3BASC7E3", "U1XC9N9M0", True])
-
-    # scheduler.add_job(morning_job, 'date', run_date='2018-05-18 14:00:00', args=["U1XC9N9M0", "U3BASC7E3", True])
-    # scheduler.add_job(job, 'date', run_date='2018-05-18 16:00:00', args=["U1XC9N9M0", "U3BASC7E3", True])
-    # scheduler.add_job(evening_job, 'date', run_date='2018-05-18 19:30:00', args=["U1XC9N9M0", "U3BASC7E3", True])
-
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 16:31:00', args=["U6DDYBZ6Z", "U3BASC7E3", True])
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 16:31:00', args=["U6DDYBZ6Z", "U3BASC7E3", True])
-
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 16:31:05', args=["U6DDYBZ6Z", "U3BASC7E3", True])
+    #------- 22 
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-22 12:10:00', args=["U1NQV7CCW", "U6XA6UD97", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-22 19:40:00', args=["U1NQV7CCW", "U6XA6UD97", True])
+    
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-22 12:10:00', args=["U6XA6UD97", "U1NQV7CCW", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-22 19:40:00', args=["U6XA6UD97", "U1NQV7CCW", True])
+     #------- 23 
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-23 12:10:00', args=["U1DHZQZ8E", "U7KD2UM42", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-23 19:40:00', args=["U1DHZQZ8E", "U7KD2UM42", True])
+    
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-23 12:10:00', args=["U7KD2UM42", "U1DHZQZ8E", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-23 19:40:00', args=["U7KD2UM42", "U1DHZQZ8E", True])
+     #------- 24 
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-24 12:10:00', args=["U6B7RCXGQ", "U0VEQ7P0U", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-24 19:40:00', args=["U6B7RCXGQ", "U0VEQ7P0U", True])
+    
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-24 12:10:00', args=["U0VEQ7P0U", "U6B7RCXGQ", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-24 19:40:00', args=["U0VEQ7P0U", "U6B7RCXGQ", True])
+     #------- 25 
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-25 12:10:00', args=["U7KHJRNER", "U4HQU7V71", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-25 19:40:00', args=["U7KHJRNER", "U4HQU7V71", True])
+    
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-24 12:10:00', args=["U4HQU7V71", "U7KHJRNER", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-24 19:40:00', args=["U4HQU7V71", "U7KHJRNER", True])
+   
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-24 17:30:00', args=["U4HQU7V71", "U7KHJRNER", True])
     print("sheduler triggeredddd")
 
     scheduler.start()
-
 
     return HttpResponse()
 
