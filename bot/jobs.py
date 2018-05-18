@@ -96,7 +96,7 @@ def start_due():
     # scheduler.add_job(job, 'date', run_date='2018-05-18 16:00:00', args=["U1XC9N9M0", "U3BASC7E3", True])
     # scheduler.add_job(evening_job, 'date', run_date='2018-05-18 19:30:00', args=["U1XC9N9M0", "U3BASC7E3", True])
 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 14:08:30', args=["U6DDYBZ6Z", "U3BASC7E3", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-18 14:33:30', args=["U6DDYBZ6Z", "U3BASC7E3", True])
     print("sheduler triggeredd")
 
     scheduler.start()
