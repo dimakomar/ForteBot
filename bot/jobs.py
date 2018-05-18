@@ -13,7 +13,7 @@ from slackclient import SlackClient
 from tzlocal import get_localzone
 
 def start_due():
-    scheduler = BlockingScheduler(timezone="Europe/Kiev")   
+    scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
     # scheduler.add_job(morning_job, 'date', run_date='2018-05-11 12:45:00', args=["U0WSZ2FNE", "U0PMA3TH9", True])
     # scheduler.add_job(job, 'date', run_date='2018-05-11 16:00:00', args=["U0WSZ2FNE", "U0PMA3TH9", True])
@@ -123,7 +123,7 @@ def start_due():
     scheduler.add_job(morning_job, 'date', run_date='2018-05-24 12:10:00', args=["U4HQU7V71", "U7KHJRNER", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-24 19:40:00', args=["U4HQU7V71", "U7KHJRNER", True])
    
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-18 18:27:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-18 18:41:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
     print("sheduler triggeredddd")
 
     scheduler.start()
