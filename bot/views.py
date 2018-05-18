@@ -311,7 +311,7 @@ def start_question_vote(request):
 #This part is responsible for Slack Events API 
 @api_view(['POST'])
 def sent_message(request):
-    print(request.data)
+    # print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
     if "username" in request.data['event']:

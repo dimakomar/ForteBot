@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from bot import views, jobs
+from bot import views
 import os
 
 urlpatterns = [
@@ -31,8 +31,6 @@ urlpatterns = [
     url(r'^delivery', views.delivery),
     url(r'^send_msg', views.send_msg),
     url(r'^click', views.click),
-    url(r'^reply', views.reply),
-    url(r'^start_due', jobs.start_due),
+    url(r'^reply', views.reply)
 ]
 
-jobs.start_due()
