@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
-from apscheduler.schedulers.blocking import BlockingScheduler
+#from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.combining import OrTrigger
 from apscheduler.triggers.interval import IntervalTrigger
@@ -123,7 +123,7 @@ def start_due():
     scheduler.add_job(morning_job, 'date', run_date='2018-05-24 12:10:00', args=["U4HQU7V71", "U7KHJRNER", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-24 19:40:00', args=["U4HQU7V71", "U7KHJRNER", True])
    
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-18 18:41:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-18 18:44:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
     print("sheduler triggeredddd")
 
     scheduler.start()
