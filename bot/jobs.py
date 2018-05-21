@@ -99,6 +99,9 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-05-21 19:40:00', args=["U0NE3297B", "U0NE37F25", True])
 
     #------- 22 
+    #test
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-22 12:10:00', args=["U6DDYBZ6Z", "U6DDYBZ6Z", True])
+    #
     scheduler.add_job(morning_job, 'date', run_date='2018-05-22 12:10:00', args=["U1NQV7CCW", "U6XA6UD97", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-22 19:40:00', args=["U1NQV7CCW", "U6XA6UD97", True])
     
