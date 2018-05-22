@@ -11,6 +11,7 @@ class BotConfig(AppConfig):
         # you must import your modules here 
         # to avoid AppRegistryNotReady exception 
         from bot import jobs
+        print("aaaa")
         jobs.start_due()
         # startup code here
         
