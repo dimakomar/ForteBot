@@ -13,5 +13,5 @@ class BotConfig(AppConfig):
         # you must import your modules here 
         # to avoid AppRegistryNotReady exception 
         
-        # startup code here
+        # staxrtup code here
         
