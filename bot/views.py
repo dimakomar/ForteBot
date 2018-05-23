@@ -308,7 +308,7 @@ def start_question_vote(request):
     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"".join(["You've just started the question vote: ", "*",request.data["text"], "*"]))
     return HttpResponse()
 
-#This part is responsible for Slack Events API 
+#This part is responsible wfor Slack Events API 
 @api_view(['POST'])
 def sent_message(request):
     # print(request.data)
