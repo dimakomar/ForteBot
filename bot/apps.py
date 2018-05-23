@@ -6,7 +6,7 @@ class BotConfig(AppConfig):
     name = 'bot'
     verbose_name = "Forte Bot"
     def ready(self):
-        if 'bot.wsgi' not in sys.argv:
+        if 'bot.wsgi' in sys.argv:
             return True
         # you must import your modules here 
         # to avoid AppRegistryNotReady exception 
