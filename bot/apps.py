@@ -6,6 +6,7 @@ class BotConfig(AppConfig):
     name = 'bot'
     verbose_name = "Forte Bot"
     def ready(self):
+        pass
         print("wsgi.started")
         # if 'bot.wsgi' in sys.argv:
         from bot import jobs
