@@ -1,2 +1,2 @@
-web: gunicorn bot.wsgi
-clock: python bot/jobs.py
+web: python manage.py runserver --noreload 
+clock: python bot/jobs.py 

@@ -131,9 +131,6 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-05-18 18:57:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
     
     print("sheduler trigageredddd")
-
-    print(settings.IS_STARTED)
-    settings.IS_STARTED = True    
     scheduler.start()
 
     return HttpResponse()
