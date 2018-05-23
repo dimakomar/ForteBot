@@ -15,4 +15,3 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bot.settings")
 
 application = get_wsgi_application()
 
-print("wsgi.started")
