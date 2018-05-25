@@ -50,6 +50,17 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-05-25 19:40:00', args=["U7KHJRNER", "U4HQU7V71", True])
 
     scheduler.add_job(evening_job, 'date', run_date='2018-05-25 19:40:00', args=["U4HQU7V71", "U7KHJRNER", True])
+
+    #test
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-25 19:40:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-26 19:40:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-27 19:40:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-28 19:40:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-05-29 19:40:00', args=["U6DDYBZ6Z", "U7KHJRNER", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-26 12:10:00', args=["U6DDYBZ6Z", "U0540716R", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-27 12:10:00', args=["U6DDYBZ6Z", "U0540716R", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-28 12:10:00', args=["U6DDYBZ6Z", "U0540716R", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-29 12:10:00', args=["U6DDYBZ6Z", "U0540716R", True])
        
     print("sheduler trigageredddd")
     scheduler.start()
