@@ -32,10 +32,10 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-05-30 19:40:00', args=["U0540716R", "U23J06WDQ", True])
      #------- 31
      #  
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-31 16:30:00', args=["U8XTMCHNH", "U7YNB7X1P", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-31 15:20:00', args=["U8XTMCHNH", "U7YNB7X1P", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-31 19:40:00', args=["U8XTMCHNH", "U7YNB7X1P", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-31 16:30:00', args=["U7YNB7X1P", "U8XTMCHNH", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-31 15:20:00', args=["U7YNB7X1P", "U8XTMCHNH", True])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-31 19:40:00', args=["U7YNB7X1P", "U8XTMCHNH", True])
 
      #------- 1 
@@ -62,10 +62,10 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-05-30 19:40:00', args=["U9ZBZRK4L", "UA0DYP38W", False])
      #------- 31
      #  
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-31 16:30:00', args=["UA3DB10M6", "U0VEQ7P0U", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-31 15:20:00', args=["UA3DB10M6", "U0VEQ7P0U", False])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-31 19:40:00', args=["UA3DB10M6", "U0VEQ7P0U", False])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-31 16:30:00', args=["U0VEQ7P0U", "UA3DB10M6", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-05-31 15:20:00', args=["U0VEQ7P0U", "UA3DB10M6", False])
     scheduler.add_job(evening_job, 'date', run_date='2018-05-31 19:40:00', args=["U0VEQ7P0U", "UA3DB10M6", False])
 
      #------- 1 
