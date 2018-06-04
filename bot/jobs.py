@@ -17,12 +17,12 @@ from django.conf import settings
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
-    #------- 29 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-29 12:10:00', args=["U7CP33F7F", "U773HD18B", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-29 19:40:00', args=["U7CP33F7F", "U773HD18B", True])
+    #------- 04 
+    scheduler.add_job(morning_job, 'date', run_date='2018-06-04 15:05:00', args=["U1NRJF17S", "U03MN93SN", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-04 19:40:00', args=["U1NRJF17S", "U03MN93SN", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-29 12:10:00', args=["U773HD18B", "U7CP33F7F", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-29 19:40:00', args=["U773HD18B", "U7CP33F7F", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-06-04 15:05:00', args=["U03MN93SN", "U1NRJF17S", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-04 19:40:00', args=["U03MN93SN", "U1NRJF17S", True])
 
     #------- 30 
     scheduler.add_job(morning_job, 'date', run_date='2018-05-30 12:10:00', args=["U23J06WDQ", "U0540716R", True])
@@ -48,11 +48,11 @@ def start_due():
 
     # --- 4th floor
     #------- 29 
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-29 12:10:00', args=["UA0DVRK62", "U9ZC1S9EY", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-29 19:40:00', args=["UA0DVRK62", "U9ZC1S9EY", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-06-04 15:05:00', args=["U6DDYBZ6Z", "U03MLE9CD", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-04 19:40:00', args=["U6DDYBZ6Z", "U03MLE9CD", False])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-05-29 12:10:00', args=["U9ZC1S9EY", "UA0DVRK62", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-05-29 19:40:00', args=["U9ZC1S9EY", "UA0DVRK62", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-06-04 15:05:00', args=["U03MLE9CD", "U6DDYBZ6Z", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-04 19:40:00', args=["U03MLE9CD", "U6DDYBZ6Z", False])
 
     #------- 30 
     scheduler.add_job(morning_job, 'date', run_date='2018-05-30 12:10:00', args=["UA0DYP38W", "U9ZBZRK4L", False])
