@@ -32,11 +32,12 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-06-05 19:40:00', args=["U03MNPB8W", "U8WHXDMG9", True])
      #------- 31
      #  
-    scheduler.add_job(morning_job, 'date', run_date='2018-06-06 15:20:00', args=["U7Z9CBJ12", "U83KA4JVA", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-06-06 19:40:00', args=["U7Z9CBJ12", "U83KA4JVA", True])
+    scheduler.add_job(failed_morning_job, 'date', run_date='2018-06-06 12:10:00', args=["U8WHXDMG9", "U03MNPB8W", True])
+    scheduler.add_job(failed_morning_job, 'date', run_date='2018-06-06 12:10:00', args=["U6DDYBZ6Z", "U03MNPB8W", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-06 19:40:00', args=["U8WHXDMG9", "U03MNPB8W", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-06-06 15:20:00', args=["U83KA4JVA", "U7Z9CBJ12", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-06-06 19:40:00', args=["U83KA4JVA", "U7Z9CBJ12", True])
+    scheduler.add_job(failed_morning_job, 'date', run_date='2018-06-06 12:10:00', args=["U03MNPB8W", "U8WHXDMG9", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-06 19:40:00', args=["U03MNPB8W", "U8WHXDMG9", True])
 
      #------- 1 
     scheduler.add_job(morning_job, 'date', run_date='2018-06-07 12:10:00', args=["U9X2V0RRT", "UA0E01NGN", True])
@@ -69,10 +70,10 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-06-05 19:40:00', args=["U03MLGA33", "U8XTMCHNH", False])
      #------- 31
      #  
-    scheduler.add_job(morning_job, 'date', run_date='2018-06-06 15:20:00', args=["U9042TTRS", "U501EE1C1", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-06-06 12:10:00', args=["U9042TTRS", "U501EE1C1", False])
     scheduler.add_job(evening_job, 'date', run_date='2018-06-06 19:40:00', args=["U9042TTRS", "U501EE1C1", False])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-06-06 15:20:00', args=["U501EE1C1", "U9042TTRS", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-06-06 12:10:00', args=["U501EE1C1", "U9042TTRS", False])
     scheduler.add_job(evening_job, 'date', run_date='2018-06-06 19:40:00', args=["U501EE1C1", "U9042TTRS", False])
 
      #------- 1 
@@ -155,7 +156,27 @@ def morning_job(user_id, with_user_id, is_3rd):
     channel = open_channel_if_needed(sc,user_id)
     due_text = [
         {
-            "text": "".join(["".join([str(first_user_name), ", Доброго ранку! В тебе сьогодні вдалий день, ти чергуєш на", " третьому" if is_3rd else " четвертому", " поверсі з"]), str(another_user_name), " :dancingpony:"]),
+            "text": "".join(["".join([str(first_user_name), ", Доброго ранку! В тебе сьогоднi вдалий день, ти чергуєш на", " третьому" if is_3rd else " четвертому", " поверсі з"]), str(another_user_name), " :dancingpony:"]),
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection"
+        }]
+
+    let = sc.api_call(
+        "chat.postMessage",
+        channel=channel["channel"]["id"],
+        attachments=due_text
+    )
+
+def failed_morning_job(user_id, with_user_id, is_3rd):
+    tkn = getToken()
+    sc = SlackClient(tkn)  
+    first_user_name = get_user_realname(sc, user_id)
+    another_user_name = get_user_realname_and_slack_name(sc, with_user_id)
+    channel = open_channel_if_needed(sc,user_id)
+    due_text = [
+        {
+            "text": "".join(["".join([str(first_user_name), ", Доброго ранку! Вчора це був пранк про чергування, а сьогоднi в тебе вдалий день, ти чергуєш на", " третьому" if is_3rd else " четвертому", " поверсі з"]), str(another_user_name), " :dancingpony:"]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
