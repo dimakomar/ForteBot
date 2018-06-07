@@ -40,18 +40,18 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-06-06 19:40:00', args=["U03MNPB8W", "U8WHXDMG9", True])
 
      #------- 1 
-    scheduler.add_job(morning_job, 'date', run_date='2018-06-07 12:10:00', args=["U9X2V0RRT", "UA0E01NGN", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-06-07 19:40:00', args=["U9X2V0RRT", "UA0E01NGN", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-06-07 12:10:00', args=["U7Z9CBJ12", "U83KA4JVA", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-07 19:40:00', args=["U7Z9CBJ12", "U83KA4JVA", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-06-07 12:10:00', args=["UA0E01NGN", "U9X2V0RRT", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-06-07 19:40:00', args=["UA0E01NGN", "U9X2V0RRT", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-06-07 12:10:00', args=["U83KA4JVA", "U7Z9CBJ12", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-07 19:40:00', args=["U83KA4JVA", "U7Z9CBJ12", True])
 
     #------- 1 
-    scheduler.add_job(morning_job, 'date', run_date='2018-06-08 12:10:00', args=["UA0DVRK62", "U9ZC1S9EY", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-06-08 19:40:00', args=["UA0DVRK62", "U9ZC1S9EY", True])
+    scheduler.add_job(failed_morning_job, 'date', run_date='2018-06-08 12:10:00', args=["U9X2V0RRT", "UA0E01NGN", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-08 19:40:00', args=["U9X2V0RRT", "UA0E01NGN", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-06-08 12:10:00', args=["U9ZC1S9EY", "UA0DVRK62", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-06-08 19:40:00', args=["U9ZC1S9EY", "UA0DVRK62", True])
+    scheduler.add_job(failed_morning_job, 'date', run_date='2018-06-08 12:10:00', args=["UA0E01NGN", "U9X2V0RRT", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-06-08 19:40:00', args=["UA0E01NGN", "U9X2V0RRT", True])
 
 
     # --- 4th floor
