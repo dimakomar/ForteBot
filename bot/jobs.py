@@ -101,8 +101,6 @@ def start_due():
 
 
 def job(user_id, with_user_id, is_3rd):
-    # print(job_request.data['user_id'])
-    # print(job_request.data)
     print("triggered")
     tkn = getToken()
     sc = SlackClient(tkn)  
