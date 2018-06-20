@@ -102,249 +102,249 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-07-03 19:40:00', args=["U04E63ZQS", "U1XBTPLSJ", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-04 12:10:00', args=["U6871AM51", "U1ESJL8AZ", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-04 19:40:00', args=["U6871AM51", "U1ESJL8AZ", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-04 12:10:00', args=["U1ESJL8AZ", "U0A272J0J", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-04 19:40:00', args=["U1ESJL8AZ", "U0A272J0J", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-04 12:10:00', args=["U1ESJL8AZ", "U6871AM51", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-04 19:40:00', args=["U1ESJL8AZ", "U6871AM51", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-04 12:10:00', args=["U0A272J0J", "U1ESJL8AZ", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-04 19:40:00', args=["U0A272J0J", "U1ESJL8AZ", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-05 12:10:00', args=["U0A272J0J", "U0A26H59B", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-05 19:40:00', args=["U0A272J0J", "U0A26H59B", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-05 12:10:00', args=["U0A26H59B", "U03MLGSUD", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-05 19:40:00', args=["U0A26H59B", "U03MLGSUD", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-05 12:10:00', args=["U0A26H59B", "U0A272J0J", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-05 19:40:00', args=["U0A26H59B", "U0A272J0J", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-05 12:10:00', args=["U03MLGSUD", "U0A26H59B", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-05 19:40:00', args=["U03MLGSUD", "U0A26H59B", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-06 12:10:00', args=["U03MLGSUD", "U0WSZ2FNE", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-06 19:40:00', args=["U03MLGSUD", "U0WSZ2FNE", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-06 12:10:00', args=["U0WSZ2FNE", "U03MNAAFL", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-06 19:40:00', args=["U0WSZ2FNE", "U03MNAAFL", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-06 12:10:00', args=["U0WSZ2FNE", "U03MLGSUD", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-06 19:40:00', args=["U0WSZ2FNE", "U03MLGSUD", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-06 12:10:00', args=["U03MNAAFL", "U0WSZ2FNE", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-06 19:40:00', args=["U03MNAAFL", "U0WSZ2FNE", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-09 12:10:00', args=["U03MNAAFL", "U03MLH4C9", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-09 19:40:00', args=["U03MNAAFL", "U03MLH4C9", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-09 12:10:00', args=["U03MLH4C9", "U03MLEVG1", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-09 19:40:00', args=["U03MLH4C9", "U03MLEVG1", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-09 12:10:00', args=["U03MLH4C9", "U03MNAAFL", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-09 19:40:00', args=["U03MLH4C9", "U03MNAAFL", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-09 12:10:00', args=["U03MLEVG1", "U03MLH4C9", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-09 19:40:00', args=["U03MLEVG1", "U03MLH4C9", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-10 12:10:00', args=["U03MLEVG1", "U03MNAKHQ", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-10 19:40:00', args=["U03MLEVG1", "U03MNAKHQ", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-10 12:10:00', args=["U03MNAKHQ", "U02S32ZT0", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-10 19:40:00', args=["U03MNAKHQ", "U02S32ZT0", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-10 12:10:00', args=["U03MNAKHQ", "U03MLEVG1", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-10 19:40:00', args=["U03MNAKHQ", "U03MLEVG1", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-10 12:10:00', args=["U02S32ZT0", "U03MNAKHQ", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-10 19:40:00', args=["U02S32ZT0", "U03MNAKHQ", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-11 12:10:00', args=["U02S32ZT0", "U03MLEV4P", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-11 19:40:00', args=["U02S32ZT0", "U03MLEV4P", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-11 12:10:00', args=["U03MLEV4P", "U03MNE8SG", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-11 19:40:00', args=["U03MLEV4P", "U03MNE8SG", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-11 12:10:00', args=["U03MLEV4P", "U02S32ZT0", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-11 19:40:00', args=["U03MLEV4P", "U02S32ZT0", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-11 12:10:00', args=["U03MNE8SG", "U03MLEV4P", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-11 19:40:00', args=["U03MNE8SG", "U03MLEV4P", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-12 12:10:00', args=["U03MNE8SG", "U1NL21RMH", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-12 19:40:00', args=["U03MNE8SG", "U1NL21RMH", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-12 12:10:00', args=["U1NL21RMH", "U0PMA3TH9", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-12 19:40:00', args=["U1NL21RMH", "U0PMA3TH9", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-12 12:10:00', args=["U1NL21RMH", "U03MNE8SG", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-12 19:40:00', args=["U1NL21RMH", "U03MNE8SG", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-12 12:10:00', args=["U0PMA3TH9", "U1NL21RMH", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-12 19:40:00', args=["U0PMA3TH9", "U1NL21RMH", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-13 12:10:00', args=["U0PMA3TH9", "U03MN93SN", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-13 19:40:00', args=["U0PMA3TH9", "U03MN93SN", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-13 12:10:00', args=["U03MN93SN", "U0RGZSUE9", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-13 19:40:00', args=["U03MN93SN", "U0RGZSUE9", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-13 12:10:00', args=["U03MN93SN", "U0PMA3TH9", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-13 19:40:00', args=["U03MN93SN", "U0PMA3TH9", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-13 12:10:00', args=["U0RGZSUE9", "U03MN93SN", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-13 19:40:00', args=["U0RGZSUE9", "U03MN93SN", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-16 12:10:00', args=["U0RGZSUE9", "U03LPHT2C", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-16 19:40:00', args=["U0RGZSUE9", "U03LPHT2C", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-16 12:10:00', args=["U03LPHT2C", "U1GMEJJQ5", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-16 19:40:00', args=["U03LPHT2C", "U1GMEJJQ5", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-16 12:10:00', args=["U03LPHT2C", "U0RGZSUE9", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-16 19:40:00', args=["U03LPHT2C", "U0RGZSUE9", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-16 12:10:00', args=["U1GMEJJQ5", "U03LPHT2C", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-16 19:40:00', args=["U1GMEJJQ5", "U03LPHT2C", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-17 12:10:00', args=["U1GMEJJQ5", "U1NR52JD7", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-17 19:40:00', args=["U1GMEJJQ5", "U1NR52JD7", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-17 12:10:00', args=["U1NR52JD7", "U1NQL0R8E", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-17 19:40:00', args=["U1NR52JD7", "U1NQL0R8E", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-17 12:10:00', args=["U1NR52JD7", "U1GMEJJQ5", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-17 19:40:00', args=["U1NR52JD7", "U1GMEJJQ5", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-17 12:10:00', args=["U1NQL0R8E", "U1NR52JD7", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-17 19:40:00', args=["U1NQL0R8E", "U1NR52JD7", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-18 12:10:00', args=["U1NQL0R8E", "U1SK161BR", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-18 19:40:00', args=["U1NQL0R8E", "U1SK161BR", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-18 12:10:00', args=["U1SK161BR", "U203JLH2M", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-18 19:40:00', args=["U1SK161BR", "U203JLH2M", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-18 12:10:00', args=["U1SK161BR", "U1NQL0R8E", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-18 19:40:00', args=["U1SK161BR", "U1NQL0R8E", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-18 12:10:00', args=["U203JLH2M", "U1SK161BR", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-18 19:40:00', args=["U203JLH2M", "U1SK161BR", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-19 12:10:00', args=["U203JLH2M", "UA0DVRK62", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-19 19:40:00', args=["U203JLH2M", "UA0DVRK62", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-19 12:10:00', args=["UA0DVRK62", "U773HD18B", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-19 19:40:00', args=["UA0DVRK62", "U773HD18B", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-19 12:10:00', args=["UA0DVRK62", "U203JLH2M", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-19 19:40:00', args=["UA0DVRK62", "U203JLH2M", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-19 12:10:00', args=["U773HD18B", "UA0DVRK62", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-19 19:40:00', args=["U773HD18B", "UA0DVRK62", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-20 12:10:00', args=["U773HD18B", "U9ZC1S9EY", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-20 19:40:00', args=["U773HD18B", "U9ZC1S9EY", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-20 12:10:00', args=["U9ZC1S9EY", "U3BASC7E3", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-20 19:40:00', args=["U9ZC1S9EY", "U3BASC7E3", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-20 12:10:00', args=["U9ZC1S9EY", "U773HD18B", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-20 19:40:00', args=["U9ZC1S9EY", "U773HD18B", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-20 12:10:00', args=["U3BASC7E3", "U9ZC1S9EY", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-20 19:40:00', args=["U3BASC7E3", "U9ZC1S9EY", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-23 12:10:00', args=["U3BASC7E3", "UA0DYP38W", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-23 19:40:00', args=["U3BASC7E3", "UA0DYP38W", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-23 12:10:00', args=["UA0DYP38W", "U1XC9N9M0", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-23 19:40:00', args=["UA0DYP38W", "U1XC9N9M0", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-23 12:10:00', args=["UA0DYP38W", "U3BASC7E3", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-23 19:40:00', args=["UA0DYP38W", "U3BASC7E3", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-23 12:10:00', args=["U1XC9N9M0", "UA0DYP38W", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-23 19:40:00', args=["U1XC9N9M0", "UA0DYP38W", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-24 12:10:00', args=["U1XC9N9M0", "U9ZBZRK4L", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-24 19:40:00', args=["U1XC9N9M0", "U9ZBZRK4L", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-24 12:10:00', args=["U9ZBZRK4L", "U0NE37F25", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-24 19:40:00', args=["U9ZBZRK4L", "U0NE37F25", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-24 12:10:00', args=["U9ZBZRK4L", "U1XC9N9M0", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-24 19:40:00', args=["U9ZBZRK4L", "U1XC9N9M0", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-24 12:10:00', args=["U0NE37F25", "U9ZBZRK4L", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-24 19:40:00', args=["U0NE37F25", "U9ZBZRK4L", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-25 12:10:00', args=["U0NE37F25", "UA90MJ8FK", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-25 19:40:00', args=["U0NE37F25", "UA90MJ8FK", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-25 12:10:00', args=["UA90MJ8FK", "U0NE3297B", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-25 19:40:00', args=["UA90MJ8FK", "U0NE3297B", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-25 12:10:00', args=["UA90MJ8FK", "U0NE37F25", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-25 19:40:00', args=["UA90MJ8FK", "U0NE37F25", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-25 12:10:00', args=["U0NE3297B", "UA90MJ8FK", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-25 19:40:00', args=["U0NE3297B", "UA90MJ8FK", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-26 12:10:00', args=["U0NE3297B", "UA9DPR9EX", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-26 19:40:00', args=["U0NE3297B", "UA9DPR9EX", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-26 12:10:00', args=["UA9DPR9EX", "U1NQV7CCW", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-26 19:40:00', args=["UA9DPR9EX", "U1NQV7CCW", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-26 12:10:00', args=["UA9DPR9EX", "U0NE3297B", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-26 19:40:00', args=["UA9DPR9EX", "U0NE3297B", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-26 12:10:00', args=["U1NQV7CCW", "UA9DPR9EX", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-26 19:40:00', args=["U1NQV7CCW", "UA9DPR9EX", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-27 12:10:00', args=["U1NQV7CCW", "UAADK9VUN", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-27 19:40:00', args=["U1NQV7CCW", "UAADK9VUN", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-27 12:10:00', args=["UAADK9VUN", "U6XA6UD97", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-27 19:40:00', args=["UAADK9VUN", "U6XA6UD97", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-27 12:10:00', args=["UAADK9VUN", "U1NQV7CCW", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-27 19:40:00', args=["UAADK9VUN", "U1NQV7CCW", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-27 12:10:00', args=["U6XA6UD97", "UAADK9VUN", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-27 19:40:00', args=["U6XA6UD97", "UAADK9VUN", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-30 12:10:00', args=["U6XA6UD97", "UA3EA4W9E", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-30 19:40:00', args=["U6XA6UD97", "UA3EA4W9E", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-30 12:10:00', args=["UA3EA4W9E", "U1DHZQZ8E", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-30 19:40:00', args=["UA3EA4W9E", "U1DHZQZ8E", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-30 12:10:00', args=["UA3EA4W9E", "U6XA6UD97", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-30 19:40:00', args=["UA3EA4W9E", "U6XA6UD97", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-30 12:10:00', args=["U1DHZQZ8E", "UA3EA4W9E", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-30 19:40:00', args=["U1DHZQZ8E", "UA3EA4W9E", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-31 12:10:00', args=["U1DHZQZ8E", "UA3DB10M6", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-31 19:40:00', args=["U1DHZQZ8E", "UA3DB10M6", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-31 12:10:00', args=["UA3DB10M6", "U7KD2UM42", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-31 19:40:00', args=["UA3DB10M6", "U7KD2UM42", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-31 12:10:00', args=["UA3DB10M6", "U1DHZQZ8E", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-31 19:40:00', args=["UA3DB10M6", "U1DHZQZ8E", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-31 12:10:00', args=["U7KD2UM42", "UA3DB10M6", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-31 19:40:00', args=["U7KD2UM42", "UA3DB10M6", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-01 12:10:00', args=["U7KD2UM42", "U9N9NPQ0L", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-01 19:40:00', args=["U7KD2UM42", "U9N9NPQ0L", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-01 12:10:00', args=["U9N9NPQ0L", "U6B7RCXGQ", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-01 19:40:00', args=["U9N9NPQ0L", "U6B7RCXGQ", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-01 12:10:00', args=["U9N9NPQ0L", "U7KD2UM42", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-01 19:40:00', args=["U9N9NPQ0L", "U7KD2UM42", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-01 12:10:00', args=["U6B7RCXGQ", "U9N9NPQ0L", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-01 19:40:00', args=["U6B7RCXGQ", "U9N9NPQ0L", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-02 12:10:00', args=["U6B7RCXGQ", "U9RH0Q03T", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-02 19:40:00', args=["U6B7RCXGQ", "U9RH0Q03T", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-02 12:10:00', args=["U9RH0Q03T", "U0VEQ7P0U", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-02 19:40:00', args=["U9RH0Q03T", "U0VEQ7P0U", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-02 12:10:00', args=["U9RH0Q03T", "U6B7RCXGQ", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-02 19:40:00', args=["U9RH0Q03T", "U6B7RCXGQ", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-02 12:10:00', args=["U0VEQ7P0U", "U9RH0Q03T", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-02 19:40:00', args=["U0VEQ7P0U", "U9RH0Q03T", True])
     
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-03 12:10:00', args=["U0VEQ7P0U", "UAGAF223S", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-03 19:40:00', args=["U0VEQ7P0U", "UAGAF223S", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-03 12:10:00', args=["UAGAF223S", "U7KHJRNER", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-03 19:40:00', args=["UAGAF223S", "U7KHJRNER", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-03 12:10:00', args=["UAGAF223S", "U0VEQ7P0U", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-03 19:40:00', args=["UAGAF223S", "U0VEQ7P0U", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-03 12:10:00', args=["U7KHJRNER", "UAGAF223S", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-03 19:40:00', args=["U7KHJRNER", "UAGAF223S", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-06 12:10:00', args=["U7KHJRNER", "UAW0KNDBN", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-06 19:40:00', args=["U7KHJRNER", "UAW0KNDBN", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-06 12:10:00', args=["UAW0KNDBN", "U4HQU7V71", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-06 19:40:00', args=["UAW0KNDBN", "U4HQU7V71", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-06 12:10:00', args=["UAW0KNDBN", "U7KHJRNER", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-06 19:40:00', args=["UAW0KNDBN", "U7KHJRNER", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-06 12:10:00', args=["U4HQU7V71", "UAW0KNDBN", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-06 19:40:00', args=["U4HQU7V71", "UAW0KNDBN", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-07 12:10:00', args=["U4HQU7V71", "U7CP33F7F", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-07 19:40:00', args=["U4HQU7V71", "U7CP33F7F", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-07 12:10:00', args=["U7CP33F7F", "U773HD18B", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-07 19:40:00', args=["U7CP33F7F", "U773HD18B", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-07 12:10:00', args=["U7CP33F7F", "U4HQU7V71", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-07 19:40:00', args=["U7CP33F7F", "U4HQU7V71", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-07 12:10:00', args=["U773HD18B", "U7CP33F7F", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-07 19:40:00', args=["U773HD18B", "U7CP33F7F", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-08 12:10:00', args=["U773HD18B", "U23J06WDQ", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-08 19:40:00', args=["U773HD18B", "U23J06WDQ", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-08 12:10:00', args=["U23J06WDQ", "U0540716R", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-08 19:40:00', args=["U23J06WDQ", "U0540716R", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-08 12:10:00', args=["U23J06WDQ", "U773HD18B", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-08 19:40:00', args=["U23J06WDQ", "U773HD18B", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-08 12:10:00', args=["U0540716R", "U23J06WDQ", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-08 19:40:00', args=["U0540716R", "U23J06WDQ", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-09 12:10:00', args=["U0540716R", "U8XTMCHNH", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-09 19:40:00', args=["U0540716R", "U8XTMCHNH", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-09 12:10:00', args=["U8XTMCHNH", "U7YNB7X1P", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-09 19:40:00', args=["U8XTMCHNH", "U7YNB7X1P", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-09 12:10:00', args=["U8XTMCHNH", "U0540716R", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-09 19:40:00', args=["U8XTMCHNH", "U0540716R", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-09 12:10:00', args=["U7YNB7X1P", "U8XTMCHNH", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-09 19:40:00', args=["U7YNB7X1P", "U8XTMCHNH", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-10 12:10:00', args=["U7YNB7X1P", "U83FNRUQ3", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-10 19:40:00', args=["U7YNB7X1P", "U83FNRUQ3", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-10 12:10:00', args=["U83FNRUQ3", "U85RV466Q", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-10 19:40:00', args=["U83FNRUQ3", "U85RV466Q", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-10 12:10:00', args=["U83FNRUQ3", "U7YNB7X1P", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-10 19:40:00', args=["U83FNRUQ3", "U7YNB7X1P", True])
-
-#----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-13 12:10:00', args=["U85RV466Q", "U04U45G59", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-13 19:40:00', args=["U85RV466Q", "U04U45G59", True])
-    
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-13 12:10:00', args=["U04U45G59", "U85RV466Q", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-13 19:40:00', args=["U04U45G59", "U85RV466Q", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-10 12:10:00', args=["U85RV466Q", "U83FNRUQ3", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-10 19:40:00', args=["U85RV466Q", "U83FNRUQ3", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-14 12:10:00', args=["U9042TTRS", "U1NRJF17S", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-14 19:40:00', args=["U9042TTRS", "U1NRJF17S", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-13 12:10:00', args=["U04U45G59", "U9042TTRS", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-13 19:40:00', args=["U04U45G59", "U9042TTRS", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-14 12:10:00', args=["U1NRJF17S", "U9042TTRS", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-14 19:40:00', args=["U1NRJF17S", "U9042TTRS", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-13 12:10:00', args=["U9042TTRS", "U04U45G59", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-13 19:40:00', args=["U9042TTRS", "U04U45G59", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-15 12:10:00', args=["U03MN93SN", "U8WHXDMG9", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-15 19:40:00', args=["U03MN93SN", "U8WHXDMG9", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-14 12:10:00', args=["U1NRJF17S", "U03MN93SN", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-14 19:40:00', args=["U1NRJF17S", "U03MN93SN", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-15 12:10:00', args=["U8WHXDMG9", "U03MN93SN", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-15 19:40:00', args=["U8WHXDMG9", "U03MN93SN", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-14 12:10:00', args=["U03MN93SN", "U1NRJF17S", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-14 19:40:00', args=["U03MN93SN", "U1NRJF17S", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-16 12:10:00', args=["U03MNPB8W", "U7Z9CBJ12", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-16 19:40:00', args=["U03MNPB8W", "U7Z9CBJ12", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-15 12:10:00', args=["U8WHXDMG9", "U03MNPB8W", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-15 19:40:00', args=["U8WHXDMG9", "U03MNPB8W", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-16 12:10:00', args=["U7Z9CBJ12", "U03MNPB8W", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-16 19:40:00', args=["U7Z9CBJ12", "U03MNPB8W", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-15 12:10:00', args=["U03MNPB8W", "U8WHXDMG9", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-15 19:40:00', args=["U03MNPB8W", "U8WHXDMG9", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-17 12:10:00', args=["U83KA4JVA", "U9X2V0RRT", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-17 19:40:00', args=["U83KA4JVA", "U9X2V0RRT", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-16 12:10:00', args=["U7Z9CBJ12", "U83KA4JVA", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-16 19:40:00', args=["U7Z9CBJ12", "U83KA4JVA", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-17 12:10:00', args=["U9X2V0RRT", "U83KA4JVA", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-17 19:40:00', args=["U9X2V0RRT", "U83KA4JVA", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-16 12:10:00', args=["U83KA4JVA", "U7Z9CBJ12", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-16 19:40:00', args=["U83KA4JVA", "U7Z9CBJ12", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-20 12:10:00', args=["UB2MHJQUD", "UB4M4PFBK", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-20 19:40:00', args=["UB2MHJQUD", "UB4M4PFBK", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-17 12:10:00', args=["U9X2V0RRT", "UB2MHJQUD", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-17 19:40:00', args=["U9X2V0RRT", "UB2MHJQUD", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-20 12:10:00', args=["UB4M4PFBK", "UB2MHJQUD", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-20 19:40:00', args=["UB4M4PFBK", "UB2MHJQUD", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-17 12:10:00', args=["UB2MHJQUD", "U9X2V0RRT", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-17 19:40:00', args=["UB2MHJQUD", "U9X2V0RRT", True])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-21 12:10:00', args=["UB61Q3PK7", "UB694H6MC", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-21 19:40:00', args=["UB61Q3PK7", "UB694H6MC", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-20 12:10:00', args=["UB4M4PFBK", "UB61Q3PK7", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-20 19:40:00', args=["UB4M4PFBK", "UB61Q3PK7", True])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-21 12:10:00', args=["UB694H6MC", "UB61Q3PK7", True])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-21 19:40:00', args=["UB694H6MC", "UB61Q3PK7", True])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-20 12:10:00', args=["UB61Q3PK7", "UB4M4PFBK", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-20 19:40:00', args=["UB61Q3PK7", "UB4M4PFBK", True])
+
+    #----
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-21 12:10:00', args=["UB694H6MC", "UB694H6MC", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-21 19:40:00', args=["UB694H6MC", "UB694H6MC", True])
+    
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-21 12:10:00', args=["UB694H6MC", "UB694H6MC", True])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-21 19:40:00', args=["UB694H6MC", "UB694H6MC", True])
 
     # --- 4th floor
     # --- 4th floor
@@ -470,11 +470,11 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-07-10 19:40:00', args=["U6UE195C3", "U203JLH2M", False])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-11 12:10:00', args=["U6871AM51", "U4HQU7V71", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-11 19:40:00', args=["U6871AM51", "U4HQU7V71", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-11 12:10:00', args=["U0PMA3TH9", "U4HQU7V71", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-11 19:40:00', args=["U0PMA3TH9", "U4HQU7V71", False])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-07-11 12:10:00', args=["U4HQU7V71", "U6871AM51", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-07-11 19:40:00', args=["U4HQU7V71", "U6871AM51", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-07-11 12:10:00', args=["U4HQU7V71", "U0PMA3TH9", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-07-11 19:40:00', args=["U4HQU7V71", "U0PMA3TH9", False])
 
     #----
     scheduler.add_job(morning_job, 'date', run_date='2018-07-12 12:10:00', args=["U6B7RCXGQ", "U8WHXDMG9", False])
@@ -596,11 +596,11 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-08-03 19:40:00', args=["U203JLH2M", "U03LPHT2C", False])
 
     #----
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-06 12:10:00', args=["U6UE195C3", "U6871AM51", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-06 19:40:00', args=["U6UE195C3", "U6871AM51", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-06 12:10:00', args=["U6UE195C3", "U0PMA3TH9", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-06 19:40:00', args=["U6UE195C3", "U0PMA3TH9", False])
     
-    scheduler.add_job(morning_job, 'date', run_date='2018-08-06 12:10:00', args=["U6871AM51", "U6UE195C3", False])
-    scheduler.add_job(evening_job, 'date', run_date='2018-08-06 19:40:00', args=["U6871AM51", "U6UE195C3", False])
+    scheduler.add_job(morning_job, 'date', run_date='2018-08-06 12:10:00', args=["U0PMA3TH9", "U6UE195C3", False])
+    scheduler.add_job(evening_job, 'date', run_date='2018-08-06 19:40:00', args=["U0PMA3TH9", "U6UE195C3", False])
 
     #----
     scheduler.add_job(morning_job, 'date', run_date='2018-08-07 12:10:00', args=["U4HQU7V71", "U6B7RCXGQ", False])
