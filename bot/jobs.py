@@ -768,7 +768,6 @@ def job(user_id, with_user_id, is_3rd):
 
 def evening_job(user_id, with_user_id, is_3rd):
     # print(job_request.data['user_id'])
-    # print(job_request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
     first_user_name = get_user_realname(sc, user_id)
