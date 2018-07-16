@@ -106,6 +106,12 @@ def click(request):
         channel=channel,
         ts=ts,
         attachments=updated_attachments)
+
+        sc.api_call(
+        "chat.postEphemeral",
+        channel='C0G5R2BKL',
+        user=user,
+        text="Замовлення прийнято, гроші збирає Марта Кахнич від сьогодні до 14:00 завтра") 
     
     if value == "privat24":      
 
