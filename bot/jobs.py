@@ -853,7 +853,7 @@ def getToken():
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithm='HS256')
-        return return decoded["some"]
+        return decoded["some"]
 
 def open_channel_if_needed(sc, user): 
     let = sc.api_call(
