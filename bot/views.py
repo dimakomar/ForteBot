@@ -31,97 +31,36 @@ def click(request):
         value = result["actions"][0]["selected_options"][0]["value"]    
 
     callback_id = result["callback_id"]  
-    print(callback_id)
     ts = result["message_ts"]
     user = result["user"]["id"]
     channel = result["channel"]["id"]
+    attachment_text = result["original_message"]["attachments"][0]["text"]
 
-
-    if callback_id == "anon_msg_reply":
-
-        send_ephemeral_msg(sc,user,channel,"To reply use `/reply " + str(value) + " text`\n")
-        return HttpResponse()
+    if value == "rejected_food":
+        print(attachment_text)
+        deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]]),'')
+        print(deleted_text)
         
-
-    if value == "no_tnx":
-        sc.api_call(
-        "chat.delete",
-        channel=channel,
-        ts=ts)    
-        return HttpResponse()
-
-    if value == "comment":
-        
-        message_attachments = [
-        {   "text": "To leave comment use `/anon_msg` *`text`* \n ```example: /anon_msg super important comment```",
-                "color": "#3AA3E3",
-                "mrkdwn_in": [
-                    "text"
-                ]
-            }
-        ]
-
-        sc.api_call(
-        "chat.update",
-        channel=channel,
-        ts=ts,
-        attachments=message_attachments)
-        return HttpResponse()
-
-    if value == "anon_message":
-        
-        message_attachments = [
-        {   "text": "To send anoymous message use `/anon_msg` *`text`* \n ```example: /anon_msg some question```",
-                "color": "#3AA3E3",
-                "mrkdwn_in": [
-                    "text"
-                ]
-            }
-        ]
-
-        sc.api_call(
-        "chat.update",
-        channel=channel,
-        ts=ts,
-        attachments=message_attachments)
-        return HttpResponse()
-
-    with open("bot/static/users", "r") as text_file:
-        text = text_file.read()
-    
-    #no need this check anymore
-    if user in text:
-        send_ephemeral_msg(sc,user,channel,settings.ALREADY_VOTED_PHRASE)
-        return HttpResponse()
-    else:
-        with open("bot/static/users", "a") as users_file:
-            users_file.write(user + '\n')    
-            with open("bot/static/marks", "a") as marks_file:
-                marks_file.write("".join([value + ","]))       
-                print("writed")                     
-            mp = Mixpanel(settings.MIXPANEL_TOKEN)
-            mp.track('Forte', value)
-
-        message_attachments = [
+        updated_attachments = [
         {
-            "text": "Want to comment your mark anonymously ?",
+            "text": deleted_text,
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection",
             "actions": [
                 {
                     "name": "game",
-                    "text": "No, Thanks",
+                    "text": "Замовити",
                     "type": "button",
-                    "value": "no_tnx",
-                    "style": "danger"
+                    "value": "get_food",
+                    "style": "primary"
                 },
                 {
                     "name": "game",
-                    "text": "Leave Comment",
+                    "text": "Відмовитись",
                     "type": "button",
-                    "value": "comment",
-                    "style": "primary"
+                    "value": "rejected_food",
+                    "style": "danger"
                 }
             ]
         }]
@@ -130,31 +69,81 @@ def click(request):
         "chat.update",
         channel=channel,
         ts=ts,
-        attachments=message_attachments)
-        return HttpResponse()
+        attachments=updated_attachments)
 
-@api_view(['POST'])
-def get_results(request):
-    tkn = getToken()
-    sc = SlackClient(tkn)
-    if request.data['channel_id'] == settings.PRIVATE_CHANNEL:
-        path = os.path.join('bot/static/marks')
-        print(path)
-        with open(path , 'r') as marks_file:
-            marks_file = marks_file.read()
-            if marks_file == "":
-                send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],settings.NOONE_VOTED)
-                return HttpResponse()
-            marks_splitted_list = marks_file.split(",")
-            numbered_list = list(filter(lambda n: n != "", marks_splitted_list))
-            all_marks = sum(list(map(int, numbered_list)))
-            avarage_num = round(all_marks / len(numbered_list), 1)
-            path = os.path.join('bot/static/last_vote_name')
-            with open(path, "r") as last_vote_name_file:
-                vote_name = last_vote_name_file.read()
-            send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([vote_name, " result: ", str(avarage_num), " out of: ", str(len(numbered_list)), " people voted"]))  
-    else:
-        send_ephemeral_msg(sc,request.data['user_id'], request.data['channel_id'],"You are not allowed to get results")
+    if value == "get_food":
+        
+        if result["user"]["name"] in attachment_text: 
+            return        
+
+        updated_attachments = [
+            {
+                "text": "".join([attachment_text, "\n", result["user"]["name"]]),
+                "color": "#3AA3E3",
+                "attachment_type": "default",
+                "callback_id": "game_selection",
+                "actions": [
+                    {
+                        "name": "game",
+                        "text": "Замовити",
+                        "type": "button",
+                        "value": "get_food",
+                        "style": "primary"
+                    },
+                    {
+                        "name": "game",
+                        "text": "Відмовитись",
+                        "type": "button",
+                        "value": "rejected_food",
+                        "style": "danger"
+                    }
+                ]
+            }
+        ]
+
+        sc.api_call(
+        "chat.update",
+        channel=channel,
+        ts=ts,
+        attachments=updated_attachments)
+    
+    if value == "privat24":      
+
+        updated_attachments = [
+                        {
+                "attachments": [
+                    {
+                        "fallback": "Required plain-text summary of the attachment.",
+                        "color": "#36a64f",
+                        "pretext": "Optional text that appears above the attachment block",
+                        "author_name": "Bobby Tables",
+                        "author_link": "http://flickr.com/bobby/",
+                        "author_icon": "http://flickr.com/icons/bobby.jpg",
+                        "title": "Slack API Documentation",
+                        "title_link": "https://api.slack.com/",
+                        "text": "Optional text that appears within the attachment",
+                        "fields": [
+                            {
+                                "title": "Priority",
+                                "value": "High",
+                                "short": False
+                            }
+                        ],
+                        "image_url": "https://firebasestorage.googleapis.com/v0/b/profileborder-2b1e7.appspot.com/o/Screen%20Shot%202018-07-13%20at%206.47.59%20PM.png?alt=media&token=700378c3-3d08-4909-a06d-c24132283e84",
+                        "thumb_url": "http://example.com/path/to/thumb.png",
+                        "footer": "Slack API",
+                        "footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png",
+                        "ts": 123456789
+                    }
+                ]
+            }
+        ]
+
+        sc.api_call(
+        "chat.postEphemeral",
+        channel=channel,
+        attachments=updated_attachments,
+        user=user)
     return HttpResponse()
 
 @api_view(['POST'])
@@ -176,6 +165,11 @@ def delivery(request):
     send_ephemeral_msg(sc, request.data['user_id'], channel["channel"]["id"], settings.DUE_INFO)  
     return HttpResponse()
 
+@api_view(['POST'])
+def get_results(request):
+    food_job("Monday")
+
+    
 
 @api_view(['POST'])
 def reply(request):
@@ -434,7 +428,6 @@ def getToken():
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithm='HS256')
-
         return decoded["some"]
 
             
@@ -563,3 +556,52 @@ def send_att(sc,user,channel,text, is_rating):
     
 
     
+def food_job(day):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+
+    menu_dict = {
+        "Monday": "Меню на сьогодні: Крем суп з беконом, Равіолі з шпинатом, Салат фета \n Ціна: 78 грн",
+        "Tuesday": "text2",
+        "Wednesday": "text3",
+        "Thursday": "text4",
+        "Frieday": "text5",
+    }
+
+    question_attachments = [
+        {
+            "text": menu_dict[day],
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection",
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "Замовити",
+                    "type": "button",
+                    "value": "get_food",
+                    "style": "primary"
+                },
+                {
+                    "name": "game",
+                    "text": "Відмовитись",
+                    "type": "button",
+                    "value": "rejected_food",
+                    "style": "danger"
+                },
+                {
+                    "name": "game",
+                    "text": "Заплатити з Приват24",
+                    "type": "button",
+                    "value": "privat24",
+                    "style": "primary"
+                }
+            ]
+        }]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel='C7PJLSVC2',
+        attachments=question_attachments
+    )
+    return HttpResponse()

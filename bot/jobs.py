@@ -687,12 +687,60 @@ def start_due():
     scheduler.add_job(evening_job, 'date', run_date='2018-08-22 19:40:00', args=["UB694H6MC", "UB61Q3PK7", False])
 
     scheduler.add_job(evening_job, 'date', run_date='2018-06-18 18:00:00', args=["U6DDYBZ6Z", "UB61Q3PK7", False])
+
+    scheduler.add_job(food_job, 'date', run_date='2018-07-16 17:00:00', args=["Monday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-07-17 17:00:00', args=["Tuesday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-07-18 17:00:00', args=["Wednesday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-07-19 17:00:00', args=["Thursday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-07-20 17:00:00', args=["Friday"])
        
     print("sheduler trigageredddd")
     scheduler.start()
 
     return HttpResponse()
 
+
+def food_job(day):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+
+    menu_dict = {
+        "Friday": "Меню на понеділок: \n🥣 - Бульйон курячий, \n🍝 - Равіолі ай порчіні, \n🥗 - Салат Цезар, \n Ціна: 78 грн",
+        "Monday": "Меню на завтра: \n🥣 -Крем суп з беконом, \n🍝 - Спагеті Карбонара, \n🥗 - Інсалада ді Вітелло \n Ціна: 78 грн",
+        "Tuesday": "Меню на завтра: \n🥣 -Крема ді порчіні, \n🍝 - Спагеті Болоньєзе, \n🥗 - Інсалада ді Фета \n Ціна: 78 грн",
+        "Wednesday": "Меню на завтра: \n🥣 -Бульйон з равіолі з м'ясом кролика, \n🍝 - Фетучуні з грибами і шинкою, \n🥗 - Інсалада ді Прошуто \n Ціна: 78 грн",
+        "Thursday": "Меню на завтра: \n🥣 - Крем суп з беконом, \n🍝 - Равіолі з шпинатом та рікотою, \n🥗 - Інсалата Капрезе \n Ціна: 78 грн"
+    }
+
+    question_attachments = [
+        {
+            "text": menu_dict[day],
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection",
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "Замовити",
+                    "type": "button",
+                    "value": "get_food",
+                    "style": "primary"
+                },
+                {
+                    "name": "game",
+                    "text": "Відмовитись",
+                    "type": "button",
+                    "value": "rejected_food",
+                    "style": "danger"
+                }
+            ]
+        }]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel='C0G5R2BKL',
+        attachments=question_attachments
+    )
 
 
 def job(user_id, with_user_id, is_3rd):
@@ -806,8 +854,7 @@ def getToken():
     with open(path , 'r') as myfile:
         encoded_token = myfile.read()
         decoded = jwt.decode(encoded_token, 'hello', algorithm='HS256')
-
-        return decoded["some"]
+        return return decoded["some"]
 
 def open_channel_if_needed(sc, user): 
     let = sc.api_call(
@@ -815,3 +862,4 @@ def open_channel_if_needed(sc, user):
         user=user,
     ) 
     return let
+    
