@@ -693,6 +693,18 @@ def start_due():
     scheduler.add_job(food_job, 'date', run_date='2018-07-18 17:00:00', args=["Wednesday"])
     scheduler.add_job(food_job, 'date', run_date='2018-07-19 17:00:00', args=["Thursday"])
     scheduler.add_job(food_job, 'date', run_date='2018-07-20 17:00:00', args=["Friday"])
+
+    scheduler.add_job(food_job, 'date', run_date='2018-07-23 17:00:00', args=["Monday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-07-24 17:00:00', args=["Tuesday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-07-25 17:00:00', args=["Wednesday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-07-26 17:00:00', args=["Thursday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-07-27 17:00:00', args=["Friday"])
+
+    scheduler.add_job(food_job, 'date', run_date='2018-07-30 17:00:00', args=["Monday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-07-31 17:00:00', args=["Tuesday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-08-01 17:00:00', args=["Wednesday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-08-02 17:00:00', args=["Thursday"])
+    scheduler.add_job(food_job, 'date', run_date='2018-08-03 17:00:00', args=["Friday"])
        
     print("sheduler trigageredddd")
     scheduler.start()

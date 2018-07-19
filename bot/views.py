@@ -37,9 +37,7 @@ def click(request):
     attachment_text = result["original_message"]["attachments"][0]["text"]
 
     if value == "rejected_food":
-        print(attachment_text)
         deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]]),'')
-        print(deleted_text)
         
         updated_attachments = [
         {
