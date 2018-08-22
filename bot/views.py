@@ -9,6 +9,7 @@ from slackclient import SlackClient
 import json
 import os
 import time
+import datetime
 import jwt
 from .user import User
 from mixpanel import Mixpanel
@@ -155,10 +156,10 @@ def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
     send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
-    chan = user_list = sc.api_call(
-        "channels.list"
-    )
-    print(chan)
+    
+    
+
+    # print(user)
     return HttpResponse()
 
 @api_view(['POST'])
@@ -173,17 +174,34 @@ def delivery(request):
 def get_results(request):
     food_job("Monday")
 
-    
+@api_view(['POST'])
+def get_id(request):
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    print(request.data["text"])
+    users_list = sc.api_call(
+        "users.list",
+    ) 
+    # print(users_list["members"])
+    user_list = list(filter(lambda x: x['profile']['display_name'] == request.data["text"], users_list["members"]))
+    if  len(user_list) > 0:
+        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([ request.data["text"], " id `", user_list[0]['id'], "`"])) 
+    else: 
+        send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], '`user not fount`') 
+    return HttpResponse()
 
 @api_view(['POST'])
 def reply(request):
-    
+    tkn = getToken()
+    sc = SlackClient(tkn)
+
     if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
         send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
         return HttpResponse()
 
     params = request.data["text"].split(" ")
     message_id = params[0]
+    
 
     with open("bot/static/message_user_ids", "r") as message_user_ids:
         real_user_ids = message_user_ids.read()
@@ -424,7 +442,6 @@ def open_events_api_channel_if_needed(sc, request):
         "im.open",
         user=request.data['bot_id']
     )
-
 
 
 def getToken():

@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^delivery', views.delivery),
     url(r'^send_msg', views.send_msg),
     url(r'^click', views.click),
-    url(r'^reply', views.reply)
+    url(r'^reply', views.reply),
+    url(r'^get_id', views.get_id)
 ]
 
