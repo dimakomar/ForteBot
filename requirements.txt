@@ -13,3 +13,4 @@ django-after-response
 psycopg2
 APScheduler==3.5.1
 gspread
+authlib
