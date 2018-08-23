@@ -68,7 +68,7 @@ def get_user_job(is_3rd, is_morning):
 
     # Find a workbook by name and open the first sheet
     # Make sure you use the right name here.
-    sheet = client.open("duty").sheet1 if is_3rd else client.open("duty").sheet1
+    sheet = client.open("duty").sheet1 if is_3rd else client.open("duty").sheet2
     # Extract and print all of the values
     list_of_hashes = sheet.get_all_records()
     now = datetime.datetime.now()
