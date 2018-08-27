@@ -18,6 +18,10 @@ from time import sleep
 from urllib.parse import urlencode, quote_plus
 from .models import Message
 
+@api_view(['GET'])
+def auth(request):
+    print(request.data)
+    return HttpResponse()
 
 @api_view(['POST'])
 def click(request):
@@ -155,11 +159,14 @@ def click(request):
 def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
+    # send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
     
-    
+    team = sc.api_call(
+        "channels.list",
+        # channel="C02S31R60"
+    ) 
 
-    # print(user)
+    print(team)
     return HttpResponse()
 
 @api_view(['POST'])
@@ -182,15 +189,12 @@ def get_id(request):
     users_list = sc.api_call(
         "users.list",
     ) 
-    print("2")
     # print(users_list["members"])
     user_list = list(filter(lambda x: x['profile']['display_name'] == request.data["text"], users_list["members"]))
     if  len(user_list) > 0:
         send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], "".join([ request.data["text"], " id `", user_list[0]['id'], "`"])) 
-        print("3")
     else: 
         send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], '`user not fount`') 
-        print("4")
     return HttpResponse()
 
 @api_view(['POST'])

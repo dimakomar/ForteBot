@@ -50,6 +50,8 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
+    scheduler.add_job(upload_history, 'cron', hour='15', args=['C02S31R60',0])
+
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
 
@@ -61,6 +63,46 @@ def start_due():
     scheduler.start()
 
     return HttpResponse()
+
+def upload_history(channel_id, sheet_index):
+    session = create_assertion_session()
+    client = Client(None, session)
+
+    # Find a workbook by name and open the first sheet
+    # Make sure you use the right name here.
+    sheet = client.open("slack_history").get_worksheet(sheet_index)
+    tkn = getToken()
+    sc = SlackClient(tkn)    
+    team = sc.api_call(
+        "channels.history",
+        channel=channel_id
+    ) 
+    print(team)
+    message_list = list(team["messages"])
+
+    list_of_hashes = sheet.get_all_records()
+
+    all_msg_list = []
+    list_of_sheet_timestamps = []
+    for sheet_ts in list_of_hashes:
+        list_of_sheet_timestamps.append(str(sheet_ts['ts']))
+
+    for msg in message_list:
+        print(msg['ts'][:-7])
+        if str(msg['ts'][:-7]) not in list_of_sheet_timestamps:
+            all_msg_list.append(msg)
+
+    for message in reversed(all_msg_list):
+        values_list_len = len(sheet.col_values(1))
+        user_info = sc.api_call(
+            "users.info",
+            user=message['user']
+        )['user']['profile']['display_name'] 
+
+        sheet.update_cell(values_list_len + 1, 1, user_info)
+        sheet.update_cell(values_list_len + 1, 2, message['text'])
+        sheet.update_cell(values_list_len + 1, 3, str(message["ts"]))
+    
 
 def get_user_job(is_3rd, is_morning):
     session = create_assertion_session()
