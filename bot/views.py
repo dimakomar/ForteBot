@@ -110,11 +110,11 @@ def click(request):
         ts=ts,
         attachments=updated_attachments)
 
-        sc.api_call(
-        "chat.postEphemeral",
-        channel='C0G5R2BKL',
-        user=user,
-        text="Замовлення прийнято, гроші збирає Марта Кахнич від сьогодні до 14:00 завтра") 
+        # sc.api_call(
+        # "chat.postEphemeral",
+        # channel='C0G5R2BKL',
+        # user=user,
+        # text="Замовлення прийнято, гроші збирає Марта Кахнич від сьогодні до 14:00 завтра") 
     
     if value == "privat24":      
 
@@ -162,7 +162,7 @@ def help(request):
     # send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
     
     team = sc.api_call(
-        "channels.list",
+        "groups.list",
         # channel="C02S31R60"
     ) 
 
