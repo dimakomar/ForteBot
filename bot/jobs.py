@@ -10,6 +10,7 @@ import datetime
 import os
 import jwt
 import json
+import urllib.request
 
 from slackclient import SlackClient
 from tzlocal import get_localzone
@@ -50,18 +51,44 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
-    scheduler.add_job(food_job, 'date', run_date='2018-09-11 18:20:00', args=["Wednesday","1"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-11 18:20:00', args=["Wednesday","2"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-11 18:20:00', args=["Wednesday","3"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-11 18:20:00', args=["Wednesday","4"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","1"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","2"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","3"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","4"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","5"])
 
-    scheduler.add_job(food_job, 'date', run_date='2018-09-12 19:00:00', args=["Thursday","1"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-12 19:00:00', args=["Thursday","2"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-12 19:00:00', args=["Thursday","3"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-12 19:00:00', args=["Thursday","4"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-12 19:00:00', args=["Thursday","5"])
-    
+    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","1"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","2"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","3"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","4"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","5"])
 
+    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","1"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","2"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","3"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","4"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","5"])
+
+    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","1"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","2"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","3"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","4"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","5"])
+
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","1"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","2"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","3"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","4"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","5"])
+
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","1"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","2"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","3"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","4"])
+    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","5"])
+
+
+    scheduler.add_job(check_html, 'cron', minute= '30', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
@@ -74,6 +101,32 @@ def start_due():
     scheduler.start()
 
     return HttpResponse()
+
+
+def check_html():
+
+    with open("bot/static/users", "r") as text_file:
+        text = text_file.read()
+
+        url = "http://menu.te.ua"
+        f = urllib.request.urlopen(url)
+        read = str(f.read())
+
+        if text == read:
+            print('same')
+        else:
+            path = os.path.join('bot/static/users')
+            with open(path , 'w') as myfile:
+                myfile.write(str(read))
+                tkn = getToken()
+                sc = SlackClient(tkn)
+                sc.api_call(
+                    "chat.postMessage",
+                    channel='GCR6G6DRD',
+                    text='OMG `menu.te.ua` changed menu right now!!!',
+                )
+                
+                print('not same')
 
 def upload_history(channel_id, sheet_index):
     session = create_assertion_session()
@@ -132,7 +185,6 @@ def get_user_job(is_3rd, is_morning):
     if len(users) > 1:
         morning_job(users[0]['id'],users[1]['id'], is_3rd) if is_morning else evening_job(users[0]['id'],users[1]['id'], is_3rd)
         morning_job(users[1]['id'],users[0]['id'], is_3rd) if is_morning else evening_job(users[1]['id'],users[0]['id'], is_3rd)
-    
 
 def evening_job(user_id, with_user_id, is_3rd):
     # print(job_request.data['user_id'])
@@ -231,7 +283,7 @@ def open_channel_if_needed(sc, user):
         user=user,
     ) 
     return let
-    
+
 def food_job(day, index_val):
     tkn = getToken()
     sc = SlackClient(tkn)
@@ -257,14 +309,15 @@ def food_job(day, index_val):
         "2": "🥣 - Гречаники з м”ясом,\n Ціна: 27.00 грн",
         "3": "🥣 - Макарони по-флотськи \n Ціна: 27.00 грн",
         "4": "🥣 - Салат з бурячка \n Ціна: 11.00 грн",
+        "5":""
     }
 
     thursday_dict = {
-        "1": "🥣 - Суп харчо\n Ціна: 14.00 грн",
-        "2": "🥣 - Пельмені\n Ціна: 27.00 грн",
-        "3": "🥣 - Тушена свинина з болгарським перцем з гороховим пюре \n Ціна: 27.00 грн",
-        "4": "🥣 - Салат з помідорів з голандським сиром і куку8рузкою \n Ціна: 12.00 грн",
-        "5": "🥣 - Млинці з яблуками і малиновим джемом \n Ціна: 20.00 грн"
+        "1": "🥣 - Суп овочевий\n Ціна: 14.00 грн",
+        "2": "🥣 - Січеники з тушеною картоплею\n Ціна: 27.00 грн",
+        "3": "🥣 - ТТушена курка з грибами і з макаронами \n Ціна: 27.00 грн",
+        "4": "🥣 - Салат з капусти з крабовими паличками і кукурузкою \n Ціна: 12.00 грн",
+        "5": "🥣 - Млинці з сиром і малиною зі сметаною \n Ціна: 20.00 грн"
     }
 
     friday_dict = {
@@ -307,8 +360,10 @@ def food_job(day, index_val):
             ]
         }]
 
-    sc.api_call(
-        "chat.postMessage",
-        channel='GCR6G6DRD',
-        attachments=question_attachments
-    )
+    # print(question_attachments[0]['text'])
+    if question_attachments[0]['text'] is not '':
+        sc.api_call(
+            "chat.postMessage",
+            channel='GCR6G6DRD',
+            attachments=question_attachments
+        )

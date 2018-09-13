@@ -182,3 +182,5 @@ PLEASE_REPLY_WITH_ANON = " - please reply with `/anon_msg` *`text`*"
 CODING_ALGORITHM_NAME = "HS256"
 
 IS_STARTED = False
+
+page_html = ''

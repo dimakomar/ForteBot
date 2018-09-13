@@ -16,6 +16,7 @@ from mixpanel import Mixpanel
 import after_response
 from time import sleep
 from urllib.parse import urlencode, quote_plus
+import urllib.request
 from .models import Message
 
 @api_view(['GET'])
@@ -159,14 +160,32 @@ def click(request):
 def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    # send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP)  
+    # send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP) C02S31R62 
     
-    team = sc.api_call(
-        "groups.list",
-        # channel="C02S31R60"
-    ) 
+    # team = sc.api_call(
+    #     "channels.list",
+    #     channel="C02S31R62"
+    # ) 
 
-    print(team)
+    # due_text = [
+    #     {
+    #         "text": "Happy Developers & Testers Day :cattyping: ",
+    #         "color": "#3AA3E3",
+    #         "attachment_type": "default",
+    #         "callback_id": "game_selection"
+    #     }]
+
+    # let = sc.api_call(
+    #     "chat.postMessage",
+    #     channel='C02S31R62',
+    #     attachments=due_text
+    # )
+
+    # print(team)
+    # url = "http://menu.te.ua"
+    # f = urllib.request.urlopen(url)
+    # read = f.read()
+    # # print(read)
     return HttpResponse()
 
 @api_view(['POST'])
