@@ -88,7 +88,7 @@ def start_due():
     scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","5"])
 
 
-    scheduler.add_job(check_html, 'cron', minute= '30', args=[])
+    scheduler.add_job(check_html, 'cron', minute= '10,20,30,40,50, 00', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
@@ -105,28 +105,31 @@ def start_due():
 
 def check_html():
 
-    with open("bot/static/users", "r") as text_file:
+    with open("bot/static/dynamic_html", "r") as text_file:
         text = text_file.read()
 
         url = "http://menu.te.ua"
         f = urllib.request.urlopen(url)
-        read = str(f.read())
+        read = str(f.read())        
+        path = os.path.join('bot/static/default_html')
+        with open(path , 'r') as default_html:
+            default_text = default_html.read()
 
-        if text == read:
-            print('same')
-        else:
-            path = os.path.join('bot/static/users')
-            with open(path , 'w') as myfile:
-                myfile.write(str(read))
-                tkn = getToken()
-                sc = SlackClient(tkn)
-                sc.api_call(
-                    "chat.postMessage",
-                    channel='GCR6G6DRD',
-                    text='OMG `menu.te.ua` changed menu right now!!!',
-                )
-                
-                print('not same')
+            if text == read or text == default_text:
+                print('same')
+            else:
+                path = os.path.join('bot/static/dynamic_html')
+                with open(path , 'w') as myfile:
+                    myfile.write(str(read))
+                    tkn = getToken()
+                    sc = SlackClient(tkn)
+                    sc.api_call(
+                        "chat.postMessage",
+                        channel='GCR6G6DRD',
+                        text='`menu.te.ua` changed menu in up to 10 mins ago :hello:',
+                    )
+                    
+                    print('not same')
 
 def upload_history(channel_id, sheet_index):
     session = create_assertion_session()
