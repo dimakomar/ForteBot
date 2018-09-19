@@ -162,11 +162,12 @@ def click(request):
 @api_view(['POST'])
 def help(request):
     tkn = getToken()
+    print(tkn)
     sc = SlackClient(tkn)
-    data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', auth=HTTPBasicAuth('slack_bot_ua', 'nY3fGs2GL92WKYgH'))
+    data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', headers={"Authorization":"".join(["Basic "], [os.environ.get('TTS_TOKEN')])})
     binary = data.content
     output = json.loads(binary)
-    # print(output)
+    print(output)
 
     env = os.environ.get('TEST_KEY')
     print(env)
