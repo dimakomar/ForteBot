@@ -50,44 +50,6 @@ def create_assertion_session():
 
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
-
-    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","1"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","2"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","3"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","4"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-13 19:00:00', args=["Friday","5"])
-
-    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","1"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","2"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","3"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","4"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-14 19:00:00', args=["Monday","5"])
-
-    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","1"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","2"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","3"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","4"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-17 19:00:00', args=["Tuesday","5"])
-
-    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","1"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","2"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","3"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","4"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-19 19:00:00', args=["Wednesday","5"])
-
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","1"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","2"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","3"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","4"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Thursday","5"])
-
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","1"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","2"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","3"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","4"])
-    scheduler.add_job(food_job, 'date', run_date='2018-09-20 19:00:00', args=["Friday","5"])
-
-
     scheduler.add_job(check_html, 'cron', minute= '10,20,30,40,50, 00', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])

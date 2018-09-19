@@ -18,6 +18,9 @@ from time import sleep
 from urllib.parse import urlencode, quote_plus
 import urllib.request
 from .models import Message
+from requests.auth import HTTPBasicAuth
+import requests 
+
 
 @api_view(['GET'])
 def auth(request):
@@ -160,6 +163,13 @@ def click(request):
 def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
+    data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', auth=HTTPBasicAuth('slack_bot_ua', 'nY3fGs2GL92WKYgH'))
+    binary = data.content
+    output = json.loads(binary)
+    # print(output)
+
+    env = os.environ.get('TEST_KEY')
+    print(env)
     # send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP) C02S31R62 
     
     # team = sc.api_call(
