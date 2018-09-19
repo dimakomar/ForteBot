@@ -164,8 +164,8 @@ def help(request):
     tkn = getToken()
     print(tkn)
     sc = SlackClient(tkn)
-    tts_token = os.environ.get('TTS_TOKEN')
-    data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', headers={"Authorization":"".join(["Basic "], [tts_token])})
+    tts_token = "Basic " + str(os.environ.get('TTS_TOKEN'))
+    data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', headers={"Authorization":tts_token})
     binary = data.content
     output = json.loads(binary)
     print(output)
