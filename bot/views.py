@@ -161,43 +161,20 @@ def click(request):
 
 @api_view(['POST'])
 def help(request):
-    tkn = getToken()
-    print(tkn)
-    sc = SlackClient(tkn)
-    tts_token = "Basic " + str(os.environ.get('TTS_TOKEN'))
-    data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', headers={"Authorization":tts_token})
+    # tkn = getToken()
+    # print(tkn)
+    # sc = SlackClient(tkn)
+    # tts_token = "Basic " + str(os.environ.get('TTS_TOKEN'))
+    # data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', headers={"Authorization":tts_token})
+    # binary = data.content
+    # output = json.loads(binary)
+    # print(output)
+
+    data = requests.get('http://www.vitasyktest.somee.com/menu/1')
     binary = data.content
     output = json.loads(binary)
     print(output)
 
-    env = os.environ.get('TEST_KEY')
-    print(env)
-    # send_ephemeral_msg(sc, request.data['user_id'], request.data['channel_id'], settings.HELP) C02S31R62 
-    
-    # team = sc.api_call(
-    #     "channels.list",
-    #     channel="C02S31R62"
-    # ) 
-
-    # due_text = [
-    #     {
-    #         "text": "Happy Developers & Testers Day :cattyping: ",
-    #         "color": "#3AA3E3",
-    #         "attachment_type": "default",
-    #         "callback_id": "game_selection"
-    #     }]
-
-    # let = sc.api_call(
-    #     "chat.postMessage",
-    #     channel='C02S31R62',
-    #     attachments=due_text
-    # )
-
-    # print(team)
-    # url = "http://menu.te.ua"
-    # f = urllib.request.urlopen(url)
-    # read = f.read()
-    # # print(read)
     return HttpResponse()
 
 @api_view(['POST'])
