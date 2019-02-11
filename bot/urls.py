@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^send_msg', views.send_msg),
     url(r'^click', views.click),
     url(r'^reply', views.reply),
-    url(r'^get_id', views.get_id)
+    url(r'^get_id', views.get_id),
     url(r'^food_job', views.food_job)
 ]
 
