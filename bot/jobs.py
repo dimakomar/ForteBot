@@ -49,7 +49,8 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
-    scheduler.add_job(get_food_job, 'cron', hour= '16', minute='24', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '18', minute='00', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='00', second='05', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
@@ -61,14 +62,75 @@ def start_due():
 
     return HttpResponse()
 
-def get_food_job():
+def get_food_job_friday():
+    now = datetime.datetime.now()  
+    today_str = now.strftime("%A")
+
+    if today_str != "Friday":
+        return
+
     session = create_assertion_session()
     client = Client(None, session)
     sheet = client.open("duty").get_worksheet(2)
     list_of_hashes = sheet.get_all_records()
-    print(list_of_hashes)
 
-    now = datetime.datetime.now()    
+    current_day = now.day
+
+    tomorrow = datetime.datetime.now().replace(day=current_day+3, hour=11, minute=00)
+
+    tomorrow_date_str = str(tomorrow)
+
+    tomorrow_str = tomorrow.strftime("%A")
+
+    food_for_today = [value[tomorrow_str] for value in list_of_hashes if tomorrow_str in value]
+
+    if len(food_for_today) != 2:
+        return
+
+    tkn = getToken()
+    sc = SlackClient(tkn)
+
+    question_attachments = [
+        {
+            "text": "".join(["Приймаю замовлення на обіди у понеділок\n","🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n" ]),
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": tomorrow_date_str,
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "Замовити",
+                    "type": "button",
+                    "value": "get_food",
+                    "style": "primary"
+                },
+                {
+                    "name": "game",
+                    "text": "Відмовитись",
+                    "type": "button",
+                    "value": "rejected_food",
+                    "style": "danger"
+                }
+            ]
+        }]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel='C0G5R2BKL',
+        attachments=question_attachments
+    )
+
+def get_food_job():
+    now = datetime.datetime.now()  
+    today_str = now.strftime("%A")
+
+    if today_str == "Friday":
+        return
+
+    session = create_assertion_session()
+    client = Client(None, session)
+    sheet = client.open("duty").get_worksheet(2)
+    list_of_hashes = sheet.get_all_records()
 
     current_day = now.day
 
@@ -79,6 +141,9 @@ def get_food_job():
     tomorrow_str = tomorrow.strftime("%A")
 
     food_for_today = [value[tomorrow_str] for value in list_of_hashes if tomorrow_str in value]
+
+    if len(food_for_today) != 2:
+        return
 
     tkn = getToken()
     sc = SlackClient(tkn)

@@ -239,6 +239,8 @@ def help(request):
     
     return HttpResponse()
 
+
+
 @api_view(['POST'])
 def delivery(request):
     tkn = getToken()
@@ -649,7 +651,7 @@ def send_att(sc,user,channel,text, is_rating):
     )
     
 
-    
+@api_view(['POST'])
 def food_job(day):
     tkn = getToken()
     sc = SlackClient(tkn)
@@ -696,6 +698,65 @@ def food_job(day):
     sc.api_call(
         "chat.postMessage",
         channel='C7PJLSVC2',
+        attachments=question_attachments
+    )
+    return HttpResponse()
+
+    def get_food_job():
+        now = datetime.datetime.now()  
+    today_str = now.strftime("%A")
+
+    if today_str == "Friday":
+        return
+
+    session = create_assertion_session()
+    client = Client(None, session)
+    sheet = client.open("duty").get_worksheet(2)
+    list_of_hashes = sheet.get_all_records()
+
+    current_day = now.day
+
+    tomorrow = datetime.datetime.now().replace(day=current_day+1, hour=11, minute=00)
+
+    tomorrow_date_str = str(tomorrow)
+
+    tomorrow_str = tomorrow.strftime("%A")
+
+    food_for_today = [value[tomorrow_str] for value in list_of_hashes if tomorrow_str in value]
+
+    if len(food_for_today) != 2:
+        return
+
+    tkn = getToken()
+    sc = SlackClient(tkn)
+
+    question_attachments = [
+        {
+            "text": "".join(["Приймаю замовлення на завтрашні обіди\n","🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n" ]),
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": tomorrow_date_str,
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "Замовити",
+                    "type": "button",
+                    "value": "get_food",
+                    "style": "primary"
+                },
+                {
+                    "name": "game",
+                    "text": "Відмовитись",
+                    "type": "button",
+                    "value": "rejected_food",
+                    "style": "danger"
+                }
+            ]
+        }]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel='C0G5R2BKL',
         attachments=question_attachments
     )
     return HttpResponse()
