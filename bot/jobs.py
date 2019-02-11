@@ -49,7 +49,7 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
-    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='48', second='10', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='50', second='10', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
@@ -70,7 +70,7 @@ def get_food_job():
 
     now = datetime.datetime.now()    
 
-    current_day = now
+    current_day = now.day
 
     tomorrow = datetime.datetime.now().replace(day=current_day+1, hour=11, minute=00)
 
