@@ -519,6 +519,11 @@ def open_events_api_channel_if_needed(sc, request):
         "im.open",
         user=request.data['bot_id']
     )
+
+
+def getToken():
+    return str(os.environ.get('SLACK_TOKEN'))
+
             
 def send_ephemeral_msg(sc, user, channel, text):
     sc.api_call(
@@ -694,6 +699,3 @@ def food_job(day):
         attachments=question_attachments
     )
     return HttpResponse()
-
-def getToken():
-    return str(os.environ.get('SLACK_TOKEN'))

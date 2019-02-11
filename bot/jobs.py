@@ -49,7 +49,7 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
-    scheduler.add_job(get_food_job, 'cron', hour= '17', minute='00', second='10', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='38', second='10', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
@@ -69,20 +69,21 @@ def get_food_job():
     print(list_of_hashes)
 
     now = datetime.datetime.now()
-    today = now.strftime("%A")
 
-    food_for_today = [value[today] for value in list_of_hashes if today in value]
+    now = datetime.datetime.now()
+    today = str(datetime.datetime.now().replace(day=current_day+1, hour=11, minute=00))
+
+    tomorrow = datetime.datetime.now().replace(day=current_day+1, hour=11, minute=00).day
+    tomorrow_str = tomorrow.strftime("%A")
+
+    food_for_today = [value[tomorrow_str] for value in list_of_hashes if tomorrow_str in value]
 
     tkn = getToken()
     sc = SlackClient(tkn)
 
-    now = datetime.datetime.now()
-    current_day = now.day
-    today = str(datetime.datetime.now().replace(day=current_day+1, hour=11, minute=00))
-
     question_attachments = [
         {
-            "text": "".join(["🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n" ]),
+            "text": "".join(["Приймаю замовлення на завтрашні обіди\n","🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n" ]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": today,
