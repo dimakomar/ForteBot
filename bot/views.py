@@ -47,7 +47,8 @@ def click(request):
     callback_id = result["original_message"]["attachments"][0]["callback_id"]
 
     if value == "rejected_food":
-        deleted_text = attachment_text.replace("".join([result["user"]["name"]," - 65 грн"]),'')
+        deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]," - 65 грн"]),'')
+        
         
         users_count = len(list(filter(lambda x: x == "грн", deleted_text.split())))
         
