@@ -109,7 +109,7 @@ def click(request):
         users_count = len(list(filter(lambda x: x == "грн", attachment_text.split())))
         if users_count != 0:
             text_before_replacing = "".join(["(",str(users_count)," / 10)"])
-            text_for_replacing = "".join(["(",str(users_count + 1)," / 10)\n"])
+            text_for_replacing = "".join(["(",str(users_count + 1)," / 10)"])
             attachment_text = attachment_text.replace(text_before_replacing,text_for_replacing)    
 
         updated_attachments = [
