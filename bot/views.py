@@ -19,6 +19,7 @@ from urllib.parse import urlencode, quote_plus
 import urllib.request
 from .models import Message
 from requests.auth import HTTPBasicAuth
+from time import gmtime, strftime
 import requests 
 
 
@@ -33,7 +34,6 @@ def click(request):
     sc = SlackClient(tkn)
     value = ""
     result = json.loads(request.data["payload"])
-    print(result)
     if result["actions"][0]["type"] == "button":
         value = result["actions"][0]["value"]
     else:
@@ -44,16 +44,29 @@ def click(request):
     user = result["user"]["id"]
     channel = result["channel"]["id"]
     attachment_text = result["original_message"]["attachments"][0]["text"]
+    callback_id = result["original_message"]["attachments"][0]["callback_id"]
 
     if value == "rejected_food":
-        deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]]),'')
+        deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]," - 65 грн"]),'')
+        
+        
+        users_count = len(list(filter(lambda x: x == "грн", deleted_text.split())))
+        
+        if not users_count:
+            text_for_replacing = "(1 / 10)"
+            deleted_text = deleted_text.replace(text_for_replacing,'')            
+
+        if users_count:
+            text_before_replacing = "".join(["(",str(users_count + 1)," / 10)"])
+            text_for_replacing = "".join(["(",str(users_count)," / 10)"])
+            deleted_text = deleted_text.replace(text_before_replacing,text_for_replacing)
         
         updated_attachments = [
         {
             "text": deleted_text,
             "color": "#3AA3E3",
             "attachment_type": "default",
-            "callback_id": "game_selection",
+            "callback_id": callback_id,
             "actions": [
                 {
                     "name": "game",
@@ -79,16 +92,32 @@ def click(request):
         attachments=updated_attachments)
 
     if value == "get_food":
-        
+        due_date = datetime.datetime.strptime(callback_id, "%Y-%m-%d %H:%M:%S.%f")
+        now = datetime.datetime.now()
+
+        if now > due_date:
+            sc.api_call(
+            "chat.postEphemeral",
+            channel='C0G5R2BKL',
+            user=user,
+            text="Вже пізно сорян")
+            return HttpResponse()
+
         if result["user"]["name"] in attachment_text: 
-            return        
+            return HttpResponse()       
+
+        users_count = len(list(filter(lambda x: x == "грн", attachment_text.split())))
+        if users_count != 0:
+            text_before_replacing = "".join(["(",str(users_count)," / 10)"])
+            text_for_replacing = "".join(["(",str(users_count + 1)," / 10)"])
+            attachment_text = attachment_text.replace(text_before_replacing,text_for_replacing)    
 
         updated_attachments = [
             {
-                "text": "".join([attachment_text, "\n", result["user"]["name"]]),
+                "text": "".join([attachment_text, "\n", result["user"]["name"], " - 65 грн"]),
                 "color": "#3AA3E3",
                 "attachment_type": "default",
-                "callback_id": "game_selection",
+                "callback_id": callback_id,
                 "actions": [
                     {
                         "name": "game",
@@ -108,17 +137,23 @@ def click(request):
             }
         ]
 
+        users_count = len(list(filter(lambda x: x == "грн", attachment_text.split())))
+
+        if users_count == 0:
+            text_for_replacing = "(1 / 10)\n"
+            updated_attachments[0]["text"] = "".join([text_for_replacing, updated_attachments[0]["text"]])
+
         sc.api_call(
         "chat.update",
         channel=channel,
         ts=ts,
         attachments=updated_attachments)
 
-        # sc.api_call(
-        # "chat.postEphemeral",
-        # channel='C0G5R2BKL',
-        # user=user,
-        # text="Замовлення прийнято, гроші збирає Марта Кахнич від сьогодні до 14:00 завтра") 
+        sc.api_call(
+        "chat.postEphemeral",
+        channel='C0G5R2BKL',
+        user=user,
+        text="Замовлення прийнято, гроші здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00") 
     
     if value == "privat24":      
 
@@ -161,20 +196,47 @@ def click(request):
 
 @api_view(['POST'])
 def help(request):
-    # tkn = getToken()
-    # print(tkn)
-    # sc = SlackClient(tkn)
+    tkn = getToken()
+    print(tkn)
+    sc = SlackClient(tkn)
+    
+
+    question_attachments = [
+        {
+            "text": "отаке от меню сьогодни",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection",
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "Замовити",
+                    "type": "button",
+                    "value": "get_food",
+                    "style": "primary"
+                },
+                {
+                    "name": "game",
+                    "text": "Відмовитись",
+                    "type": "button",
+                    "value": "rejected_food",
+                    "style": "danger"
+                }
+            ]
+        }]
+
+    # print(question_attachments[0]['text'])
+    chan = sc.api_call(
+        "channels.list",
+    )
+    print(chan)
+
     # tts_token = "Basic " + str(os.environ.get('TTS_TOKEN'))
     # data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', headers={"Authorization":tts_token})
     # binary = data.content
     # output = json.loads(binary)
     # print(output)
-
-    data = requests.get('http://www.vitasyktest.somee.com/menu/1')
-    binary = data.content
-    output = json.loads(binary)
-    print(output)
-
+    
     return HttpResponse()
 
 @api_view(['POST'])
@@ -339,7 +401,7 @@ def start_question_vote(request):
     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"".join(["You've just started the question vote: ", "*",request.data["text"], "*"]))
     return HttpResponse()
 
-#This part is responsible wfor Slack Events API 
+#This part is responsible for Slack Events API 
 @api_view(['POST'])
 def sent_message(request):
     # print(request.data)
@@ -351,7 +413,7 @@ def sent_message(request):
     usr = request.data['event']['user']
     channel = request.data['event']['channel'] 
     if "Hello" in t or "hello" in t or "Hi" in t or "hi" in t or "Hey" in t or "hey" in t:
-        send_ephemeral_msg(sc,usr,channel, "Hi")
+        send_ephemeral_msg(sc,usr,channel, "Hi") 
         return HttpResponse()
     if t == "How are you" or t == "how are you" or t == "Wassup" or t == "wassup" or t == "sup" or t == "Sup":
         send_ephemeral_msg(sc,usr,channel, "I'm happy to be alive") 
@@ -457,15 +519,6 @@ def open_events_api_channel_if_needed(sc, request):
         "im.open",
         user=request.data['bot_id']
     )
-
-
-def getToken():
-    path = os.path.join('bot/static/noname')
-    with open(path , 'r') as myfile:
-        encoded_token = myfile.read()
-        decoded = jwt.decode(encoded_token, 'hello', algorithm='HS256')
-        return decoded["some"]
-
             
 def send_ephemeral_msg(sc, user, channel, text):
     sc.api_call(
@@ -641,3 +694,6 @@ def food_job(day):
         attachments=question_attachments
     )
     return HttpResponse()
+
+def getToken():
+    return str(os.environ.get('SLACK_TOKEN'))

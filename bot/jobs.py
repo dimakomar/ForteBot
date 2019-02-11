@@ -1,6 +1,4 @@
-# from rest_framework.decorators import api_view
 from django.http import HttpResponse
-#from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.combining import OrTrigger
 from apscheduler.triggers.interval import IntervalTrigger
@@ -50,7 +48,8 @@ def create_assertion_session():
 
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
-    scheduler.add_job(check_html, 'cron', minute= '10,20,30,40,50, 00', args=[])
+
+    scheduler.add_job(get_food_job, 'cron', hour= '17', minute='00', second='00', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
@@ -58,80 +57,58 @@ def start_due():
     scheduler.add_job(get_user_job, 'cron', hour='12', minute='10', args=[True, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[True, False])
     
-    # scheduler.add_job(evening_job, 'date', run_date='2018-08-22 19:40:00', args=["U7F85AA80", "U7F85AA80", False]
-    print("sheduler trigageredddd")
     scheduler.start()
 
     return HttpResponse()
 
-
-def check_html():
-
-    with open("bot/static/dynamic_html", "r") as text_file:
-        text = text_file.read()
-
-        url = "http://menu.te.ua"
-        f = urllib.request.urlopen(url)
-        read = str(f.read())        
-        path = os.path.join('bot/static/default_html')
-        with open(path , 'r') as default_html:
-            default_text = default_html.read()
-
-            if text == read or text == default_text:
-                print('same')
-            else:
-                path = os.path.join('bot/static/dynamic_html')
-                with open(path , 'w') as myfile:
-                    myfile.write(str(read))
-                    tkn = getToken()
-                    sc = SlackClient(tkn)
-                    sc.api_call(
-                        "chat.postMessage",
-                        channel='GCR6G6DRD',
-                        text='`menu.te.ua` changed menu in up to 10 mins ago :hello:',
-                    )
-                    
-                    print('not same')
-
-def upload_history(channel_id, sheet_index):
+def get_food_job():
     session = create_assertion_session()
     client = Client(None, session)
-
-    # Find a workbook by name and open the first sheet
-    # Make sure you use the right name here.
-    sheet = client.open("slack_history").get_worksheet(sheet_index)
-    tkn = getToken()
-    sc = SlackClient(tkn)    
-    team = sc.api_call(
-        "channels.history",
-        channel=channel_id
-    ) 
-    print(team)
-    message_list = list(team["messages"])
-
+    sheet = client.open("duty").get_worksheet(2)
     list_of_hashes = sheet.get_all_records()
+    print(list_of_hashes)
 
-    all_msg_list = []
-    list_of_sheet_timestamps = []
-    for sheet_ts in list_of_hashes:
-        list_of_sheet_timestamps.append(str(sheet_ts['ts']))
+    now = datetime.datetime.now()
+    today = now.strftime("%A")
 
-    for msg in message_list:
-        print(msg['ts'][:-7])
-        if str(msg['ts'][:-7]) not in list_of_sheet_timestamps:
-            all_msg_list.append(msg)
+    food_for_today = [value[today] for value in list_of_hashes if today in value]
 
-    for message in reversed(all_msg_list):
-        values_list_len = len(sheet.col_values(1))
-        user_info = sc.api_call(
-            "users.info",
-            user=message['user']
-        )['user']['profile']['display_name'] 
+    tkn = getToken()
+    sc = SlackClient(tkn)
 
-        sheet.update_cell(values_list_len + 1, 1, user_info)
-        sheet.update_cell(values_list_len + 1, 2, message['text'])
-        sheet.update_cell(values_list_len + 1, 3, str(message["ts"]))
-    
+    now = datetime.datetime.now()
+    current_day = now.day
+    today = str(datetime.datetime.now().replace(day=current_day+1, hour=11, minute=00))
+
+    question_attachments = [
+        {
+            "text": "".join(["🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n" ]),
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": today,
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "Замовити",
+                    "type": "button",
+                    "value": "get_food",
+                    "style": "primary"
+                },
+                {
+                    "name": "game",
+                    "text": "Відмовитись",
+                    "type": "button",
+                    "value": "rejected_food",
+                    "style": "danger"
+                }
+            ]
+        }]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel='C0G5R2BKL',
+        attachments=question_attachments
+    )
 
 def get_user_job(is_3rd, is_morning):
     session = create_assertion_session()
@@ -235,13 +212,6 @@ def get_user_realname(sc, user_id):
             return "".join([" ", member["profile"]["real_name"]])
     return ""
 
-def getToken():
-    path = os.path.join('bot/static/noname')
-    with open(path , 'r') as myfile:
-        encoded_token = myfile.read()
-        decoded = jwt.decode(encoded_token, 'hello', algorithm='HS256')
-        return decoded["some"]
-
 def open_channel_if_needed(sc, user): 
     let = sc.api_call(
         "im.open",
@@ -332,3 +302,5 @@ def food_job(day, index_val):
             channel='GCR6G6DRD',
             attachments=question_attachments
         )
+def getToken():
+    return str(os.environ.get('SLACK_TOKEN'))
