@@ -49,7 +49,7 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
-    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='55', second='10', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='56', second='10', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
@@ -62,7 +62,7 @@ def start_due():
     return HttpResponse()
 
 def get_food_job():
-    session = create_assertion_session()
+    session = create_assertion_session(
     client = Client(None, session)
     sheet = client.open("duty").get_worksheet(2)
     list_of_hashes = sheet.get_all_records()
