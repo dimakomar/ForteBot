@@ -49,7 +49,7 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
-    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='50', second='10', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='53', second='10', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
@@ -74,10 +74,9 @@ def get_food_job():
 
     tomorrow = datetime.datetime.now().replace(day=current_day+1, hour=11, minute=00)
 
-    tomorrow_date_str = datetime.datetime.now().replace(day=current_day+1, hour=11, minute=00)
+    tomorrow_date_str = str(tomorrow)
 
-    tomorrow_day = tomorrow.day
-    tomorrow_str = tomorrow_day.strftime("%A")
+    tomorrow_str = tomorrow.strftime("%A")
 
     food_for_today = [value[tomorrow_str] for value in list_of_hashes if tomorrow_str in value]
 
