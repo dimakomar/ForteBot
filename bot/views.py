@@ -32,6 +32,14 @@ def auth(request):
 def click(request):
     tkn = getToken()
     sc = SlackClient(tkn)
+
+    sc.api_call(
+    "chat.postEphemeral",
+    channel='C0G5R2BKL',
+    user=user,
+    text=":trollface:")
+    return HttpResponse()
+
     value = ""
     result = json.loads(request.data["payload"])
     if result["actions"][0]["type"] == "button":
