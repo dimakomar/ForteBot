@@ -33,12 +33,7 @@ def click(request):
     tkn = getToken()
     sc = SlackClient(tkn)
 
-    sc.api_call(
-    "chat.postEphemeral",
-    channel='C0G5R2BKL',
-    user=user,
-    text=":trollface:")
-    return HttpResponse()
+    
 
     value = ""
     result = json.loads(request.data["payload"])
@@ -53,6 +48,13 @@ def click(request):
     channel = result["channel"]["id"]
     attachment_text = result["original_message"]["attachments"][0]["text"]
     callback_id = result["original_message"]["attachments"][0]["callback_id"]
+
+    sc.api_call(
+    "chat.postEphemeral",
+    channel='C0G5R2BKL',
+    user=user,
+    text=":trollface:")
+    return HttpResponse()
 
     if value == "rejected_food":
         deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]," - 65 грн"]),'')
