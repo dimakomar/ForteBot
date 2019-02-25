@@ -49,6 +49,7 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
+    scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job, 'cron', hour= '15', minute='00', second='05', args=[])
 
@@ -61,6 +62,32 @@ def start_due():
     scheduler.start()
 
     return HttpResponse()
+
+def stop_food_ordering():
+    tkn = getToken()
+    sc = SlackClient(tkn) 
+
+    now = datetime.datetime.now()  
+    today_str = now.strftime("%A")
+    
+    if today_str == "Saturday" or today_str == "Sunday" :
+        return
+
+    due_text = [
+        {
+            "text": "Замовлення більше не приймаються, гроші здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. :moneybag: здаємо до 14 години",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection"
+        }]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel='C0G5R2BKL',
+        attachments=due_text
+    )
+    
+
 
 def get_food_job_friday():
     now = datetime.datetime.now()  
@@ -124,7 +151,7 @@ def get_food_job():
     now = datetime.datetime.now()  
     today_str = now.strftime("%A")
 
-    if today_str == "Friday":
+    if today_str == "Friday" or today_str == "Saturday" or today_str == "Sunday" :
         return
 
     session = create_assertion_session()

@@ -157,6 +157,15 @@ def click(request):
         channel='C0G5R2BKL',
         user=user,
         text="Замовлення прийнято, гроші здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00") 
+
+        channel = open_channel_if_needed(sc, "UEBRV4AJX")
+        if users_count == 9:
+            sc.api_call(
+            "chat.postEphemeral",
+            channel=channel,
+            user="UEBRV4AJX",
+            text="Обіди тільки що замовило 10 чоловік") 
+        
     
     if value == "privat24":      
 
