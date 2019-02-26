@@ -163,8 +163,8 @@ def click(request):
         if users_count == 9:
             sc.api_call(
             "chat.postMessage",
-            user="U6DDYBZ6Z",
-            text="Обіди тільки що замовило 10 чоловік") 
+            channel=channel,
+            attachments=updated_attachments) 
         
     
     if value == "privat24":      
