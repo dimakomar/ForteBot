@@ -162,8 +162,7 @@ def click(request):
         if users_count == 9:
             sc.api_call(
             "chat.postEphemeral",
-            channel=channel,
-            user="UEBRV4AJX",
+            user="U6DDYBZ6Z",
             text="Обіди тільки що замовило 10 чоловік") 
         
     
@@ -423,7 +422,7 @@ def sent_message(request):
     sc = SlackClient(tkn)  
 
     user_list = sc.api_call(
-        "users.list"
+        "channels.list"
     )
 
     print(user_list)
