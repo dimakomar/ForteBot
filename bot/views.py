@@ -421,6 +421,13 @@ def sent_message(request):
     # print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
+
+    user_list = sc.api_call(
+        "users.list"
+    )
+
+    print(user_list)
+
     if "username" in request.data['event']:
         return HttpResponse()
     t = request.data['event']['text'] 
