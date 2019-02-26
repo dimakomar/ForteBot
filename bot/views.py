@@ -155,13 +155,13 @@ def click(request):
         channel='C0G5R2BKL',
         user=user,
         text="Замовлення прийнято, гроші здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00") 
-        #oleg id UEBRV4AJX
-        #my id 
-        channel = open_channel_if_needed(sc, "UEBRV4AJX")
+        #oleg id  UEBRV4AJX
+        #my id  U6DDYBZ6Z
+        channel = open_channel_if_needed(sc, "U6DDYBZ6Z")
         if users_count == 9:
             sc.api_call(
             "chat.postMessage",
-            user="UEBRV4AJX",
+            channel=channel,
             text="Обіди тільки що замовило 10 чоловік") 
         
     
