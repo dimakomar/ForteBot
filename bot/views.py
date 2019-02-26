@@ -157,7 +157,8 @@ def click(request):
         channel='C0G5R2BKL',
         user=user,
         text="Замовлення прийнято, гроші здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00") 
-
+        #oleg id 
+        #my id 
         channel = open_channel_if_needed(sc, "UEBRV4AJX")
         if users_count == 9:
             sc.api_call(
@@ -420,12 +421,6 @@ def sent_message(request):
     # print(request.data)
     tkn = getToken()
     sc = SlackClient(tkn)  
-
-    user_list = sc.api_call(
-        "channels.list"
-    )
-
-    print(user_list)
 
     if "username" in request.data['event']:
         return HttpResponse()

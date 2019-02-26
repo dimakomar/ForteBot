@@ -49,6 +49,8 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
 
+    scheduler.add_job(order_meeting_room, 'cron', hour= '12', minute='00', second='00', args=[])
+
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job, 'cron', hour= '15', minute='00', second='05', args=[])
@@ -62,6 +64,31 @@ def start_due():
     scheduler.start()
 
     return HttpResponse()
+
+def order_meeting_room():
+    tkn = getToken()
+    sc = SlackClient(tkn) 
+
+    now = datetime.datetime.now()  
+    today_str = now.strftime("%A")
+    
+    if today_str == "Saturday" or today_str == "Sunday" :
+        return
+
+    room_booking_text = [
+        {
+            "text": "MR 1 booked 17:25 - 18:00",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "game_selection"
+        }]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel='C0U5X43RU',
+        attachments=room_booking_text
+    )
+
 
 def stop_food_ordering():
     tkn = getToken()
