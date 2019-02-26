@@ -157,7 +157,7 @@ def click(request):
         text="Замовлення прийнято, гроші здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00") 
         #oleg id  UEBRV4AJX
         #my id  U6DDYBZ6Z
-        channel = open_channel_if_needed(sc, "U6DDYBZ6Z")
+        channel = open_channel_if_needed(sc, "UEBRV4AJX")
         print(channel)
         print(users_count)
         if users_count == 9:
