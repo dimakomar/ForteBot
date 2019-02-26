@@ -160,8 +160,8 @@ def click(request):
         channel = open_channel_if_needed(sc, "UEBRV4AJX")
         if users_count == 9:
             sc.api_call(
-            "chat.postEphemeral",
-            channel=channel,
+            "chat.postMessage",
+            user="UEBRV4AJX",
             text="Обіди тільки що замовило 10 чоловік") 
         
     
