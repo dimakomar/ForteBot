@@ -158,10 +158,12 @@ def click(request):
         #oleg id  UEBRV4AJX
         #my id  U6DDYBZ6Z
         channel = open_channel_if_needed(sc, "U6DDYBZ6Z")
+        print(channel)
+        print(users_count)
         if users_count == 9:
             sc.api_call(
             "chat.postMessage",
-            channel=channel,
+            user="U6DDYBZ6Z",
             text="Обіди тільки що замовило 10 чоловік") 
         
     
