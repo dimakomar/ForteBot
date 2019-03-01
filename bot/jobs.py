@@ -130,7 +130,7 @@ def get_food_job_friday():
 
     current_day = now.day
 
-    tomorrow = datetime.datetime.now().replace(day=current_day+3, hour=11, minute=00)
+    tomorrow = datetime.datetime.now().replace(day=current_day+3, hour=9, minute=00)
 
     tomorrow_date_str = str(tomorrow)
 
