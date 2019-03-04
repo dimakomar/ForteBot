@@ -82,6 +82,13 @@ def click(request):
                     "type": "button",
                     "value": "rejected_food",
                     "style": "danger"
+                },
+                {
+                    "name": "game",
+                    "text": "Приват24",
+                    "type": "button",
+                    "value": "privat24",
+                    "style": "primary"
                 }
             ]
         }]
@@ -133,6 +140,13 @@ def click(request):
                         "type": "button",
                         "value": "rejected_food",
                         "style": "danger"
+                    },
+                    {
+                        "name": "game",
+                        "text": "Приват24",
+                        "type": "button",
+                        "value": "privat24",
+                        "style": "primary"
                     }
                 ]
             }
@@ -169,40 +183,26 @@ def click(request):
     
     if value == "privat24":      
 
-        updated_attachments = [
-                        {
-                "attachments": [
-                    {
-                        "fallback": "Required plain-text summary of the attachment.",
-                        "color": "#36a64f",
-                        "pretext": "Optional text that appears above the attachment block",
-                        "author_name": "Bobby Tables",
-                        "author_link": "http://flickr.com/bobby/",
-                        "author_icon": "http://flickr.com/icons/bobby.jpg",
-                        "title": "Slack API Documentation",
-                        "title_link": "https://api.slack.com/",
-                        "text": "Optional text that appears within the attachment",
-                        "fields": [
-                            {
-                                "title": "Priority",
-                                "value": "High",
-                                "short": False
-                            }
-                        ],
-                        "image_url": "https://firebasestorage.googleapis.com/v0/b/profileborder-2b1e7.appspot.com/o/Screen%20Shot%202018-07-13%20at%206.47.59%20PM.png?alt=media&token=700378c3-3d08-4909-a06d-c24132283e84",
-                        "thumb_url": "http://example.com/path/to/thumb.png",
-                        "footer": "Slack API",
-                        "footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png",
-                        "ts": 123456789
-                    }
-                ]
-            }
-        ]
+        blocks_array = [
+	{
+		"type": "section",
+		"text": {
+			"type": "plain_text",
+			"text": "Використовуючи додаток Приват24 зісканьте код та відправте гроші\n Якщо ви платите не за себе, не зі свої картки або ще за когось то вкажіть їх імена в описі платежу",
+			"emoji": True
+		},
+		"accessory": {
+			"type": "image",
+			"image_url": "https://firebasestorage.googleapis.com/v0/b/xyyproject.appspot.com/o/Screen%20Shot%202019-03-04%20at%2010.01.03%20PM.png?alt=media&token=0065ade5-4ffe-485f-980a-6782be51f401",
+			"alt_text": "palm tree"
+		}
+	}
+]
 
         sc.api_call(
         "chat.postEphemeral",
         channel=channel,
-        attachments=updated_attachments,
+        blocks=blocks_array,
         user=user)
     return HttpResponse()
 
@@ -215,10 +215,10 @@ def help(request):
 
     question_attachments = [
         {
-            "text": "отаке от меню сьогодни",
+            "text": "".join(["Приймаю замовлення на завтрашні обіди\n","🥣 - "]),
             "color": "#3AA3E3",
             "attachment_type": "default",
-            "callback_id": "game_selection",
+            "callback_id": "tomorrow_date_str",
             "actions": [
                 {
                     "name": "game",
@@ -233,15 +233,29 @@ def help(request):
                     "type": "button",
                     "value": "rejected_food",
                     "style": "danger"
+                },
+                {
+                    "name": "game",
+                    "text": "Приват24",
+                    "type": "button",
+                    "value": "privat24",
+                    "style": "primary"
                 }
             ]
         }]
 
+    # sc.api_call(
+    #     "chat.postMessage",
+    #     channel='C7LM95E4B',
+    #     attachments=question_attachments
+    # )
+
+
     # print(question_attachments[0]['text'])
-    chan = sc.api_call(
-        "channels.list",
-    )
-    print(chan)
+    # chan = sc.api_call(
+    #     "channels.list",
+    # )
+    # print(chan)
 
     # tts_token = "Basic " + str(os.environ.get('TTS_TOKEN'))
     # data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', headers={"Authorization":tts_token})
@@ -267,7 +281,7 @@ def get_results(request):
 
 @api_view(['POST'])
 def get_id(request):
-    print("1")
+    
     tkn = getToken()
     sc = SlackClient(tkn)
     users_list = sc.api_call(
