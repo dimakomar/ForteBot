@@ -56,7 +56,7 @@ def start_due():
     scheduler.add_job(get_food_job, 'cron', hour= '15', minute='30', second='05', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
-    scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
+    scheduler.add_job(get_user_job, 'cron', hour='18', minute='15', args=[False, False])
 
     scheduler.add_job(get_user_job, 'cron', hour='12', minute='10', args=[True, True])
     scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[True, False])
@@ -260,9 +260,7 @@ def get_user_job(is_3rd, is_morning):
     list_of_hashes = sheet.get_all_records()
     now = datetime.datetime.now()
     duty_date = now.strftime("%d.%m.%Y")
-    print(duty_date)
     users = list(filter(lambda x: x["date"] == duty_date, list_of_hashes))
-
     if len(users) > 1:
         morning_job(users[0]['id'],users[1]['id'], is_3rd) if is_morning else evening_job(users[0]['id'],users[1]['id'], is_3rd)
         morning_job(users[1]['id'],users[0]['id'], is_3rd) if is_morning else evening_job(users[1]['id'],users[0]['id'], is_3rd)
