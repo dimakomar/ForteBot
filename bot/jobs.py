@@ -77,7 +77,7 @@ def order_meeting_room():
 
     room_booking_text = [
         {
-            "text": "MR 1 booked 17:25 - 18:00",
+            "text": "MR 1 booked 16:25 - 17:00",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection"
