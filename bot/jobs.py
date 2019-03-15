@@ -165,13 +165,6 @@ def get_food_job_friday():
                     "type": "button",
                     "value": "rejected_food",
                     "style": "danger"
-                },
-                {
-                    "name": "game",
-                    "text": "Приват24",
-                    "type": "button",
-                    "value": "privat24",
-                    "style": "primary"
                 }
             ]
         }]
@@ -232,13 +225,6 @@ def get_food_job():
                     "type": "button",
                     "value": "rejected_food",
                     "style": "danger"
-                },
-                {
-                    "name": "game",
-                    "text": "Приват24",
-                    "type": "button",
-                    "value": "privat24",
-                    "style": "primary"
                 }
             ]
         }]

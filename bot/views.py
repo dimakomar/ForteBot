@@ -82,13 +82,6 @@ def click(request):
                     "type": "button",
                     "value": "rejected_food",
                     "style": "danger"
-                },
-                {
-                    "name": "game",
-                    "text": "Приват24",
-                    "type": "button",
-                    "value": "privat24",
-                    "style": "primary"
                 }
             ]
         }]
@@ -140,13 +133,6 @@ def click(request):
                         "type": "button",
                         "value": "rejected_food",
                         "style": "danger"
-                    },
-                    {
-                        "name": "game",
-                        "text": "Приват24",
-                        "type": "button",
-                        "value": "privat24",
-                        "style": "primary"
                     }
                 ]
             }
@@ -209,7 +195,6 @@ def click(request):
 @api_view(['POST'])
 def help(request):
     tkn = getToken()
-    print(tkn)
     sc = SlackClient(tkn)
     
 
@@ -233,13 +218,6 @@ def help(request):
                     "type": "button",
                     "value": "rejected_food",
                     "style": "danger"
-                },
-                {
-                    "name": "game",
-                    "text": "Приват24",
-                    "type": "button",
-                    "value": "privat24",
-                    "style": "primary"
                 }
             ]
         }]
@@ -264,8 +242,6 @@ def help(request):
     # print(output)
     
     return HttpResponse()
-
-
 
 @api_view(['POST'])
 def delivery(request):
@@ -711,13 +687,6 @@ def food_job(day):
                     "type": "button",
                     "value": "rejected_food",
                     "style": "danger"
-                },
-                {
-                    "name": "game",
-                    "text": "Заплатити з Приват24",
-                    "type": "button",
-                    "value": "privat24",
-                    "style": "primary"
                 }
             ]
         }]
