@@ -52,7 +52,7 @@ def start_due():
     scheduler.add_job(order_meeting_room, 'cron', hour= '12', minute='00', second='00', args=[])
 
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
-    scheduler.add_job(get_food_job_friday, 'cron', hour= '00', minute='24', second='00', args=[])
+    scheduler.add_job(get_food_job_friday, 'cron', hour= '00', minute='32', second='00', args=[])
     scheduler.add_job(get_food_job, 'cron', hour= '15', minute='00', second='05', args=[])
 
     scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
@@ -129,9 +129,8 @@ def get_food_job_friday():
     sheet = client.open("duty").get_worksheet(2)
     list_of_hashes = sheet.get_all_records()
 
-    current_day = now.day
-
-    tomorrow = datetime.datetime.now().replace(day=current_day+3, hour=9, minute=00)
+    tomorrow_day = datetime.date.today() + datetime.timedelta(days=3)
+    tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=9, minute=00)
 
     tomorrow_date_str = str(tomorrow)
 
