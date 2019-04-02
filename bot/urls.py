@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from bot import views
+from bot import jobs
 import os
 
 urlpatterns = [
@@ -34,5 +35,6 @@ urlpatterns = [
     url(r'^reply', views.reply),
     url(r'^get_id', views.get_id),
     url(r'^food_job', views.food_job)
+    url(r'^post_menu', jobs.get_food_job)
 ]
 
