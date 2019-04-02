@@ -1,3 +1,7 @@
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.http import JsonResponse
 from django.http import HttpResponse
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.combining import OrTrigger
@@ -174,6 +178,7 @@ def get_food_job_friday():
         attachments=question_attachments
     )
 
+@api_view(['POST'])
 def get_food_job():
     now = datetime.datetime.now()  
     today_str = now.strftime("%A")
