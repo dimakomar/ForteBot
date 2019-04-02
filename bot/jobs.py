@@ -178,7 +178,6 @@ def get_food_job_friday():
         attachments=question_attachments
     )
 
-@api_view(['POST'])
 def get_food_job():
     now = datetime.datetime.now()  
     today_str = now.strftime("%A")
