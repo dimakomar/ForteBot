@@ -255,7 +255,7 @@ def delivery(request):
 def get_results(request):
     food_job("Monday")
 
-@api_view(['POST'])
+@api_view(['POST']) 
 def get_id(request):
     
     tkn = getToken()
@@ -567,57 +567,11 @@ def send_att_reply(sc,user,channel,text,id):
 def send_att(sc,user,channel,text, is_rating):
     message_attachments = [
         {
-            "text": text,
+            "text": ":exclamation: Сьогодні був останній день чергувань в нашому офісі, від тепер чергових немає, кожен прибирає сам за собою :thisisfine:",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection",
-            "actions": [
-                {
-                    "name": "games_list",
-                    "text": "Mark",
-                    "type": "select",
-                    "options": [
-                        {
-                            "text": "10",
-                            "value": "10"
-                        },
-                        {
-                            "text": "9",
-                            "value": "9"
-                        },
-                        {
-                            "text": "8",
-                            "value": "8"
-                        },
-                        {
-                            "text": "7",
-                            "value": "7"
-                        },
-                        {
-                            "text": "6",
-                            "value": "6"
-                        },
-                        {
-                            "text": "5",
-                            "value": "5"
-                        },
-                        {
-                            "text": "4",
-                            "value": "4"
-                        },
-                        {
-                            "text": "3",
-                            "value": "3"
-                        },
-                        {
-                            "text": "2",
-                            "value": "2"
-                        },
-                        {
-                            "text": "1",
-                            "value": "1"
-                        }
-                    ]
+            
                 }
             ]
         }
