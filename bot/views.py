@@ -572,13 +572,12 @@ def send_att(sc,user,channel,text, is_rating):
             "attachment_type": "default",
             "callback_id": "game_selection",
             
-                    }
-                        ]
+        }
     ]
 
     question_attachments = [
         {
-            "text": text,
+            "text": ":exclamation: Сьогодні був останній день чергувань в нашому офісі, від тепер чергових немає, кожен прибирає сам за собою :thisisfine:",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": "game_selection",
