@@ -572,9 +572,8 @@ def send_att(sc,user,channel,text, is_rating):
             "attachment_type": "default",
             "callback_id": "game_selection",
             
-                }
-            ]
-        }
+                    }
+                        ]
     ]
 
     question_attachments = [
