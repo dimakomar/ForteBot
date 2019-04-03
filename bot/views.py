@@ -376,14 +376,15 @@ def temperature_vote(request):
 @api_view(['POST'])
 def rating_vote(request):
     tkn = getToken()
+    sc = SlackClient(tkn)
+
+    # if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
+    #     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
+    #     return HttpResponse()
     
-    if request.data['channel_id'] != settings.PRIVATE_CHANNEL:
-        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],settings.BAD_CHANNEL_PHRASE)
-        return HttpResponse()
-    
-    if request.data["text"] == "" or request.data["text"] == " ":
-        send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"You've been a step away from huge fail by *starting vote with empty message* please check `/help_forte_bot`")
-        return HttpResponse()
+    # if request.data["text"] == "" or request.data["text"] == " ":
+    #     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"You've been a step away from huge fail by *starting vote with empty message* please check `/help_forte_bot`")
+    #     return HttpResponse()
 
     start_rating_vote(request,"".join([request.data["text"], settings.TEXT_VOTE_PHRASE]))
     send_ephemeral_msg(sc,request.data['user_id'],request.data['channel_id'],"".join(["You've just started the vote: ", "*", request.data["text"], "*"]))
