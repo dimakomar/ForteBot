@@ -59,11 +59,11 @@ def start_due():
     scheduler.add_job(get_food_job_friday, 'cron', hour= '06', minute='03', second='00', args=[])
     scheduler.add_job(get_food_job, 'cron', hour= '15', minute='00', second='05', args=[])
 
-    scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
-    scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
+    # scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
+    # scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
 
-    scheduler.add_job(get_user_job, 'cron', hour='12', minute='10', args=[True, True])
-    scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[True, False])
+    # scheduler.add_job(get_user_job, 'cron', hour='12', minute='10', args=[True, True])
+    # scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[True, False])
     
     scheduler.start()
 
