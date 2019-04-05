@@ -56,14 +56,8 @@ def start_due():
     scheduler.add_job(order_meeting_room, 'cron', hour= '12', minute='00', second='00', args=[])
 
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
-    scheduler.add_job(get_food_job_friday, 'cron', hour= '06', minute='03', second='00', args=[])
+    scheduler.add_job(get_food_job_friday, 'cron', hour= '20', minute='00', second='00', args=[])
     scheduler.add_job(get_food_job, 'cron', hour= '15', minute='00', second='05', args=[])
-
-    # scheduler.add_job(get_user_job, 'cron', hour= '12', minute='10', args=[False, True])
-    # scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[False, False])
-
-    # scheduler.add_job(get_user_job, 'cron', hour='12', minute='10', args=[True, True])
-    # scheduler.add_job(get_user_job, 'cron', hour='19', minute='45', args=[True, False])
     
     scheduler.start()
 
@@ -93,7 +87,6 @@ def order_meeting_room():
         attachments=room_booking_text
     )
 
-
 def stop_food_ordering():
     tkn = getToken()
     sc = SlackClient(tkn) 
@@ -117,8 +110,6 @@ def stop_food_ordering():
         channel='C0G5R2BKL',
         attachments=due_text
     )
-    
-
 
 def get_food_job_friday():
     now = datetime.datetime.now()  
@@ -134,7 +125,7 @@ def get_food_job_friday():
     list_of_hashes = sheet.get_all_records()
 
     tomorrow_day = datetime.date.today() + datetime.timedelta(days=3)
-    tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=9, minute=00)
+    tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=6, minute=00)
 
     tomorrow_date_str = str(tomorrow)
 
@@ -191,7 +182,6 @@ def get_food_job():
     list_of_hashes = sheet.get_all_records()
 
     current_day = now.day
-
 
     tomorrow_day = datetime.date.today() + datetime.timedelta(days=1)
     tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=9, minute=00)
