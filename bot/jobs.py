@@ -125,7 +125,7 @@ def get_food_job_friday():
     list_of_hashes = sheet.get_all_records()
 
     tomorrow_day = datetime.date.today() + datetime.timedelta(days=3)
-    tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=6, minute=00)
+    tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=9, minute=00)
 
     tomorrow_date_str = str(tomorrow)
 
