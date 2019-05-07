@@ -21,7 +21,7 @@ from .models import Message
 from requests.auth import HTTPBasicAuth
 from time import gmtime, strftime
 import requests 
-import timezone pytz
+import pytz
 from pytz import timezone
 
 
