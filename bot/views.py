@@ -94,8 +94,14 @@ def click(request):
         attachments=updated_attachments)
 
     if value == "get_food":
+        #making both dates aware 
+        utc=pytz.UTC
         due_date = datetime.datetime.strptime(callback_id, "%Y-%m-%d %H:%M:%S.%f")
+         
         now = datetime.datetime.now(timezone('Europe/Kiev'))
+
+        utc.localize(due_date)
+        utc.localize(now)
 
         if now > due_date:
             sc.api_call(
