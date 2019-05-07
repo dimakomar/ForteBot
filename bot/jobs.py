@@ -171,7 +171,7 @@ def get_food_job_friday():
     )
 
 def get_food_job():     
-    now = datetime.now(timezone('Europe/Kiev'))
+    now = datetime.datetime.now(timezone('Europe/Kiev'))
     today_str = now.strftime("%A")
 
     if today_str == "Friday" or today_str == "Saturday" or today_str == "Sunday" :
