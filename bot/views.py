@@ -102,6 +102,7 @@ def click(request):
         now = datetime.datetime.now(timezone('Europe/Kiev'))
 
         utc.localize(due_date)
+        utc.localize(now)
 
         if now > due_date:
             sc.api_call(
