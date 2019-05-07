@@ -58,7 +58,7 @@ def start_due():
 
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='00', second='00', args=[])
-    scheduler.add_job(get_food_job, 'cron', hour= '16', minute='30', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '20', minute='22', second='05', args=[])
     
     scheduler.start()
 
@@ -171,6 +171,7 @@ def get_food_job_friday():
     )
 
 def get_food_job():     
+    now = datetime.now(timezone('Europe/Kiev'))
     today_str = now.strftime("%A")
 
     if today_str == "Friday" or today_str == "Saturday" or today_str == "Sunday" :
