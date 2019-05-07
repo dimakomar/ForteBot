@@ -58,7 +58,7 @@ def start_due():
 
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='00', second='00', args=[])
-    scheduler.add_job(get_food_job, 'cron', hour= '20', minute='22', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '20', minute='28', second='05', args=[])
     
     scheduler.start()
 
