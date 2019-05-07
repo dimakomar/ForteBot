@@ -8,6 +8,7 @@ from apscheduler.triggers.combining import OrTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
 from pytz import utc
+from pytz import timezone
 import datetime
 import os
 import jwt
@@ -57,7 +58,7 @@ def start_due():
 
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='00', second='00', args=[])
-    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='30', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='00', second='05', args=[])
     
     scheduler.start()
 
@@ -125,7 +126,7 @@ def get_food_job_friday():
     list_of_hashes = sheet.get_all_records()
 
     tomorrow_day = datetime.date.today() + datetime.timedelta(days=3)
-    tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=6, minute=00)
+    tomorrow = datetime.datetime.now(timezone('Europe/Kiev')).replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=11, minute=00)
 
     tomorrow_date_str = str(tomorrow)
 
@@ -169,8 +170,7 @@ def get_food_job_friday():
         attachments=question_attachments
     )
 
-def get_food_job():
-    now = datetime.datetime.now()  
+def get_food_job():     
     today_str = now.strftime("%A")
 
     if today_str == "Friday" or today_str == "Saturday" or today_str == "Sunday" :
@@ -184,7 +184,7 @@ def get_food_job():
     current_day = now.day
 
     tomorrow_day = datetime.date.today() + datetime.timedelta(days=1)
-    tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=9, minute=00)
+    tomorrow = datetime.datetime.now(timezone('Europe/Kiev')).replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=11, minute=00)
 
     tomorrow_date_str = str(tomorrow)
 

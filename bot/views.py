@@ -21,6 +21,7 @@ from .models import Message
 from requests.auth import HTTPBasicAuth
 from time import gmtime, strftime
 import requests 
+from pytz import timezone
 
 
 @api_view(['GET'])
@@ -94,14 +95,14 @@ def click(request):
 
     if value == "get_food":
         due_date = datetime.datetime.strptime(callback_id, "%Y-%m-%d %H:%M:%S.%f")
-        now = datetime.datetime.now()
+        now = datetime.datetime.now(timezone('Europe/Kiev'))
 
         if now > due_date:
             sc.api_call(
             "chat.postEphemeral",
             channel='C0G5R2BKL',
             user=user,
-            text="Вже пізно сорян")
+            text="Час прийняття замовлення вичерпано :peperee:")
             return HttpResponse()
 
         if result["user"]["name"] in attachment_text: 
