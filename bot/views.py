@@ -98,13 +98,16 @@ def click(request):
         #making both dates aware 
         utc=pytz.UTC
         due_date = datetime.datetime.strptime(callback_id, "%Y-%m-%d %H:%M:%S.%f")
-         
+        
         now = datetime.datetime.now(timezone('Europe/Kiev'))
 
+        taipei_tz = timezone('Europe/Kiev') 
         utc.localize(due_date)
-        utc.localize(now)
 
-        if now > due_date:
+        now_tz = now.replace(tzinfo=taipei_tz)
+        due_date_tz = due_date.replace(tzinfo=taipei_tz)
+
+        if now_tz > due_date_tz:
             sc.api_call(
             "chat.postEphemeral",
             channel='C0G5R2BKL',
