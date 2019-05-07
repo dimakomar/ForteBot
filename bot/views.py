@@ -21,8 +21,7 @@ from .models import Message
 from requests.auth import HTTPBasicAuth
 from time import gmtime, strftime
 import requests 
-from pytz import timezone
-
+import pytz
 
 @api_view(['GET'])
 def auth(request):
