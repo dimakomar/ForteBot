@@ -58,7 +58,7 @@ def start_due():
 
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='00', second='00', args=[])
-    scheduler.add_job(get_food_job, 'cron', hour= '16', minute='10', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '16', minute='30', second='05', args=[])
     
     scheduler.start()
 
@@ -185,7 +185,7 @@ def get_food_job():
     current_day = now.day
 
     tomorrow_day = datetime.date.today() + datetime.timedelta(days=1)
-    tomorrow = datetime.datetime.now(timezone('Europe/Kiev')).replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=11, minute=00)
+    tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=11, minute=00)
 
     tomorrow_date_str = str(tomorrow)
 
