@@ -250,11 +250,11 @@ def click(request):
         blocks=blocks_array,
         user=user)
 
-        sc.api_call(
-        "chat.postEphemeral",
-        channel='C0G5R2BKL',
-        user=user,
-        text="Замовлення прийнято, 65 грн здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00")
+        # sc.api_call(
+        # "chat.postEphemeral",
+        # channel='C0G5R2BKL',
+        # user=user,
+        # text="Замовлення прийнято, 65 грн здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00")
         
         channel = open_channel_if_needed(sc, "UEBRV4AJX")
         if users_count == 9:
