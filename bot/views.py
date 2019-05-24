@@ -53,12 +53,12 @@ def click(request):
         
         deleted_text = attachment_text
         if  "".join([result["user"]["name"]," - 65 грн :dancing-dog:"]) in attachment_text: 
-            deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]," - 65 грн :dancing-dog:"]),'')    
+            deleted_text = attachment_text.replace("".join(["\n", "-",result["user"]["name"]," - 65 грн :dancing-dog:"]),'')    
         else: 
-            deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]]),'')
+            deleted_text = attachment_text.replace("".join(["\n", "-",result["user"]["name"]]),'')
         
         
-        users_count = len(list(filter(lambda x: x == "грн", deleted_text.split())))
+        users_count = len(list(filter(lambda x: x == "-", deleted_text.split())))
         
         if not users_count:
             text_for_replacing = "(1 / 10)"
@@ -92,7 +92,7 @@ def click(request):
                 },
                 {
                     "name": "game",
-                    "text": "Гроші в коробкі",
+                    "text": "Гроші в коробці",
                     "type": "button",
                     "value": "paid",
                     "style": "primary"
@@ -139,7 +139,7 @@ def click(request):
                 },
                 {
                     "name": "game",
-                    "text": "Гроші в коробкі",
+                    "text": "Гроші в коробці",
                     "type": "button",
                     "value": "paid",
                     "style": "primary"
@@ -178,7 +178,7 @@ def click(request):
         if result["user"]["name"] in attachment_text: 
             return HttpResponse()       
 
-        users_count = len(list(filter(lambda x: x == "грн", attachment_text.split())))
+        users_count = len(list(filter(lambda x: x == "-", attachment_text.split())))
         if users_count != 0:
             text_before_replacing = "".join(["(",str(users_count)," / 10)"])
             text_for_replacing = "".join(["(",str(users_count + 1)," / 10)"])
@@ -186,7 +186,7 @@ def click(request):
 
         updated_attachments = [
             {
-                "text": "".join([attachment_text, "\n", result["user"]["name"]]),
+                "text": "".join([attachment_text, "\n", "-", result["user"]["name"]]),
                 "color": "#3AA3E3",
                 "attachment_type": "default",
                 "callback_id": callback_id,
@@ -207,7 +207,7 @@ def click(request):
                     },
                     {
                         "name": "game",
-                        "text": "Гроші в коробкі",
+                        "text": "Гроші в коробці",
                         "type": "button",
                         "value": "paid",
                         "style": "primary"
@@ -216,7 +216,7 @@ def click(request):
             }
         ]
 
-        users_count = len(list(filter(lambda x: x == "грн", attachment_text.split())))
+        users_count = len(list(filter(lambda x: x == "-", attachment_text.split())))
 
         if users_count == 0:
             text_for_replacing = "(1 / 10)\n"
