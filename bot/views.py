@@ -216,7 +216,7 @@ def click(request):
             }
         ]
 
-        users_count = len(list(filter(lambda x: x == "-", attachment_text.split())))
+        users_count = len(list(filter(lambda x: x == "грн", attachment_text.split())))
 
         if users_count == 0:
             text_for_replacing = "(1 / 10)\n"
