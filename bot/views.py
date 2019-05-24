@@ -50,7 +50,12 @@ def click(request):
     callback_id = result["original_message"]["attachments"][0]["callback_id"]
 
     if value == "rejected_food":
-        deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]," - 65 грн"]),'')
+        
+        deleted_text = attachment_text
+        if  "".join([result["user"]["name"]," - 65 грн :dancing-dog:"]) in attachment_text: 
+            deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]," - 65 грн :dancing-dog:"]),'')    
+        else: 
+            deleted_text = attachment_text.replace("".join(["\n", result["user"]["name"]]),'')
         
         
         users_count = len(list(filter(lambda x: x == "грн", deleted_text.split())))
@@ -84,6 +89,13 @@ def click(request):
                     "type": "button",
                     "value": "rejected_food",
                     "style": "danger"
+                },
+                {
+                    "name": "game",
+                    "text": "Гроші в коробкі",
+                    "type": "button",
+                    "value": "paid",
+                    "style": "primary"
                 }
             ]
         }]
@@ -94,8 +106,56 @@ def click(request):
         ts=ts,
         attachments=updated_attachments)
 
+    if value == "paid":
+
+        if result["user"]["name"] not in attachment_text: 
+                return HttpResponse()
+
+        if "".join([result["user"]["name"], " - 65 грн :dancing-dog:"]) in attachment_text: 
+                return HttpResponse()
+        
+        replaced_text = attachment_text.replace(result["user"]["name"],"".join([result["user"]["name"]," - 65 грн :dancing-dog:"]))
+
+        updated_attachments = [
+        {
+            "text": replaced_text,
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": callback_id,
+            "actions": [
+                {
+                    "name": "game",
+                    "text": "Замовити",
+                    "type": "button",
+                    "value": "get_food",
+                    "style": "primary"
+                },
+                {
+                    "name": "game",
+                    "text": "Відмовитись",
+                    "type": "button",
+                    "value": "rejected_food",
+                    "style": "danger"
+                },
+                {
+                    "name": "game",
+                    "text": "Гроші в коробкі",
+                    "type": "button",
+                    "value": "paid",
+                    "style": "primary"
+                }
+            ]
+        }]
+
+        sc.api_call(
+        "chat.update",
+        channel=channel,
+        ts=ts,
+        attachments=updated_attachments)
+
+
     if value == "get_food":
-        #making both dates aware 
+        # making both dates aware 
         utc=pytz.UTC
         due_date = datetime.datetime.strptime(callback_id, "%Y-%m-%d %H:%M:%S.%f")
         
@@ -126,7 +186,7 @@ def click(request):
 
         updated_attachments = [
             {
-                "text": "".join([attachment_text, "\n", result["user"]["name"], " - 65 грн"]),
+                "text": "".join([attachment_text, "\n", result["user"]["name"]]),
                 "color": "#3AA3E3",
                 "attachment_type": "default",
                 "callback_id": callback_id,
@@ -144,6 +204,13 @@ def click(request):
                         "type": "button",
                         "value": "rejected_food",
                         "style": "danger"
+                    },
+                    {
+                        "name": "game",
+                        "text": "Гроші в коробкі",
+                        "type": "button",
+                        "value": "paid",
+                        "style": "primary"
                     }
                 ]
             }
@@ -161,16 +228,35 @@ def click(request):
         ts=ts,
         attachments=updated_attachments)
 
+        blocks_array = [
+            {
+                "type": "section",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Замовлення прийнято, 65 грн здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00",
+                    "emoji": True
+                },
+                "accessory": {
+                    "type": "image",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/xyyproject.appspot.com/o/Screen%20Shot%202019-05-24%20at%201.52.41%20PM.png?alt=media&token=aba43ac3-f68b-4078-870b-7385dd9c00f6",
+                    "alt_text": "palm tree"
+                }
+            }
+]
+
+        sc.api_call(
+        "chat.postEphemeral",
+        channel="C0G5R2BKL",
+        blocks=blocks_array,
+        user=user)
+
         sc.api_call(
         "chat.postEphemeral",
         channel='C0G5R2BKL',
         user=user,
-        text="Замовлення прийнято, гроші здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00") 
-        #oleg id  UEBRV4AJX
-        #my id  U6DDYBZ6Z
+        text="Замовлення прийнято, 65 грн здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00")
+        
         channel = open_channel_if_needed(sc, "UEBRV4AJX")
-        print(channel)
-        print(users_count)
         if users_count == 9:
             sc.api_call(
             "chat.postMessage",
@@ -194,7 +280,7 @@ def click(request):
 			"alt_text": "palm tree"
 		}
 	}
-]
+    ]   
 
         sc.api_call(
         "chat.postEphemeral",
@@ -207,7 +293,6 @@ def click(request):
 def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
-    
 
     question_attachments = [
         {
@@ -233,11 +318,11 @@ def help(request):
             ]
         }]
 
-    # sc.api_call(
-    #     "chat.postMessage",
-    #     channel='C7LM95E4B',
-    #     attachments=question_attachments
-    # )
+    sc.api_call(
+        "chat.postMessage",
+        channel='C7LM95E4B',
+        attachments=question_attachments
+    )
 
 
     # print(question_attachments[0]['text'])

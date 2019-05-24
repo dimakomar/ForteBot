@@ -57,7 +57,7 @@ def start_due():
     scheduler.add_job(order_meeting_room, 'cron', hour= '12', minute='00', second='00', args=[])
 
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
-    scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='30', second='00', args=[])
+    scheduler.add_job(get_food_job_friday, 'cron', hour= '15', minute='00', second='00', args=[])
     scheduler.add_job(get_food_job, 'cron', hour= '15', minute='00', second='05', args=[])
     
     scheduler.start()
@@ -147,21 +147,28 @@ def get_food_job_friday():
             "attachment_type": "default",
             "callback_id": tomorrow_date_str,
             "actions": [
-                {
-                    "name": "game",
-                    "text": "Замовити",
-                    "type": "button",
-                    "value": "get_food",
-                    "style": "primary"
-                },
-                {
-                    "name": "game",
-                    "text": "Відмовитись",
-                    "type": "button",
-                    "value": "rejected_food",
-                    "style": "danger"
-                }
-            ]
+                    {
+                        "name": "game",
+                        "text": "Замовити",
+                        "type": "button",
+                        "value": "get_food",
+                        "style": "primary"
+                    },
+                    {
+                        "name": "game",
+                        "text": "Відмовитись",
+                        "type": "button",
+                        "value": "rejected_food",
+                        "style": "danger"
+                    },
+                    {
+                        "name": "game",
+                        "text": "Гроші в коробкі",
+                        "type": "button",
+                        "value": "paid",
+                        "style": "primary"
+                    }
+                ]
         }]
 
     sc.api_call(
@@ -206,21 +213,28 @@ def get_food_job():
             "attachment_type": "default",
             "callback_id": tomorrow_date_str,
             "actions": [
-                {
-                    "name": "game",
-                    "text": "Замовити",
-                    "type": "button",
-                    "value": "get_food",
-                    "style": "primary"
-                },
-                {
-                    "name": "game",
-                    "text": "Відмовитись",
-                    "type": "button",
-                    "value": "rejected_food",
-                    "style": "danger"
-                }
-            ]
+                    {
+                        "name": "game",
+                        "text": "Замовити",
+                        "type": "button",
+                        "value": "get_food",
+                        "style": "primary"
+                    },
+                    {
+                        "name": "game",
+                        "text": "Відмовитись",
+                        "type": "button",
+                        "value": "rejected_food",
+                        "style": "danger"
+                    },
+                    {
+                        "name": "game",
+                        "text": "Гроші в коробкі",
+                        "type": "button",
+                        "value": "paid",
+                        "style": "primary"
+                    }
+                ]
         }]
 
     sc.api_call(
