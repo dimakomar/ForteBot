@@ -53,12 +53,12 @@ def click(request):
         
         deleted_text = attachment_text
         if  "".join([result["user"]["name"]," - 65 грн :dancing-dog:"]) in attachment_text: 
-            deleted_text = attachment_text.replace("".join(["\n", "-",result["user"]["name"]," - 65 грн :dancing-dog:"]),'')    
+            deleted_text = attachment_text.replace("".join(["\n",result["user"]["name"]," - 65 грн :dancing-dog:"]),'')    
         else: 
-            deleted_text = attachment_text.replace("".join(["\n", "-",result["user"]["name"]]),'')
+            deleted_text = attachment_text.replace("".join(["\n",result["user"]["name"]," - 65 грн"]),'')
         
         
-        users_count = len(list(filter(lambda x: x == "-", deleted_text.split())))
+        users_count = len(list(filter(lambda x: x == "грн", deleted_text.split())))
         
         if not users_count:
             text_for_replacing = "(1 / 10)"
@@ -114,7 +114,7 @@ def click(request):
         if "".join([result["user"]["name"], " - 65 грн :dancing-dog:"]) in attachment_text: 
                 return HttpResponse()
         
-        replaced_text = attachment_text.replace(result["user"]["name"],"".join([result["user"]["name"]," - 65 грн :dancing-dog:"]))
+        replaced_text = attachment_text.replace("".join([result["user"]["name"]," - 65 грн :dancing-dog:"]),"".join([result["user"]["name"]," - 65 грн :dancing-dog:"]))
 
         updated_attachments = [
         {
@@ -178,7 +178,7 @@ def click(request):
         if result["user"]["name"] in attachment_text: 
             return HttpResponse()       
 
-        users_count = len(list(filter(lambda x: x == "-", attachment_text.split())))
+        users_count = len(list(filter(lambda x: x == "грн", attachment_text.split())))
         if users_count != 0:
             text_before_replacing = "".join(["(",str(users_count)," / 10)"])
             text_for_replacing = "".join(["(",str(users_count + 1)," / 10)"])
@@ -186,7 +186,7 @@ def click(request):
 
         updated_attachments = [
             {
-                "text": "".join([attachment_text, "\n", "-", result["user"]["name"]]),
+                "text": "".join([attachment_text, "\n", result["user"]["name"], " - 65 грн"]),
                 "color": "#3AA3E3",
                 "attachment_type": "default",
                 "callback_id": callback_id,
@@ -233,7 +233,7 @@ def click(request):
                 "type": "section",
                 "text": {
                     "type": "plain_text",
-                    "text": "Замовлення прийнято, 65 грн здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00",
+                    "text": "Замовлення прийнято, гроші здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00",
                     "emoji": True
                 },
                 "accessory": {
@@ -249,12 +249,6 @@ def click(request):
         channel="C0G5R2BKL",
         blocks=blocks_array,
         user=user)
-
-        # sc.api_call(
-        # "chat.postEphemeral",
-        # channel='C0G5R2BKL',
-        # user=user,
-        # text="Замовлення прийнято, 65 грн здаємо Олегу Яструбецькому або в коробку біля столу на 4 поверсі. Прохання гроші здавати до 14:00")
         
         channel = open_channel_if_needed(sc, "UEBRV4AJX")
         if users_count == 9:
@@ -262,31 +256,7 @@ def click(request):
             "chat.postMessage",
             channel=channel['channel']['id'],
             text="Обіди тільки що замовило 10 чоловік") 
-        
-    
-    if value == "privat24":      
 
-        blocks_array = [
-	{
-		"type": "section",
-		"text": {
-			"type": "plain_text",
-			"text": "Використовуючи додаток Приват24 зісканьте код та відправте гроші\n Якщо ви платите не за себе, не зі свої картки або ще за когось то вкажіть їх імена в описі платежу",
-			"emoji": True
-		},
-		"accessory": {
-			"type": "image",
-			"image_url": "https://firebasestorage.googleapis.com/v0/b/xyyproject.appspot.com/o/Screen%20Shot%202019-03-04%20at%2010.01.03%20PM.png?alt=media&token=0065ade5-4ffe-485f-980a-6782be51f401",
-			"alt_text": "palm tree"
-		}
-	}
-    ]   
-
-        sc.api_call(
-        "chat.postEphemeral",
-        channel=channel,
-        blocks=blocks_array,
-        user=user)
     return HttpResponse()
 
 @api_view(['POST'])
