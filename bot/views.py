@@ -114,7 +114,7 @@ def click(request):
         if "".join([result["user"]["name"], " - 65 грн :dancing-dog:"]) in attachment_text: 
                 return HttpResponse()
         
-        replaced_text = attachment_text.replace("".join([result["user"]["name"]," - 65 грн :dancing-dog:"]),"".join([result["user"]["name"]," - 65 грн :dancing-dog:"]))
+        replaced_text = attachment_text.replace("".join([result["user"]["name"]," - 65 грн"]),"".join([result["user"]["name"]," - 65 грн :dancing-dog:"]))
 
         updated_attachments = [
         {
