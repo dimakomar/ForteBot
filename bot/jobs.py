@@ -142,7 +142,7 @@ def get_food_job_friday():
 
     question_attachments = [
         {
-            "text": "".join(["Приймаю замовлення на обіди у понеділок\n","🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n" ]),
+            "text": "".join(["Приймаю замовлення на обіди у понеділок\n","🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n", "\n", "vasyl.romaniuk", " - 65 грн" ]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": tomorrow_date_str,
@@ -208,7 +208,7 @@ def get_food_job():
 
     question_attachments = [
         {
-            "text": "".join(["Приймаю замовлення на завтрашні обіди\n","🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n" ]),
+            "text": "".join(["Приймаю замовлення на завтрашні обіди\n","🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n", "\n", "vasyl.romaniuk", " - 65 грн" ]),
             "color": "#3AA3E3",
             "attachment_type": "default",
             "callback_id": tomorrow_date_str,

@@ -52,8 +52,8 @@ def click(request):
     if value == "rejected_food":
         
         deleted_text = attachment_text
-        if  "".join([result["user"]["name"]," - 65 грн :dancing-dog:"]) in attachment_text: 
-            deleted_text = attachment_text.replace("".join(["\n",result["user"]["name"]," - 65 грн :dancing-dog:"]),'')    
+        if  "".join([result["user"]["name"]," - 65 грн :moneybag:"]) in attachment_text: 
+            deleted_text = attachment_text.replace("".join(["\n",result["user"]["name"]," - 65 грн :moneybag:"]),'')    
         else: 
             deleted_text = attachment_text.replace("".join(["\n",result["user"]["name"]," - 65 грн"]),'')
         
@@ -111,10 +111,10 @@ def click(request):
         if result["user"]["name"] not in attachment_text: 
                 return HttpResponse()
 
-        if "".join([result["user"]["name"], " - 65 грн :dancing-dog:"]) in attachment_text: 
+        if "".join([result["user"]["name"], " - 65 грн :moneybag:"]) in attachment_text: 
                 return HttpResponse()
         
-        replaced_text = attachment_text.replace("".join([result["user"]["name"]," - 65 грн"]),"".join([result["user"]["name"]," - 65 грн :dancing-dog:"]))
+        replaced_text = attachment_text.replace("".join([result["user"]["name"]," - 65 грн"]),"".join([result["user"]["name"]," - 65 грн :moneybag:"]))
 
         updated_attachments = [
         {
