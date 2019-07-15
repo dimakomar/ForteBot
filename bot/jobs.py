@@ -74,19 +74,20 @@ def order_meeting_room():
     if today_str == "Saturday" or today_str == "Sunday" :
         return
 
-    room_booking_text = [
-        {
-            "text": "MR 1 booked 17:25 - 18:00",
-            "color": "#3AA3E3",
-            "attachment_type": "default",
-            "callback_id": "game_selection"
-        }]
+    if today_str == "Tuesday" or today_str == "Thursday" :
+        room_booking_text = [
+            {
+                "text": "MR 1 booked 13:00 - 14:00",
+                "color": "#3AA3E3",
+                "attachment_type": "default",
+                "callback_id": "game_selection"
+            }]
 
-    sc.api_call(
-        "chat.postMessage",
-        channel='C0U5X43RU',
-        attachments=room_booking_text
-    )
+        sc.api_call(
+            "chat.postMessage",
+            channel='C0U5X43RU',
+            attachments=room_booking_text
+        )
 
 def stop_food_ordering():
     tkn = getToken()

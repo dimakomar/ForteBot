@@ -107,6 +107,24 @@ def click(request):
         attachments=updated_attachments)
 
     if value == "paid":
+        utc=pytz.UTC
+        due_date = datetime.datetime.strptime(callback_id, "%Y-%m-%d %H:%M:%S.%f")
+        
+        now = datetime.datetime.now(timezone('Europe/Kiev'))
+
+        taipei_tz = timezone('Europe/Kiev') 
+        utc.localize(due_date)
+
+        now_tz = now.replace(tzinfo=taipei_tz)
+        due_date_tz = due_date.replace(tzinfo=taipei_tz)
+
+        if now_tz > due_date_tz:
+            sc.api_call(
+            "chat.postEphemeral",
+            channel='C0G5R2BKL',
+            user=user,
+            text="А от відмовлятись вже запізно, обіди замовлено і вони їдуть :peperee:")
+            return HttpResponse()
 
         if result["user"]["name"] not in attachment_text: 
                 return HttpResponse()
