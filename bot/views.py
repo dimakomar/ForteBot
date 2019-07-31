@@ -281,42 +281,12 @@ def help(request):
     tkn = getToken()
     sc = SlackClient(tkn)
 
-    question_attachments = [
-        {
-            "text": "".join(["Приймаю замовлення на завтрашні обіди\n","🥣 - "]),
-            "color": "#3AA3E3",
-            "attachment_type": "default",
-            "callback_id": "tomorrow_date_str",
-            "actions": [
-                {
-                    "name": "game",
-                    "text": "Замовити",
-                    "type": "button",
-                    "value": "get_food",
-                    "style": "primary"
-                },
-                {
-                    "name": "game",
-                    "text": "Відмовитись",
-                    "type": "button",
-                    "value": "rejected_food",
-                    "style": "danger"
-                }
-            ]
-        }]
-
-    sc.api_call(
-        "chat.postMessage",
-        channel='C7LM95E4B',
-        attachments=question_attachments
-    )
-
 
     # print(question_attachments[0]['text'])
-    # chan = sc.api_call(
-    #     "channels.list",
-    # )
-    # print(chan)
+    chan = sc.api_call(
+        "channels.list",
+    )
+    print(chan)
 
     # tts_token = "Basic " + str(os.environ.get('TTS_TOKEN'))
     # data = requests.get('https://timeqa.fortegrp.com:58443/http-basic-api/v1/slack-bot-ua/users-having-time-off?date=2018-10-01', headers={"Authorization":tts_token})

@@ -59,10 +59,36 @@ def start_due():
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='00', second='00', args=[])
     scheduler.add_job(get_food_job, 'cron', hour= '16', minute='15', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '16', minute='00', second='05', args=[])
     
     scheduler.start()
 
     return HttpResponse()
+
+def close_windows():
+    tkn = getToken()
+    sc = SlackClient(tkn)
+    
+    now = datetime.datetime.now()  
+    today_str = now.strftime("%A")
+    
+    if today_str == "Saturday" or today_str == "Sunday" :
+        return
+
+    room_booking_text = [
+            {
+                "text": "Дорогі Фортівці, велике прохання :angry_cat:\n Закривайте вікна, виключайте світло і кондиціонер після закінчення вашого робочого дня\n Вдячні за вашу уважність. :doge:",
+                "color": "#3AA3E3",
+                "attachment_type": "default",
+                "callback_id": "game_selection"
+            }]
+
+    sc.api_call(
+        "chat.postMessage",
+        channel='C02S31R62',
+        attachments=room_booking_text
+    )
+    
 
 def order_meeting_room():
     tkn = getToken()
