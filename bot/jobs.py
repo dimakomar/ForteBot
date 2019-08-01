@@ -59,7 +59,7 @@ def start_due():
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='00', second='00', args=[])
     scheduler.add_job(close_windows, 'cron', hour= '19', minute='45', second='05', args=[])
-    scheduler.add_job(get_food_job, 'cron', hour= '16', minute='00', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='13', second='05', args=[])
     
     scheduler.start()
 
@@ -285,67 +285,6 @@ def get_user_job(is_3rd, is_morning):
     if len(users) > 1:
         morning_job(users[0]['id'],users[1]['id'], is_3rd) if is_morning else evening_job(users[0]['id'],users[1]['id'], is_3rd)
         morning_job(users[1]['id'],users[0]['id'], is_3rd) if is_morning else evening_job(users[1]['id'],users[0]['id'], is_3rd)
-
-def evening_job(user_id, with_user_id, is_3rd):
-    # print(job_request.data['user_id'])
-    tkn = getToken()
-    sc = SlackClient(tkn)  
-    first_user_name = get_user_realname(sc, user_id)
-    channel = open_channel_if_needed(sc,user_id)
-    due_text = [
-        {
-            "text": "".join(["".join([str(first_user_name), " закінчується робочий день і також твоє чергування на", " третьому" if is_3rd else " четвертому", " поверсі, але не забудь винести сміття!! До скорої зустрічі :happycat: "])]),
-            "color": "#3AA3E3",
-            "attachment_type": "default",
-            "callback_id": "game_selection"
-        }
-    ]
-
-    let = sc.api_call(
-        "chat.postMessage",
-        channel=channel["channel"]["id"],
-        attachments=due_text
-    )
-
-def morning_job(user_id, with_user_id, is_3rd):
-    tkn = getToken()
-    sc = SlackClient(tkn)  
-    first_user_name = get_user_realname(sc, user_id)
-    another_user_name = get_user_realname_and_slack_name(sc, with_user_id)
-    channel = open_channel_if_needed(sc,user_id)
-    due_text = [
-        {
-            "text": "".join(["".join([str(first_user_name), ", Доброго ранку! В тебе сьогоднi вдалий день, ти чергуєш на", " третьому" if is_3rd else " четвертому", " поверсі з"]), str(another_user_name), " :dancingpony:"]),
-            "color": "#3AA3E3",
-            "attachment_type": "default",
-            "callback_id": "game_selection"
-        }]
-
-    let = sc.api_call(
-        "chat.postMessage",
-        channel=channel["channel"]["id"],
-        attachments=due_text
-    )
-
-def failed_morning_job(user_id, with_user_id, is_3rd):
-    tkn = getToken()
-    sc = SlackClient(tkn)  
-    first_user_name = get_user_realname(sc, user_id)
-    another_user_name = get_user_realname_and_slack_name(sc, with_user_id)
-    channel = open_channel_if_needed(sc,user_id)
-    due_text = [
-        {
-            "text": "".join(["".join([str(first_user_name), ", Доброго ранку! Вчора це був пранк про чергування, а сьогоднi в тебе вдалий день, ти чергуєш на", " третьому" if is_3rd else " четвертому", " поверсі з"]), str(another_user_name), " :dancingpony:"]),
-            "color": "#3AA3E3",
-            "attachment_type": "default",
-            "callback_id": "game_selection"
-        }]
-
-    let = sc.api_call(
-        "chat.postMessage",
-        channel=channel["channel"]["id"],
-        attachments=due_text
-    )
 
 def get_user_realname_and_slack_name(sc, user_id):
     user_list = sc.api_call(
