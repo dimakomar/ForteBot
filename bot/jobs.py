@@ -59,7 +59,7 @@ def start_due():
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='00', second='00', args=[])
     scheduler.add_job(close_windows, 'cron', hour= '19', minute='45', second='05', args=[])
-    scheduler.add_job(get_food_job, 'cron', hour= '15', minute='13', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '12', minute='35', second='05', args=[])
     
     scheduler.start()
 
@@ -233,41 +233,55 @@ def get_food_job():
     tkn = getToken()
     sc = SlackClient(tkn)
 
-    question_attachments = [
+    # question_attachments = [
+    #     {
+    #         "text": "".join(["(1 / 10)", "\n", "Приймаю замовлення на завтрашні обіди\n","🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n", "\n", "vasyl.romaniuk", " - 65 грн" ]),
+    #         "color": "#3AA3E3",
+    #         "attachment_type": "default",
+    #         "callback_id": tomorrow_date_str,
+    #         "actions": [
+    #                 {
+    #                     "name": "game",
+    #                     "text": "Замовити",
+    #                     "type": "button",
+    #                     "value": "get_food",
+    #                     "style": "primary"
+    #                 },
+    #                 {
+    #                     "name": "game",
+    #                     "text": "Відмовитись",
+    #                     "type": "button",
+    #                     "value": "rejected_food",
+    #                     "style": "danger"
+    #                 },
+    #                 {
+    #                     "name": "game",
+    #                     "text": "Гроші в коробці",
+    #                     "type": "button",
+    #                     "value": "paid",
+    #                     "style": "primary"
+    #                 }
+    #             ]
+    #     }]
+
+    # sc.api_call(
+    #     "chat.postMessage",
+    #     channel='C0G5R2BKL',
+    #     attachments=question_attachments
+    # )
+
+    due_text = [
         {
-            "text": "".join(["(1 / 10)", "\n", "Приймаю замовлення на завтрашні обіди\n","🥣 - ", str(food_for_today[0]) ,"\n", "🍝 - ", str(food_for_today[1]) ,"\n", "\n", "vasyl.romaniuk", " - 65 грн" ]),
+            "text": "Приношу свої вітання Олегу Яструбецькому :dancing-dog: :dancing-dog: :dancing-dog: :dancing-dog: :dancing-dog: ",
             "color": "#3AA3E3",
             "attachment_type": "default",
-            "callback_id": tomorrow_date_str,
-            "actions": [
-                    {
-                        "name": "game",
-                        "text": "Замовити",
-                        "type": "button",
-                        "value": "get_food",
-                        "style": "primary"
-                    },
-                    {
-                        "name": "game",
-                        "text": "Відмовитись",
-                        "type": "button",
-                        "value": "rejected_food",
-                        "style": "danger"
-                    },
-                    {
-                        "name": "game",
-                        "text": "Гроші в коробці",
-                        "type": "button",
-                        "value": "paid",
-                        "style": "primary"
-                    }
-                ]
+            "callback_id": "game_selection"
         }]
 
     sc.api_call(
         "chat.postMessage",
         channel='C0G5R2BKL',
-        attachments=question_attachments
+        attachments=due_text
     )
 
 def get_user_job(is_3rd, is_morning):
