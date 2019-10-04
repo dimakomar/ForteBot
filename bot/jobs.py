@@ -58,7 +58,7 @@ def start_due():
 
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
     scheduler.add_job(get_food_job, 'cron', hour= '18', minute='00', second='00', args=[])
-    scheduler.add_job(get_food_job_friday, 'cron', hour= '02', minute='12', second='05', args=[])
+    scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='0', second='05', args=[])
     
     scheduler.start()
 
@@ -142,9 +142,9 @@ def get_food_job_friday():
     now = datetime.datetime.now()  
     today_str = now.strftime("%A")
 
-    # if today_str != "Friday":
-    #     print("not friday")
-    #     return
+    if today_str != "Friday":
+        print("not friday")
+        return
 
     session = create_assertion_session()
     client = Client(None, session)
