@@ -140,7 +140,7 @@ def get_food_job_friday():
     today_str = now.strftime("%A")
 
     if today_str != "Friday":
-        print("not friday")
+        print("not friday ")
         return
 
     session = create_assertion_session()
