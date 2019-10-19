@@ -54,8 +54,8 @@ def create_assertion_session():
 def start_due():
     scheduler = BackgroundScheduler(timezone="Europe/Kiev")   
     scheduler.add_job(stop_food_ordering, 'cron', hour= '11', minute='00', second='05', args=[])
-    scheduler.add_job(get_food_job, 'cron', hour= '18', minute='00', second='00', args=[])
-    scheduler.add_job(get_food_job_friday, 'cron', hour= '22', minute='8', second='05', args=[])
+    scheduler.add_job(get_food_job, 'cron', hour= '17:50', minute='00', second='00', args=[])
+    scheduler.add_job(get_food_job_friday, 'cron', hour= '18', minute='0', second='00', args=[])
     
     scheduler.start()
 
@@ -139,16 +139,16 @@ def get_food_job_friday():
     now = datetime.datetime.now()  
     today_str = now.strftime("%A")
 
-    # if today_str != "Friday":
-    #     print("not friday")
-    #     return
+    if today_str != "Friday":
+        print("not friday")
+        return
 
     session = create_assertion_session()
     client = Client(None, session)
     sheet = client.open("duty").get_worksheet(2)
     list_of_hashes = sheet.get_all_records()
 
-    tomorrow_day = datetime.date.today() + datetime.timedelta(days=2)
+    tomorrow_day = datetime.date.today() + datetime.timedelta(days=3)
     tomorrow = datetime.datetime.now().replace(month = tomorrow_day.month, day=tomorrow_day.day, hour=11, minute=00)
 
     tomorrow_date_str = str(tomorrow)
